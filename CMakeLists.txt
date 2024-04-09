@@ -14,17 +14,17 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets OpenGLWidgets)
 
 
 add_executable(3dViewer
-        Model/data_3d_model.h
-        Model/render_3d_model.cc
-        Model/render_3d_model.h
-        Model/myopenglwidget.cpp
-        Model/myopenglwidget.h
-        View/main.cpp
-        View/mainwindow.cpp
-        View/mainwindow.h
-        View/mainwindow.ui
-        Model/model.h
-        Controller/controller.h
+        src/Model/data_3d_model.h
+        src/Model/parce_obj.cc
+        src/Model/parce_obj.h
+        src/View/myopenglwidget.cpp
+        src/View/myopenglwidget.h
+        src/View/main.cpp
+        src/View/mainwindow.cpp
+        src/View/mainwindow.h
+        src/View/mainwindow.ui
+        src/Model/model.h
+        src/Controller/controller.h
 )
 
 target_link_libraries(3dViewer PRIVATE Qt6::Widgets Qt6::OpenGLWidgets)
