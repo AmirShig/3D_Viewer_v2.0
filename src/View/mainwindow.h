@@ -84,8 +84,13 @@ private slots:
   //  void createAnimation();
 
 private:
-  Ui::MainWindow *ui;
+  /*!
+   * \brief controller from mainwindow
+   *\authors Dimitraki Vladimir
+   */
   s21::Controller *controller_;
+
+  Ui::MainWindow *ui;
   int rotationPostition_;
 };
 #endif // MAINWINDOW_H

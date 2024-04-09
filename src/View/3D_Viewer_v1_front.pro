@@ -14,13 +14,13 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     ../Model/myopenglwidget.cpp \
-    ../Model/render_3d_model.cc
+    ../Model/parce_obj.cc
 
 
 HEADERS += \
     ../Model/myopenglwidget.h \
     mainwindow.h \
-    ../Model/render_3d_model.h \
+    ../Model/parce_obj.h \
     ../Model/model.h \
     ../Controller/controller.h
 

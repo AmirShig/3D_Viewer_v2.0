@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "data_3d_model.h"
+#include "parce_obj.h"
 
 namespace s21 {
 
@@ -16,11 +17,11 @@ public:
   Model() = default;
   ~Model() = default;
 
-  Render3DModel &GetObject3d() { return object_3d_; }
-  virtual void UpdateData(Data3DModel *data) = 0;
+  bool ProccessingObjFile(std::string &file_path);
 
 private:
-  Render3DModel object_3d_;
+  Data3DModel *data_;
+  ParseObj parse_;
 };
 
 } // namespace s21

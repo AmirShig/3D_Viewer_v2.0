@@ -136,10 +136,3 @@ int *MyOpenGLWidget::ConvertToIntString() {
   }
   return polygons_string_;
 }
-
-void MyOpenGLWidget::UpdateObj(s21::Render3DModel::Data3DModel &obj) {
-    obj_.polygons = obj.polygons;
-    obj_.vertexes = obj.vertexes;
-    obj_.string_polygon = obj.string_polygon;
-    obj_.coordinates_vertex = obj.coordinates_vertex;
-}

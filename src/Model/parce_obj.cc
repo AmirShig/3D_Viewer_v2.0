@@ -1,4 +1,4 @@
-#include "render_3d_model.h"
+#include "parce_obj.h"
 
 /*!
  * \brief read file
@@ -8,15 +8,14 @@
  */
 namespace s21 {
 
-void Render3DModel::ReadFileAndParse(std::string &file_path,
-                                     Data3DModel *data) {
+void ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
   std::ifstream file;
 
   file.open(file_path);
   if (file.is_open()) {
     while (std::getline(file, string_data_from_file_)) {
-      WriteVertexes();
-      WritePolygons();
+      WriteVertexes(data);
+      WritePolygons(data);
     }
     file.close();
   }
@@ -31,7 +30,7 @@ void Render3DModel::ReadFileAndParse(std::string &file_path,
   }
 }
 
-void Render3DModel::WriteVertexes(Data3DModel *data) {
+void ParseObj::WriteVertexes(Data3DModel *data) {
   std::string string_data;
   double x = 0, y = 0, z = 0;
   char s = ' ';
@@ -45,7 +44,7 @@ void Render3DModel::WriteVertexes(Data3DModel *data) {
   }
 }
 
-void Render3DModel::WritePolygons(Data3DModel *data) {
+void ParseObj::WritePolygons(Data3DModel *data) {
   size_t i = 0;
   if (string_data_from_file_[i] == 'f' &&
       string_data_from_file_[i + 1] == ' ') {

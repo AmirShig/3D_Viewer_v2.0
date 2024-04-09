@@ -24,9 +24,7 @@ void MainWindow::on_openFilePushBtn_clicked() {
                                             "All Files (*.obj)");
   ui->vertexCount->setText("");
   ui->polygonCount->setText("");
-  std::string convert_to_std = file_path_.toStdString();
-  controller_->Get3dModel().ReadFileAndParse(convert_to_std);
-  controller_->UpdateData()
+  controller_->GetStringFilePath(file_path_);
 }
 
 void MainWindow::on_setBckgColor_clicked() {
