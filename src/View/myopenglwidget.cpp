@@ -1,10 +1,13 @@
 #include "myopenglwidget.h"
 
-MyOpenGLWidget::MyOpenGLWidget(QWidget *parent) : QOpenGLWidget(parent) {}
+MyOpenGLWidget::MyOpenGLWidget(QWidget *parent)
+    : QOpenGLWidget(parent) {}
 
 void MyOpenGLWidget::onOpenFile() {
-  std::cout << "Vertex count: " << obj_.vertexes << std::endl;
-  std::cout << "Polygon count: " << obj_.polygons << std::endl;
+  std::cout << "Vertex count: " << controller_->GetData().GetVertexes()
+            << std::endl;
+  std::cout << "Polygon count: " << controller_->GetData().GetPolygons()
+            << std::endl;
 }
 
 void MyOpenGLWidget::initializeGL() {
@@ -80,8 +83,8 @@ void MyOpenGLWidget::drawVertexes() {
 
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(3, GL_DOUBLE, 0, ConvertToDoubleString());
-    glDrawElements(GL_POINTS, obj_.polygons, GL_UNSIGNED_INT,
-                   ConvertToIntString());
+    glDrawElements(GL_POINTS, controller_->GetData().GetPolygons(),
+                   GL_UNSIGNED_INT, ConvertToIntString());
     glDisableClientState(GL_VERTEX_ARRAY);
   }
   if (vertexType == CIRCLE) {
@@ -94,8 +97,8 @@ void MyOpenGLWidget::drawVertexes() {
 void MyOpenGLWidget::drawLines() {
   glEnableClientState(GL_VERTEX_ARRAY);
   glVertexPointer(3, GL_DOUBLE, 0, ConvertToDoubleString());
-  glDrawElements(GL_LINES, obj_.polygons, GL_UNSIGNED_INT,
-                 ConvertToIntString());
+  glDrawElements(GL_LINES, controller_->GetData().GetPolygons(),
+                 GL_UNSIGNED_INT, ConvertToIntString());
   glDisableClientState(GL_VERTEX_ARRAY);
 }
 
@@ -120,7 +123,7 @@ void MyOpenGLWidget::mouseMoveEvent(QMouseEvent *mo) {
 double *MyOpenGLWidget::ConvertToDoubleString() {
   size_t j = 0;
   double *vertexes_string_;
-  for (auto &i : obj_.coordinates_vertex) {
+  for (auto &i : controller_->GetData().GetCoordinateVertex()) {
     vertexes_string_[j++] = i;
     std::cout << vertexes_string_[j] << std::endl;
   }
@@ -130,7 +133,7 @@ double *MyOpenGLWidget::ConvertToDoubleString() {
 int *MyOpenGLWidget::ConvertToIntString() {
   size_t j = 0;
   int *polygons_string_;
-  for (auto &i : obj_.string_polygon) {
+  for (auto &i : controller_->GetData().GetStringPolygon()) {
     polygons_string_[j++] = i;
     std::cout << polygons_string_[j] << std::endl;
   }

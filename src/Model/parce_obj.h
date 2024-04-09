@@ -16,7 +16,7 @@ namespace s21 {
  */
 class ParseObj {
 public:
-  ParseObj() : string_data_from_file_({}), file_name_({}) {}
+  ParseObj() {}
   ~ParseObj() {}
 
   void ParseObjFile(std::string &file_path, Data3DModel *data);

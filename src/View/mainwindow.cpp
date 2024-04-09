@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent, s21::Controller *controller)
   ui->setupUi(this);
   setWindowTitle("3D Viewer");
   timer = new QTimer(0);
-  connect(timer, SIGNAL(timeout()), this, SLOT(createAnimation()));
+//  connect(timer, SIGNAL(timeout()), this, SLOT(createAnimation()));
 }
 
 MainWindow::~MainWindow() {

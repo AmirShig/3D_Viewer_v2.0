@@ -8,11 +8,12 @@ namespace s21 {
 
 class Controller {
 public:
-  Controller() = default;
+  Controller() {}
   Controller(Model *m) : model_(m) {}
 
   bool GetStringFilePath(QString &q_string);
   std::string ConvertToStdString(QString &q_string);
+  Data3DModel &GetData() { return model_->GetData(); }
 
 private:
   Model *model_;

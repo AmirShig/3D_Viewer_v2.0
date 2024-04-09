@@ -14,13 +14,14 @@ namespace s21 {
 
 class Model {
 public:
-  Model() = default;
-  ~Model() = default;
+  Model() {}
+  ~Model() {}
 
+  Data3DModel &GetData() { return data_; }
   bool ProccessingObjFile(std::string &file_path);
 
 private:
-  Data3DModel *data_;
+  Data3DModel data_;
   ParseObj parse_;
 };
 

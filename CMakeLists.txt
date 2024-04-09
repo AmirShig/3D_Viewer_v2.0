@@ -24,7 +24,9 @@ add_executable(3dViewer
         src/View/mainwindow.h
         src/View/mainwindow.ui
         src/Model/model.h
+        src/Model/model.cc
         src/Controller/controller.h
+        src/Controller/controller.cc
 )
 
 target_link_libraries(3dViewer PRIVATE Qt6::Widgets Qt6::OpenGLWidgets)

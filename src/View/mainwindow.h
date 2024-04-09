@@ -3,6 +3,7 @@
 
 #include "../Controller/controller.h"
 #include "QtGifImage/gifimage/qgifimage.h"
+#include "myopenglwidget.h"
 #include <QColorDialog>
 #include <QCoreApplication>
 #include <QFileDialog>
@@ -81,16 +82,11 @@ private slots:
   // Print screen & Create gif
   //  void on_createScreenPshBtn_clicked();
   //  void on_createGifPshBtn_clicked();
-  //  void createAnimation();
+//    void createAnimation();
 
 private:
-  /*!
-   * \brief controller from mainwindow
-   *\authors Dimitraki Vladimir
-   */
-  s21::Controller *controller_;
-
   Ui::MainWindow *ui;
+  s21::Controller *controller_;
   int rotationPostition_;
 };
 #endif // MAINWINDOW_H
