@@ -8,7 +8,6 @@
 #include <vector>
 
 #include "data_3d_model.h"
-#include "parce_obj.h"
 
 namespace s21 {
 
@@ -43,6 +42,19 @@ private:
   std::vector<Observer *> observers_;
 };
 
+class ParseObj : public Observer {
+public:
+  void ParseObjFile(std::string &file_path, Data3DModel *data);
+  void WriteVertexes(Data3DModel *data);
+  void WritePolygons(Data3DModel *data);
+
+  void Update() override;
+
+private:
+  std::string string_data_from_file_;
+  std::string file_name_;
+};
+
 /*!
  * \brief
  */
@@ -54,7 +66,7 @@ public:
 
 private:
   Data3DModel data_;
-  ParseObj parse_;
+  ParseObj *parse_;
 };
 
 } // namespace s21

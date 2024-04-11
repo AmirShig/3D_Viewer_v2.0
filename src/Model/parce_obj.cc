@@ -1,4 +1,4 @@
-#include "parce_obj.h"
+#include "model.h"
 
 /*!
  * \brief read file
@@ -7,6 +7,10 @@
  * from it to write the data to the Data3DModel structure.
  */
 namespace s21 {
+
+    void ParseObj::Update() {
+
+    }
 
 void ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
   std::ifstream file;
