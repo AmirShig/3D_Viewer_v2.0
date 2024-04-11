@@ -1,7 +1,7 @@
 #include "myopenglwidget.h"
 
-MyOpenGLWidget::MyOpenGLWidget(QWidget *parent)
-    : QOpenGLWidget(parent) {}
+MyOpenGLWidget::MyOpenGLWidget(QWidget *parent, s21::Controller *controller)
+    : QOpenGLWidget(parent), controller_(controller) {}
 
 void MyOpenGLWidget::onOpenFile() {
   std::cout << "Vertex count: " << controller_->GetData().GetVertexes()

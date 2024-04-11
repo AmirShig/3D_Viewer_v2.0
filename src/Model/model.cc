@@ -3,7 +3,6 @@
 namespace s21 {
 bool Model::ProccessingObjFile(std::string &file_path) {
     parse_.ParseObjFile(file_path, &data_);
-    std::cout << data_.GetPolygons();
     return 0;
 }
 } // namespace s21

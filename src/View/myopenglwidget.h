@@ -2,7 +2,7 @@
 #define MYOPENGLWIDGET_H
 
 #define GL_SILENCE_DEPRECATION
-#include "mainwindow.h"
+#include "../Controller/controller.h"
 #include "qopenglwindow.h"
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
@@ -15,7 +15,8 @@
 class MyOpenGLWidget : public QOpenGLWidget {
   Q_OBJECT
 public:
-  MyOpenGLWidget(QWidget *parent = nullptr);
+  MyOpenGLWidget(QWidget *parent = nullptr,
+                 s21::Controller *controller = nullptr);
 
   enum linesType { SOLID, DASHED };
   enum vertexesType { NONE, CIRCLE, SQUARE };
@@ -53,7 +54,10 @@ public:
   double *ConvertToDoubleString();
   int *ConvertToIntString();
 
+  s21::Controller &GetController() { return *controller_; }
+
 protected:
+  s21::Controller *controller_;
   void initializeGL() override;
   void paintGL() override;
   void resizeGL(int w, int h) override;

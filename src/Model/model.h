@@ -12,11 +12,43 @@
 
 namespace s21 {
 
-class Model {
+/*!
+ * \brief Родительский класс наблюдатель
+ * имеет в себе виртуальный метод который
+ * не имеет реализации
+ */
+class Observer {
 public:
-  Model() {}
-  ~Model() {}
+  virtual void Update() = 0;
+};
 
+/*!
+ * \brief Класс наблюдаемый
+ * \param AddObserver добавляет нового наблюдателя
+ * \param NotifyUpdate обновляет данные каждого наблюдателя
+ */
+class Observable {
+public:
+  void AddObserver(Observer *new_observer) {
+    observers_.push_back(new_observer);
+  }
+
+  void NotifyUpdate() {
+    for (auto &i : observers_) {
+      i->Update();
+    }
+  }
+
+private:
+  std::vector<Observer *> observers_;
+};
+
+/*!
+ * \brief
+ */
+class Model : public Observable {
+public:
+  //Отдать данные в Controller
   Data3DModel &GetData() { return data_; }
   bool ProccessingObjFile(std::string &file_path);
 

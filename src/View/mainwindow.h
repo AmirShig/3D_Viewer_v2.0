@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "../Controller/controller.h"
 #include "QtGifImage/gifimage/qgifimage.h"
 #include "myopenglwidget.h"
 #include <QColorDialog>
@@ -24,7 +23,7 @@ class MainWindow : public QMainWindow {
   Q_OBJECT
 
 public:
-  MainWindow(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
+  MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
 
   QString file_path_;
@@ -82,11 +81,10 @@ private slots:
   // Print screen & Create gif
   //  void on_createScreenPshBtn_clicked();
   //  void on_createGifPshBtn_clicked();
-//    void createAnimation();
+  //    void createAnimation();
 
 private:
   Ui::MainWindow *ui;
-  s21::Controller *controller_;
   int rotationPostition_;
 };
 #endif // MAINWINDOW_H

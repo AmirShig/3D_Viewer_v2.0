@@ -4,8 +4,8 @@
 
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent, s21::Controller *controller)
-    : QMainWindow(parent), ui(new Ui::MainWindow), controller_(controller) {
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
   setWindowTitle("3D Viewer");
   timer = new QTimer(0);
@@ -24,7 +24,7 @@ void MainWindow::on_openFilePushBtn_clicked() {
                                             "All Files (*.obj)");
   ui->vertexCount->setText("");
   ui->polygonCount->setText("");
-  controller_->GetStringFilePath(file_path_);
+  ui->myGl->GetController().GetStringFilePath(file_path_);
 }
 
 void MainWindow::on_setBckgColor_clicked() {

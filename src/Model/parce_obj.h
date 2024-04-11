@@ -22,7 +22,6 @@ public:
   void ParseObjFile(std::string &file_path, Data3DModel *data);
   void WriteVertexes(Data3DModel *data);
   void WritePolygons(Data3DModel *data);
-  void ParsePolygon(Data3DModel *data);
 
 private:
   std::string string_data_from_file_;
