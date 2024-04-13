@@ -22,6 +22,7 @@ add_executable(3dViewer
         src/View/mainwindow.ui
         src/Model/model.h
         src/Model/model.cc
+        src/Model/lexem.cc
         src/Controller/controller.h
         src/Controller/controller.cc
 )

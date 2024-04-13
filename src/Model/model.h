@@ -42,17 +42,29 @@ private:
   std::vector<Observer *> observers_;
 };
 
+/*!
+ * \brief Класс разбивает строку на лексемы и отдает "чистую" строку.
+ */
+class Lexeme {
+public:
+  /*! Очищает входную строку от линих символов */
+  void CleanLexem(std::string &str);
+};
+
 class ParseObj : public Observer {
 public:
   void ParseObjFile(std::string &file_path, Data3DModel *data);
   void WriteVertexes(Data3DModel *data);
-  void WritePolygons(Data3DModel *data);
-//
+  void ParsePolygons(Data3DModel *data);
+  void WritePolygons();
+  void CheckValidPolygons();
+  //
   void Update() override;
 
 private:
   std::string string_data_from_file_;
   std::string file_name_;
+  Lexeme lexeme_;
 };
 
 /*!

@@ -40,8 +40,8 @@ public:
     float xRot, yRot, zRot;
     QPoint mPos;
 
-    int widgetWidth = width();
-    int widgetHeight = height();
+//    int widgetWidth = width();
+//    int widgetHeight = height();
 
     QColor backroundColor;
     QColor vertexesColor;

@@ -5,7 +5,7 @@
 #include "ui_mainwindow.h"
 
 View::View(QWidget *parent, s21::Controller *controller)
-    : ui(new Ui::View), controller_(controller), QOpenGLWidget(parent) {
+    : QOpenGLWidget(parent), ui(new Ui::View), controller_(controller) {
   ui->setupUi(this);
   setWindowTitle("3D Viewer");
   timer = new QTimer(0);
@@ -487,7 +487,6 @@ void View::setProjection() {
 }
 
 void View::drawVertexes() {
-    std::cout << "drawVertexes\n";
     if (vertexType == CIRCLE) {
         glEnable(GL_POINT_SMOOTH);
     } else if (vertexType == SQUARE) {
