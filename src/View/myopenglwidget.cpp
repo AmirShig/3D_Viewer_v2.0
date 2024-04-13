@@ -1,7 +1,7 @@
 #include "myopenglwidget.h"
 
-MyOpenGLWidget::MyOpenGLWidget(QWidget *parent, s21::Controller *controller)
-    : QOpenGLWidget(parent), controller_(controller) {}
+MyOpenGLWidget::MyOpenGLWidget(QWidget *parent)
+    : QOpenGLWidget(parent){}
 
 void MyOpenGLWidget::onOpenFile() {
   std::cout << "Vertex count: " << controller_->GetData().GetVertexes()
@@ -82,7 +82,7 @@ void MyOpenGLWidget::drawVertexes() {
     glPointSize(vertexSize);
 
     glEnableClientState(GL_VERTEX_ARRAY);
-    glVertexPointer(3, GL_DOUBLE, 0, ConvertToDoubleString());
+    glVertexPointer(3, GL_DOUBLE, 0, );
     glDrawElements(GL_POINTS, controller_->GetData().GetPolygons(),
                    GL_UNSIGNED_INT, ConvertToIntString());
     glDisableClientState(GL_VERTEX_ARRAY);

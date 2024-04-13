@@ -1,52 +1,55 @@
-#include "mainwindow.h"
+#include "view.h"
 
 #include <iostream>
 
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow) {
+View::View(QWidget *parent, s21::Controller *controller)
+    : ui(new Ui::View), controller_(controller), QOpenGLWidget(parent) {
   ui->setupUi(this);
   setWindowTitle("3D Viewer");
   timer = new QTimer(0);
 //  connect(timer, SIGNAL(timeout()), this, SLOT(createAnimation()));
 }
 
-MainWindow::~MainWindow() {
+View::~View() {
   //  writeSettings();
   //  free_mem(&ui->myGl->data_from_3d_model);
   delete timer;
   delete ui;
 }
 
-void MainWindow::on_openFilePushBtn_clicked() {
+void View::on_openFilePushBtn_clicked() {
   file_path_ = QFileDialog::getOpenFileName(this, "Выбрать файл", "/Users",
                                             "All Files (*.obj)");
   ui->vertexCount->setText("");
   ui->polygonCount->setText("");
-  ui->myGl->GetController().GetStringFilePath(file_path_);
+  controller_->GetStringFilePath(file_path_);
 }
 
-void MainWindow::on_setBckgColor_clicked() {
+void View::on_setBckgColor_clicked() {
   QColor color = QColorDialog::getColor(Qt::white, this, "Select color:");
-  ui->myGl->backroundColor = color;
+//  ui->myGl->backroundColor = color;
+    backroundColor = color;
+    ui->myGl->update();
+}
+
+void View::on_setLinesColor_clicked() {
+  QColor color = QColorDialog::getColor(Qt::white, this, "Select color:");
+//  ui->myGl->linesColor = color;
+    linesColor = color;
   ui->myGl->update();
 }
 
-void MainWindow::on_setLinesColor_clicked() {
+void View::on_setVertexesColor_clicked() {
   QColor color = QColorDialog::getColor(Qt::white, this, "Select color:");
-  ui->myGl->linesColor = color;
-  ui->myGl->update();
-}
-
-void MainWindow::on_setVertexesColor_clicked() {
-  QColor color = QColorDialog::getColor(Qt::white, this, "Select color:");
-  ui->myGl->vertexesColor = color;
+//  ui->myGl->vertexesColor = color;
+    vertexesColor = color;
   ui->myGl->update();
 }
 
 // Clear Screen
-void MainWindow::on_cleanPushButton_clicked() {
+void View::on_cleanPushButton_clicked() {
   // Очищаем виджет Open GL
   // Зануляем все настройки
   file_path_ = "";
@@ -59,29 +62,40 @@ void MainWindow::on_cleanPushButton_clicked() {
   //  free_mem(&ui->myGl->all_data);
 }
 
-void MainWindow::on_SetDefault_button_clicked() {
-  ui->myGl->backroundColor = QColor(Qt::black);
-  ui->myGl->linesColor = QColor(Qt::white);
-  ui->myGl->vertexesColor = QColor(Qt::white);
-  ui->myGl->lineWidth = 1;
+void View::on_SetDefault_button_clicked() {
+//  ui->myGl->
+  backroundColor = QColor(Qt::black);
+//  ui->myGl->
+  linesColor = QColor(Qt::white);
+//  ui->myGl->
+  vertexesColor = QColor(Qt::white);
+//  ui->myGl->
+  lineWidth = 1;
   ui->lineSizeEditer->setValue(1);
-  ui->myGl->vertexSize = 1;
+//  ui->myGl->
+  vertexSize = 1;
   ui->vertexSizeEditer->setValue(0);
   ui->projectionType->setCurrentIndex(0);
   ui->vertexesType->setCurrentIndex(0);
   ui->linesType->setCurrentIndex(0);
-  ui->myGl->projection = MyOpenGLWidget::CENTRAL;
-  ui->myGl->lineType = MyOpenGLWidget::SOLID;
-  ui->myGl->vertexType = MyOpenGLWidget::NONE;
-  ui->myGl->xRot = 0;
-  ui->myGl->yRot = 0;
-  ui->myGl->zRot = 0;
+//  ui->myGl->
+  projection = View::CENTRAL;
+//  ui->myGl->
+  lineType = View::SOLID;
+//  ui->myGl->
+  vertexType = View::NONE;
+//  ui->myGl->
+  xRot = 0;
+//  ui->myGl->
+  yRot = 0;
+//  ui->myGl->
+  zRot = 0;
 
-  // Ставим на изначальное положение объект
-  //  if (ui->myGl->all_data.polygons_value != NULL &&
-  //      ui->myGl->all_data.vertex_value != NULL) {
-  //    set_center(&ui->myGl->all_data, 0, 0, 0, 0);
-  //  }
+////   Ставим на изначальное положение объект
+//    if (ui->myGl->all_data.polygons_value != NULL &&
+//        ui->myGl->all_data.vertex_value != NULL) {
+//      set_center(&ui->myGl->all_data, 0, 0, 0, 0);
+//    }
 
   ui->ROTATE_X_VALUE->setValue(0);
   ui->ROTATE_Y_VALUE->setValue(0);
@@ -96,46 +110,46 @@ void MainWindow::on_SetDefault_button_clicked() {
 }
 
 //// BONUS PART 1
-// void MainWindow::on_linesType_activated(int index) {
+// void View::on_linesType_activated(int index) {
 //   if (index == 0) {
-//     ui->myGl->lineType = MyOpenGLWidget::SOLID;
+//     ui->myGl->lineType = View::SOLID;
 //   } else if (index == 1) {
-//     ui->myGl->lineType = MyOpenGLWidget::DASHED;
+//     ui->myGl->lineType = View::DASHED;
 //   }
 //   ui->myGl->update();
 // }
 //
-// void MainWindow::on_lineSizeEditer_valueChanged(int value) {
+// void View::on_lineSizeEditer_valueChanged(int value) {
 //   ui->myGl->lineWidth = value;
 //   ui->myGl->update();
 // }
 //
-// void MainWindow::on_vertexesType_activated(int index) {
+// void View::on_vertexesType_activated(int index) {
 //   if (index == 0) {
-//     ui->myGl->vertexType = MyOpenGLWidget::NONE;
+//     ui->myGl->vertexType = View::NONE;
 //   } else if (index == 1) {
-//     ui->myGl->vertexType = MyOpenGLWidget::CIRCLE;
+//     ui->myGl->vertexType = View::CIRCLE;
 //   } else if (index == 2) {
-//     ui->myGl->vertexType = MyOpenGLWidget::SQUARE;
+//     ui->myGl->vertexType = View::SQUARE;
 //   }
 //   ui->myGl->update();
 // }
 //
-// void MainWindow::on_vertexSizeEditer_valueChanged(int value) {
+// void View::on_vertexSizeEditer_valueChanged(int value) {
 //   ui->myGl->vertexSize = value;
 //   ui->myGl->update();
 // }
 //
-// void MainWindow::on_projectionType_activated(int index) {
+// void View::on_projectionType_activated(int index) {
 //   if (index == 0) {
-//     ui->myGl->projection = MyOpenGLWidget::CENTRAL;
+//     ui->myGl->projection = View::CENTRAL;
 //   } else if (index == 1) {
-//     ui->myGl->projection = MyOpenGLWidget::PARALLEL;
+//     ui->myGl->projection = View::PARALLEL;
 //   }
 //   ui->myGl->update();
 // }
 
-// void MainWindow::writeSettings() {
+// void View::writeSettings() {
 //   QString pathSettings = QCoreApplication::applicationDirPath();
 //   QSettings settings(pathSettings + "/settings.ini", QSettings::IniFormat);
 //   settings.beginGroup("settings");
@@ -165,7 +179,7 @@ void MainWindow::on_SetDefault_button_clicked() {
 //   settings.endGroup();
 // }
 
-// void MainWindow::readSettings() {
+// void View::readSettings() {
 //   QString pathSettings = QCoreApplication::applicationDirPath();
 //   QSettings settings(pathSettings + "/settings.ini", QSettings::IniFormat);
 //   settings.beginGroup("settings");
@@ -213,12 +227,12 @@ void MainWindow::on_SetDefault_button_clicked() {
 //   0).toInt()); ui->projectionType->setCurrentIndex(
 //       settings.value("projectionType", 0).toInt());
 //
-//   ui->myGl->lineType = static_cast<MyOpenGLWidget::linesType>(
-//       settings.value("lineType", MyOpenGLWidget::SOLID).toInt());
-//   ui->myGl->vertexType = static_cast<MyOpenGLWidget::vertexesType>(
-//       settings.value("vertexType", MyOpenGLWidget::NONE).toInt());
-//   ui->myGl->projection = static_cast<MyOpenGLWidget::projectionType>(
-//       settings.value("projection", MyOpenGLWidget::CENTRAL).toInt());
+//   ui->myGl->lineType = static_cast<View::linesType>(
+//       settings.value("lineType", View::SOLID).toInt());
+//   ui->myGl->vertexType = static_cast<View::vertexesType>(
+//       settings.value("vertexType", View::NONE).toInt());
+//   ui->myGl->projection = static_cast<View::projectionType>(
+//       settings.value("projection", View::CENTRAL).toInt());
 //
 //   ui->myGl->xRot = settings.value("xRot", 0).toDouble();
 //   ui->myGl->yRot = settings.value("yRot", 0).toDouble();
@@ -233,14 +247,14 @@ void MainWindow::on_SetDefault_button_clicked() {
 
 // Z Axis
 
-// void MainWindow::on_B_PLUS_MOVE_Z_clicked() {
+// void View::on_B_PLUS_MOVE_Z_clicked() {
 //   double value = ui->doubleSpinBox_MOVE_Z->value();
 //
 //   move_z(&ui->myGl->all_data, value);
 //   ui->myGl->update();
 // }
 //
-// void MainWindow::on_B_MINUS_MOVE_Z_clicked() {
+// void View::on_B_MINUS_MOVE_Z_clicked() {
 //   double value = ui->doubleSpinBox_MOVE_Z->value();
 //   value *= -1;
 //   move_z(&ui->myGl->all_data, value);
@@ -249,14 +263,14 @@ void MainWindow::on_SetDefault_button_clicked() {
 //
 //// Y Axis
 //
-// void MainWindow::on_B_PLUS_MOVE_Y_clicked() {
+// void View::on_B_PLUS_MOVE_Y_clicked() {
 //  double value = ui->doubleSpinBox_Y_MOVE->value();
 //
 //  move_y(&ui->myGl->all_data, value);
 //  ui->myGl->update();
 //}
 //
-// void MainWindow::on_B_MINUS_MOVE_Y_clicked() {
+// void View::on_B_MINUS_MOVE_Y_clicked() {
 //  double value = ui->doubleSpinBox_Y_MOVE->value();
 //  value *= -1;
 //
@@ -266,14 +280,14 @@ void MainWindow::on_SetDefault_button_clicked() {
 //
 //// X Axis
 //
-// void MainWindow::on_B_PLUS_MOVE_X_clicked() {
+// void View::on_B_PLUS_MOVE_X_clicked() {
 //  double value = ui->doubleSpinBox_X_MOVE->value();
 //
 //  move_x(&ui->myGl->all_data, value);
 //  ui->myGl->update();
 //}
 //
-// void MainWindow::on_B_MINUS_MOVE_X_clicked() {
+// void View::on_B_MINUS_MOVE_X_clicked() {
 //  double value = ui->doubleSpinBox_X_MOVE->value();
 //  value *= -1;
 //
@@ -283,13 +297,13 @@ void MainWindow::on_SetDefault_button_clicked() {
 //
 ///*                SIZE                */
 //
-// void MainWindow::on_pushButton_4_clicked() {
+// void View::on_pushButton_4_clicked() {
 //  double value = 1.1;
 //  size_xyz(&ui->myGl->all_data, value);
 //  ui->myGl->update();
 //}
 //
-// void MainWindow::on_pushButton_5_clicked() {
+// void View::on_pushButton_5_clicked() {
 //  double value = 0.9;
 //  size_xyz(&ui->myGl->all_data, value);
 //  ui->myGl->update();
@@ -299,13 +313,13 @@ void MainWindow::on_SetDefault_button_clicked() {
 //
 //// X Axis
 //
-// void MainWindow::on_ROTATE_X_PLUS_clicked() {
+// void View::on_ROTATE_X_PLUS_clicked() {
 //  int value = ui->ROTATE_X_VALUE->value();
 //  rotation_x(&ui->myGl->all_data, value);
 //  ui->myGl->update();
 //}
 //
-// void MainWindow::on_ROTATE_X_MINUS_clicked() {
+// void View::on_ROTATE_X_MINUS_clicked() {
 //  int value = ui->ROTATE_X_VALUE->value() * -1;
 //  rotation_x(&ui->myGl->all_data, value);
 //  ui->myGl->update();
@@ -313,13 +327,13 @@ void MainWindow::on_SetDefault_button_clicked() {
 //
 //// Y Axis
 //
-// void MainWindow::on_ROTATE_Y_PLUS_clicked() {
+// void View::on_ROTATE_Y_PLUS_clicked() {
 //  int value = ui->ROTATE_Y_VALUE->value();
 //  rotation_y(&ui->myGl->all_data, value);
 //  ui->myGl->update();
 //}
 //
-// void MainWindow::on_ROTATE_Y_MINUS_clicked() {
+// void View::on_ROTATE_Y_MINUS_clicked() {
 //  int value = ui->ROTATE_Y_VALUE->value() * -1;
 //  rotation_y(&ui->myGl->all_data, value);
 //  ui->myGl->update();
@@ -327,13 +341,13 @@ void MainWindow::on_SetDefault_button_clicked() {
 //
 //// Z Axis
 //
-// void MainWindow::on_ROTATE_Z_PLUS_clicked() {
+// void View::on_ROTATE_Z_PLUS_clicked() {
 //  int value = ui->ROTATE_Z_VALUE->value();
 //  rotation_z(&ui->myGl->all_data, value);
 //  ui->myGl->update();
 //}
 //
-// void MainWindow::on_ROTATE_Z_MINUS_clicked() {
+// void View::on_ROTATE_Z_MINUS_clicked() {
 //  int value = ui->ROTATE_Z_VALUE->value() * -1;
 //  rotation_z(&ui->myGl->all_data, value);
 //  ui->myGl->update();
@@ -344,7 +358,7 @@ void MainWindow::on_SetDefault_button_clicked() {
  *  Screenshot & Gif animation
  **/
 
-// void MainWindow::on_createScreenPshBtn_clicked() {
+// void View::on_createScreenPshBtn_clicked() {
 //   QString fileName =
 //       QFileDialog::getSaveFileName(this, "Сохранить скриншот", "/Users",
 //                                    "Images (*.jpeg *.bmp);;All Files (*)");
@@ -359,7 +373,7 @@ void MainWindow::on_SetDefault_button_clicked() {
 //   }
 // }
 //
-// void MainWindow::on_createGifPshBtn_clicked() {
+// void View::on_createGifPshBtn_clicked() {
 //   gifName = QFileDialog::getSaveFileName(this, "Save gif", "/Users",
 //                                          "Gif (*.gif);;All Files (*)");
 //   if (!gifName.isEmpty() && !screenCounter) {
@@ -373,7 +387,7 @@ void MainWindow::on_SetDefault_button_clicked() {
 //   }
 // }
 
-// void MainWindow::createAnimation() {
+// void View::createAnimation() {
 //   if (screenCounter < 50) {
 //     QImage screen = ui->myGl->grabFramebuffer();
 //     gifFrame->addFrame(screen);
@@ -391,3 +405,143 @@ void MainWindow::on_SetDefault_button_clicked() {
 //     ui->createGifPshBtn->setEnabled(true);
 //   }
 // }
+
+//View::View(QWidget *parent)
+//        : QOpenGLWidget(parent){}
+
+void View::onOpenFile() {
+    std::cout << "Vertex count: " << controller_->GetData().GetVertexes()
+              << std::endl;
+    std::cout << "Polygon count: " << controller_->GetData().GetPolygons()
+              << std::endl;
+}
+
+void View::initializeGL() {
+    glEnable(GL_DEPTH_TEST);
+    glClearColor(backroundColor.redF(), backroundColor.greenF(),
+                 backroundColor.blueF(), backroundColor.alphaF());
+}
+
+void View::paintGL() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glClearColor(backroundColor.redF(), backroundColor.greenF(),
+                 backroundColor.blueF(), backroundColor.alphaF());
+    glTranslated(0, 0, -10);
+    glRotatef(xRot, 1, 0, 0);
+    glRotatef(yRot, 0, 1, 0);
+    setProjection();
+    drawVertexes();
+    setLinesType();
+    drawLines();
+}
+
+void View::resizeGL(int w, int h) {
+    glViewport(0, 0, w, h);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+}
+
+void View::setLinesType() {
+    if (lineType == DASHED) {
+        glEnable(GL_LINE_STIPPLE);
+        glLineStipple(1, 0x00FF);
+    } else {
+        glDisable(GL_LINE_STIPPLE);
+    }
+
+    if (!linesColor.isValid()) {
+        linesColor = QColor(Qt::white);
+    } else {
+        glColor3f(linesColor.redF(), linesColor.greenF(), linesColor.blueF());
+    }
+    glLineWidth(lineWidth);
+}
+
+void View::setProjection() {
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    float aspectRatio = 901.0 / 741.0;
+    if (projection == PARALLEL) {
+        glOrtho(-2 * aspectRatio, 2 * aspectRatio, -2, 2, 0.1, 100);
+    } else if (projection == CENTRAL) {
+        //    gluPerspective(24, aspectRatio, 0.1, 100);
+    }
+    glMatrixMode(GL_MODELVIEW);
+}
+
+void View::drawVertexes() {
+    if (vertexType == CIRCLE) {
+        glEnable(GL_POINT_SMOOTH);
+    } else if (vertexType == SQUARE) {
+        glEnable(GL_POINT_SPRITE);
+    }
+
+    if (vertexType != NONE) {
+        if (!vertexesColor.isValid()) {
+            vertexesColor = QColor(Qt::white);
+        } else {
+            glColor3f(vertexesColor.redF(), vertexesColor.greenF(),
+                      vertexesColor.blueF());
+        }
+        glPointSize(vertexSize);
+
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glVertexPointer(3, GL_DOUBLE, 0, controller_->GetData().GetCoordinateVertex().data());
+        glDrawElements(GL_POINTS, controller_->GetData().GetStringPolygon().size(),
+                       GL_UNSIGNED_INT, controller_->GetData().GetStringPolygon().data());
+        glDisableClientState(GL_VERTEX_ARRAY);
+    }
+    if (vertexType == CIRCLE) {
+        glDisable(GL_POINT_SMOOTH);
+    } else if (vertexType == SQUARE) {
+        glDisable(GL_POINT_SPRITE);
+    }
+}
+
+void View::drawLines() {
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(3, GL_DOUBLE, 0, controller_->GetData().GetCoordinateVertex().data());
+    glDrawElements(GL_LINES, controller_->GetData().GetStringPolygon().size(),
+                   GL_UNSIGNED_INT, controller_->GetData().GetStringPolygon().data());
+    glDisableClientState(GL_VERTEX_ARRAY);
+}
+
+void View::clearOpenGlWidget() {
+    makeCurrent();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    doneCurrent();
+    update();
+}
+
+void View::mousePressEvent(QMouseEvent *mo) { mPos = mo->pos(); }
+
+void View::mouseMoveEvent(QMouseEvent *mo) {
+    const float sense = 0.3f;
+
+    xRot += sense * (mo->pos().y() - mPos.y());
+    yRot += sense * (mo->pos().x() - mPos.x());
+    mPos = mo->pos();
+    update();
+}
+
+//double *View::ConvertToDoubleString() {
+//    size_t j = 0;
+//    double *vertexes_string_;
+//    for (auto &i : controller_->GetData().GetCoordinateVertex()) {
+//        vertexes_string_[j++] = i;
+//        std::cout << vertexes_string_[j] << std::endl;
+//    }
+//    return vertexes_string_;
+//}
+//
+//int *View::ConvertToIntString() {
+//    size_t j = 0;
+//    int *polygons_string_;
+//    for (auto &i : controller_->GetData().GetStringPolygon()) {
+//        polygons_string_[j++] = i;
+//        std::cout << polygons_string_[j] << std::endl;
+//    }
+//    return polygons_string_;
+//}

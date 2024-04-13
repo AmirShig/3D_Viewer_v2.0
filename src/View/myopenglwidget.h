@@ -2,7 +2,7 @@
 #define MYOPENGLWIDGET_H
 
 #define GL_SILENCE_DEPRECATION
-#include "../Controller/controller.h"
+#include "view.h"
 #include "qopenglwindow.h"
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
@@ -15,8 +15,7 @@
 class MyOpenGLWidget : public QOpenGLWidget {
   Q_OBJECT
 public:
-  MyOpenGLWidget(QWidget *parent = nullptr,
-                 s21::Controller *controller = nullptr);
+  MyOpenGLWidget(QWidget *parent = nullptr);
 
   enum linesType { SOLID, DASHED };
   enum vertexesType { NONE, CIRCLE, SQUARE };
@@ -46,18 +45,15 @@ public:
   void setLinesType();
   void drawLines();
 
-  /*!
-   * \brief *ConvertToDoubleString(); *ConvertToIntString();
-   *\authors Dimitraki Vladimir
-   * конвертированные строки (из вектора в простой массив) для glVertexPointer()
-   */
-  double *ConvertToDoubleString();
-  int *ConvertToIntString();
-
-  s21::Controller &GetController() { return *controller_; }
+//  /*!
+//   * \brief *ConvertToDoubleString(); *ConvertToIntString();
+//   *\authors Dimitraki Vladimir
+//   * конвертированные строки (из вектора в простой массив) для glVertexPointer()
+//   */
+//  double *ConvertToDoubleString();
+//  int *ConvertToIntString();
 
 protected:
-  s21::Controller *controller_;
   void initializeGL() override;
   void paintGL() override;
   void resizeGL(int w, int h) override;
