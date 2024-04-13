@@ -132,6 +132,7 @@ private slots:
 private:
   Ui::View *ui;
   s21::Controller *controller_;
+
   int rotationPostition_;
 };
 #endif // MAINWINDOW_H

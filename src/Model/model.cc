@@ -3,6 +3,6 @@
 namespace s21 {
 bool Model::ProccessingObjFile(std::string &file_path) {
     parse_->ParseObjFile(file_path, &data_);
-    return 0;
+    return 1;
 }
 } // namespace s21

@@ -44,6 +44,7 @@ void ParseObj::WriteVertexes(Data3DModel *data) {
 }
 
 void ParseObj::WritePolygons(Data3DModel *data) {
+  int num = 0;
   size_t i = 0;
   if (string_data_from_file_[i] == 'f' &&
       string_data_from_file_[i + 1] == ' ') {
@@ -51,7 +52,9 @@ void ParseObj::WritePolygons(Data3DModel *data) {
       if (std::isdigit(string_data_from_file_[i]) &&
           string_data_from_file_[i + 1] == '/') {
         data->GetPolygons()++;
-        data->GetStringPolygon().push_back(string_data_from_file_[i]);
+        num = std::atoi(&string_data_from_file_[i]);
+        //TODO add method write polygons
+        data->GetStringPolygon().push_back(num);
         std::cout << string_data_from_file_[i] << std::endl;
         while (string_data_from_file_.size() > i &&
                string_data_from_file_[i] != ' ') {
@@ -63,10 +66,11 @@ void ParseObj::WritePolygons(Data3DModel *data) {
 }
 
 } // namespace s21
+//1 5 5 7 7 3 3 1
 
-// f 1/1/1 5/2/1 7/3/1 3/4/1
-// f 4/5/2 3/4/2 7/6/2 8/7/2
-// f 8/8/3 7/9/3 5/10/3 6/11/3
-// f 6/12/4 2/13/4 4/5/4 8/14/4
-// f 2/13/5 1/1/5 3/4/5 4/5/5
-// f 6/11/6 5/10/6 1/1/6 2/13/6
+    // f 1/1/1 5/2/1 7/3/1 3/4/1
+    // f 4/5/2 3/4/2 7/6/2 8/7/2
+    // f 8/8/3 7/9/3 5/10/3 6/11/3
+    // f 6/12/4 2/13/4 4/5/4 8/14/4
+    // f 2/13/5 1/1/5 3/4/5 4/5/5
+    // f 6/11/6 5/10/6 1/1/6 2/13/6

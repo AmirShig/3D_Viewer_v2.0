@@ -24,7 +24,22 @@ void View::on_openFilePushBtn_clicked() {
                                             "All Files (*.obj)");
   ui->vertexCount->setText("");
   ui->polygonCount->setText("");
-  controller_->GetStringFilePath(file_path_);
+  if (controller_->GetStringFilePath(file_path_)) {
+      ui->vertexCount->setText(QString::number(controller_->GetData().GetCoordinateVertex().size()));
+      ui->polygonCount->setText(QString::number(controller_->GetData().GetStringPolygon().size()));
+      QFileInfo check_file(file_path_);
+
+      ui->fileNameLabel->setText(check_file.fileName());
+
+//      for (const auto &i: controller_->GetData().GetStringPolygon()) {
+//          std::cout << i << ' ';
+//      }
+//      std::cout << std::endl;
+//      for (const auto &i: controller_->GetData().GetCoordinateVertex()) {
+//          std::cout << i << ' ';
+//      }
+      ui->myGl->update();
+  }
 }
 
 void View::on_setBckgColor_clicked() {
@@ -472,6 +487,7 @@ void View::setProjection() {
 }
 
 void View::drawVertexes() {
+    std::cout << "drawVertexes\n";
     if (vertexType == CIRCLE) {
         glEnable(GL_POINT_SMOOTH);
     } else if (vertexType == SQUARE) {

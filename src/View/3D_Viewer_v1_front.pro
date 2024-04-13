@@ -12,18 +12,17 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp \
-    ../Model/myopenglwidget.cpp \
-    ../Model/parce_obj.cc
+    view.cpp \
+    ../Model/parce_obj.cc \
+    ../Model/model.cc
 
 
 HEADERS += \
-    ../Model/myopenglwidget.h \
-    mainwindow.h \
+    view.h \
     ../Model/parce_obj.h \
     ../Model/model.h \
-    ../Controller/controller.h
-
+    ../Controller/controller.hv \
+    ../Model/data_3d_model.h
 
 
 FORMS += \

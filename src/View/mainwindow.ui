@@ -31,7 +31,20 @@
   <property name="windowTitle">
    <string>View</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
+  <widget class="QWidget" name="centralwidget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1362</width>
+     <height>761</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget {
+    background-color: rgb(53, 53, 54);
+}</string>
+   </property>
    <widget class="QWidget" name="formLayoutWidget">
     <property name="geometry">
      <rect>
@@ -289,7 +302,7 @@ QPushButton:pressed {
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QOpenGLWidget" name="myGl" native="true">
+   <widget class="QOpenGLWidget" name="myGl">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -1519,14 +1532,6 @@ QPushButton:pressed {
    </widget>
   </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QOpenGLWidget</class>
-   <extends>QWidget</extends>
-   <header location="global">view.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
