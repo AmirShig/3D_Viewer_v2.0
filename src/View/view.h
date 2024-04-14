@@ -8,6 +8,7 @@
 #include "qopenglwindow.h"
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
+#include <QColor>
 #include <QColorDialog>
 #include <QCoreApplication>
 #include <QFileDialog>
@@ -19,8 +20,6 @@
 #include <QTimer>
 #include <QWidget>
 #include <QtOpenGLWidgets/qopenglwidget.h>
-#include <QColor>
-
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -32,45 +31,45 @@ class View : public QOpenGLWidget {
   Q_OBJECT
 
 public:
-    /*-----------------openGL--------------------*/
-    enum linesType { SOLID, DASHED };
-    enum vertexesType { NONE, CIRCLE, SQUARE };
-    enum projectionType { CENTRAL, PARALLEL };
+  /*-----------------openGL--------------------*/
+  enum linesType { SOLID, DASHED };
+  enum vertexesType { NONE, CIRCLE, SQUARE };
+  enum projectionType { CENTRAL, PARALLEL };
 
-    float xRot, yRot, zRot;
-    QPoint mPos;
-
-//    int widgetWidth = width();
-//    int widgetHeight = height();
-
-    QColor backroundColor;
-    QColor vertexesColor;
-    QColor linesColor;
-
-    int lineWidth;
-    int vertexSize;
-
-    linesType lineType;
-    vertexesType vertexType;
-    projectionType projection;
-
-    void onOpenFile();
-    void clearOpenGlWidget();
-    void setProjection();
-    void drawVertexes();
-    void setLinesType();
-    void drawLines();
-
-    void initializeGL() override;
-    void paintGL() override;
-    void resizeGL(int w, int h) override;
-
-    void mousePressEvent(QMouseEvent *) override;
-    void mouseMoveEvent(QMouseEvent *) override;
-    /*-----------------openGL--------------------*/
-
-  explicit View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
+  View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
   ~View();
+
+  float xRot, yRot, zRot;
+  QPoint mPos;
+
+  int widgetWidth = width();
+  int widgetHeight = height();
+
+  QColor backroundColor;
+  QColor vertexesColor;
+  QColor linesColor;
+
+  int lineWidth;
+  int vertexSize;
+
+  linesType lineType;
+  vertexesType vertexType;
+  projectionType projection;
+
+  void onOpenFile();
+  void clearOpenGlWidget();
+  void setProjection();
+  void drawVertexes();
+  void setLinesType();
+  void drawLines();
+
+  void initializeGL() override;
+  void paintGL() override;
+  void resizeGL(int w, int h) override;
+
+  void mousePressEvent(QMouseEvent *) override;
+  void mouseMoveEvent(QMouseEvent *) override;
+  /*-----------------openGL--------------------*/
 
   QString file_path_;
   QString gifName;
@@ -88,7 +87,6 @@ public:
 
 private slots:
   void on_openFilePushBtn_clicked();
-
   void on_setBckgColor_clicked();
   void on_setLinesColor_clicked();
   void on_setVertexesColor_clicked();

@@ -11,8 +11,8 @@ View::View(QWidget *parent, s21::Controller *controller)
   timer = new QTimer(0);
 //  connect(timer, SIGNAL(timeout()), this, SLOT(createAnimation()));
 
-vertexType = SQUARE;
-lineType = SOLID;
+//vertexType = SQUARE;
+//lineType = SOLID;
 }
 
 View::~View() {
@@ -173,8 +173,7 @@ void View::on_SetDefault_button_clicked() {
 //   settings.beginGroup("settings");
 //
 //   settings.setValue("file_path_", file_path_);
-//
-//   settings.setValue("backgroundColor", ui->myGl->backroundColor);
+//   settings.setValue("backgroundColor", ui.);
 //   settings.setValue("linesColor", ui->myGl->linesColor);
 //   settings.setValue("vertexesColor", ui->myGl->vertexesColor);
 //   settings.setValue("lineSizeEditer", ui->lineSizeEditer->value());
@@ -196,7 +195,7 @@ void View::on_SetDefault_button_clicked() {
 //
 //   settings.endGroup();
 // }
-
+//
 // void View::readSettings() {
 //   QString pathSettings = QCoreApplication::applicationDirPath();
 //   QSettings settings(pathSettings + "/settings.ini", QSettings::IniFormat);
@@ -506,7 +505,6 @@ void View::drawVertexes() {
         }
         glPointSize(vertexSize);
 
-   std::cout << "size p: " << controller_->GetData().GetStringPolygon().size();
         glEnableClientState(GL_VERTEX_ARRAY);
         glVertexPointer(3, GL_DOUBLE, 0, controller_->GetData().GetCoordinateVertex().data());
         glDrawElements(GL_POINTS, controller_->GetData().GetStringPolygon().size() / 2,
