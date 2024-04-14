@@ -1,6 +1,8 @@
 # own
 cmake-build-debug
-build-3D_Viewer_v1_front-Unnamed2-Debug
 .vscode
 .idea
 build
+.o
+
+

@@ -7,30 +7,36 @@ void Lexeme::CleanLexem(std::string &str) {
   bool is_first = true;
 
   /*! \param lust_polygon сохраняем первый полигон для записи в конец*/
-  std::string lust_polygon;
+  int lust_polygon = 0;
 
-  std::string lexeme;
+  int num = 0;
+  std::stringstream lexeme;
+  size_t id = 0;
 
   for (size_t i = 0; i < str.length(); ++i) {
-    if (std::isdigit(str[i]) && str[i + 1] == '/') {
-      lexeme += str[i];
+    if (std::isdigit(str[i]) || str[i + 1] == '/') {
 
-      /*module 1*/
+      num = std::stoi(&str[i], &id);
+      i += id;
+
+      lexeme << num;
+
+      /*проверяем первый полигон */
       if (is_first) {
-        lust_polygon = str[i];
+        lust_polygon = num;
         is_first = false;
       } else {
-        lexeme += str[i];
+        lexeme << num;
       }
-      /*module 1*/
+      /* если не первый то записываем два раза*/
 
-      for (; i < str.length() && str[i] != ' '; ++i) {
-      }
+      //      for (; i < str.length() && str[i] != ' '; ++i) {
+      //      }
     }
   }
 
-  lexeme += lust_polygon;
-  str = lexeme;
+  lexeme << lust_polygon;
+  str = lexeme.str();
 }
 
 } // namespace s21

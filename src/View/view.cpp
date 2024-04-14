@@ -10,6 +10,9 @@ View::View(QWidget *parent, s21::Controller *controller)
   setWindowTitle("3D Viewer");
   timer = new QTimer(0);
 //  connect(timer, SIGNAL(timeout()), this, SLOT(createAnimation()));
+
+vertexType = SQUARE;
+lineType = SOLID;
 }
 
 View::~View() {
@@ -438,6 +441,7 @@ void View::initializeGL() {
 }
 
 void View::paintGL() {
+    std::cout << "paintGL";
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -502,9 +506,10 @@ void View::drawVertexes() {
         }
         glPointSize(vertexSize);
 
+   std::cout << "size p: " << controller_->GetData().GetStringPolygon().size();
         glEnableClientState(GL_VERTEX_ARRAY);
         glVertexPointer(3, GL_DOUBLE, 0, controller_->GetData().GetCoordinateVertex().data());
-        glDrawElements(GL_POINTS, controller_->GetData().GetStringPolygon().size(),
+        glDrawElements(GL_POINTS, controller_->GetData().GetStringPolygon().size() / 2,
                        GL_UNSIGNED_INT, controller_->GetData().GetStringPolygon().data());
         glDisableClientState(GL_VERTEX_ARRAY);
     }
@@ -518,7 +523,7 @@ void View::drawVertexes() {
 void View::drawLines() {
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(3, GL_DOUBLE, 0, controller_->GetData().GetCoordinateVertex().data());
-    glDrawElements(GL_LINES, controller_->GetData().GetStringPolygon().size(),
+    glDrawElements(GL_LINES, controller_->GetData().GetStringPolygon().size() / 2,
                    GL_UNSIGNED_INT, controller_->GetData().GetStringPolygon().data());
     glDisableClientState(GL_VERTEX_ARRAY);
 }
