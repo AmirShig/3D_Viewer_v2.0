@@ -41,9 +41,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">QWidget {
-    background-color: rgb(53, 53, 54);
-}</string>
+    <string notr="true"/>
    </property>
    <widget class="QWidget" name="formLayoutWidget">
     <property name="geometry">
@@ -300,19 +298,6 @@ QPushButton:pressed {
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QOpenGLWidget" name="myGl">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>901</width>
-      <height>741</height>
-     </rect>
-    </property>
-    <property name="cursor">
-     <cursorShape>OpenHandCursor</cursorShape>
     </property>
    </widget>
    <widget class="QPushButton" name="cleanPushButton">
