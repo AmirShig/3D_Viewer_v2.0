@@ -11,13 +11,11 @@ void ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
   std::ifstream file;
   file.open(file_path);
   if (file.is_open()) {
+    int i;
     while (std::getline(file, string_data_from_file_)) {
       WriteVertexes(data);
       ParsePolygons(data);
     }
-      for (auto &i : data->GetCoordinateVertex()) {
-          std::cout << i << ' ';
-      }
     file.close();
   }
 }
@@ -40,41 +38,45 @@ void ParseObj::ParsePolygons(Data3DModel *data) {
   bool is_first = true;
 
   /*! \param lust_polygon сохраняем первый полигон для записи в конец*/
-  int lust_polygon = 0;
+  int first_polygon = 0;
 
   int num = 0;
   size_t id = 0, i = 0;
 
   if (string_data_from_file_[i] == 'f' &&
       string_data_from_file_[i + 1] == ' ') {
-
     for (; i < string_data_from_file_.length(); ++i) {
-
       if (std::isdigit(string_data_from_file_[i]) ||
           string_data_from_file_[i] == '-') {
-
         num = std::stoi(&string_data_from_file_[i], &id);
-        num = abs(num - 1);
         i += id;
-
-        data->GetStringPolygon().push_back(num);
-
-        /*проверяем первый полигон */
-        if (is_first) {
-          lust_polygon = num;
-          is_first = false;
-        } else {
-          data->GetStringPolygon().push_back(num);
-        }
-        /* если не первый то записываем два раза*/
-
+        NegativePolygons(&num, data);
+        FirstPolygon(&is_first, &first_polygon, &num, data);
         for (; i < string_data_from_file_.length() &&
                string_data_from_file_[i] != ' ';
              ++i) {
         }
       }
     }
-    data->GetStringPolygon().push_back(lust_polygon);
+    data->GetStringPolygon().push_back(first_polygon);
+  }
+}
+
+void ParseObj::NegativePolygons(int *num, Data3DModel *data) {
+  if (*num > 0)
+    *num -= 1;
+  else
+    *num = (data->GetCoordinateVertex().size() / 3) - abs(*num);
+  data->GetStringPolygon().push_back(*num);
+}
+
+void ParseObj::FirstPolygon(bool *is_first, int *first_polygon, int *num,
+                            Data3DModel *data) {
+  if (*is_first) {
+    *first_polygon = *num;
+    *is_first = false;
+  } else {
+    data->GetStringPolygon().push_back(*num);
   }
 }
 
