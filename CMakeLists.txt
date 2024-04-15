@@ -25,6 +25,7 @@ add_executable(3dViewer
         src/Model/lexem.cc
         src/Controller/controller.h
         src/Controller/controller.cc
+        src/View/glwidget.cc
 )
 
 target_link_libraries(3dViewer PRIVATE Qt6::Widgets Qt6::OpenGLWidgets)

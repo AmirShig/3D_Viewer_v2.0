@@ -5,10 +5,16 @@
 #include "ui_mainwindow.h"
 
 View::View(QWidget *parent, s21::Controller *controller)
-    : QOpenGLWidget(parent), ui(new Ui::View), controller_(controller) {
+    : ui(new Ui::View), controller_(controller) {
   ui->setupUi(this);
   setWindowTitle("3D Viewer");
   timer = new QTimer(0);
+
+  //Инициализация окна GLWidget
+  gl_widget_ = new GLWidget(nullptr, controller);
+  gl_widget_->setFixedSize(900, 720);
+  QVBoxLayout *layout = new QVBoxLayout(ui->centralwidget);
+  layout->addWidget(gl_widget_);
 
   //  connect(timer, SIGNAL(timeout()), this, SLOT(createAnimation()));
 }
@@ -48,23 +54,20 @@ void View::on_openFilePushBtn_clicked() {
 
 void View::on_setBckgColor_clicked() {
   QColor color = QColorDialog::getColor(Qt::white, this, "Select color:");
-  //  backroundColor = color;
-  backroundColor = color;
-  update();
+  gl_widget_->backroundColor = color;
+  gl_widget_->update();
 }
 
 void View::on_setLinesColor_clicked() {
   QColor color = QColorDialog::getColor(Qt::white, this, "Select color:");
-  //  linesColor = color;
-  linesColor = color;
-  update();
+  gl_widget_->linesColor = color;
+  gl_widget_->update();
 }
 
 void View::on_setVertexesColor_clicked() {
   QColor color = QColorDialog::getColor(Qt::white, this, "Select color:");
-  //  vertexesColor = color;
-  vertexesColor = color;
-  update();
+  gl_widget_->vertexesColor = color;
+  gl_widget_->update();
 }
 
 // Clear Screen
@@ -82,33 +85,22 @@ void View::on_cleanPushButton_clicked() {
 }
 
 void View::on_SetDefault_button_clicked() {
-  //
-  backroundColor = QColor(Qt::black);
-  //
-  linesColor = QColor(Qt::white);
-  //
-  vertexesColor = QColor(Qt::white);
-  //
-  lineWidth = 1;
+  gl_widget_->backroundColor = QColor(Qt::black);
+  gl_widget_->linesColor = QColor(Qt::white);
+  gl_widget_->vertexesColor = QColor(Qt::white);
+  gl_widget_->lineWidth = 1;
   ui->lineSizeEditer->setValue(1);
-  //
-  vertexSize = 1;
+  gl_widget_->vertexSize = 1;
   ui->vertexSizeEditer->setValue(0);
   ui->projectionType->setCurrentIndex(0);
   ui->vertexesType->setCurrentIndex(0);
   ui->linesType->setCurrentIndex(0);
-  //
-  projection = View::CENTRAL;
-  //
-  lineType = View::SOLID;
-  //
-  vertexType = View::NONE;
-  //
-  xRot = 0;
-  //
-  yRot = 0;
-  //
-  zRot = 0;
+  gl_widget_->projection = GLWidget::CENTRAL;
+  gl_widget_->lineType = GLWidget::SOLID;
+  gl_widget_->vertexType = GLWidget::NONE;
+  gl_widget_->xRot = 0;
+  gl_widget_->yRot = 0;
+  gl_widget_->zRot = 0;
 
   //   Ставим на изначальное положение объект
   //    if (all_data.polygons_value != NULL &&
@@ -426,144 +418,3 @@ void View::on_SetDefault_button_clicked() {
 
 // View::View(QWidget *parent)
 //         : QOpenGLWidget(parent){}
-
-void View::onOpenFile() {
-  std::cout << "Vertex count: " << controller_->GetData().GetVertexes()
-            << std::endl;
-  std::cout << "Polygon count: " << controller_->GetData().GetPolygons()
-            << std::endl;
-}
-
-void View::initializeGL() {
-  glClearColor(backroundColor.redF(), backroundColor.greenF(),
-               backroundColor.blueF(), backroundColor.alphaF());
-  glEnable(GL_DEPTH_TEST);
-}
-
-void View::paintGL() {
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  glMatrixMode(GL_MODELVIEW);
-  glLoadIdentity();
-  glClearColor(backroundColor.redF(), backroundColor.greenF(),
-               backroundColor.blueF(), backroundColor.alphaF());
-  glTranslated(0, 0, -10);
-  glRotatef(xRot, 1, 0, 0);
-  glRotatef(yRot, 0, 1, 0);
-  setProjection();
-  drawVertexes();
-  setLinesType();
-  drawLines();
-}
-
-void View::resizeGL(int w, int h) {
-  glViewport(0, 0, w, h);
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-}
-
-void View::setLinesType() {
-  if (lineType == DASHED) {
-    glEnable(GL_LINE_STIPPLE);
-    glLineStipple(1, 0x00FF);
-  } else {
-    glDisable(GL_LINE_STIPPLE);
-  }
-
-  if (!linesColor.isValid()) {
-    linesColor = QColor(Qt::white);
-  } else {
-    glColor3f(linesColor.redF(), linesColor.greenF(), linesColor.blueF());
-  }
-  glLineWidth(lineWidth);
-}
-
-void View::setProjection() {
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  float aspectRatio = 901.0 / 741.0;
-  if (projection == PARALLEL) {
-    glOrtho(-2 * aspectRatio, 2 * aspectRatio, -2, 2, 0.1, 100);
-  } else if (projection == CENTRAL) {
-    gluPerspective(24, aspectRatio, 0.1, 100);
-  }
-  glMatrixMode(GL_MODELVIEW);
-}
-
-void View::drawVertexes() {
-  if (vertexType == CIRCLE) {
-    glEnable(GL_POINT_SMOOTH);
-  } else if (vertexType == SQUARE) {
-    glEnable(GL_POINT_SPRITE);
-  }
-
-  if (vertexType != NONE) {
-    if (!vertexesColor.isValid()) {
-      vertexesColor = QColor(Qt::white);
-    } else {
-      glColor3f(vertexesColor.redF(), vertexesColor.greenF(),
-                vertexesColor.blueF());
-    }
-    glPointSize(controller_->GetData().GetCoordinateVertex().size()/3);
-
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glVertexPointer(3, GL_DOUBLE, 0,
-                    controller_->GetData().GetCoordinateVertex().data());
-    glDrawElements(GL_POINTS, controller_->GetData().GetStringPolygon().size(),
-                   GL_UNSIGNED_INT,
-                   controller_->GetData().GetStringPolygon().data());
-    glDisableClientState(GL_VERTEX_ARRAY);
-  }
-  if (vertexType == CIRCLE) {
-    glDisable(GL_POINT_SMOOTH);
-  } else if (vertexType == SQUARE) {
-    glDisable(GL_POINT_SPRITE);
-  }
-}
-
-void View::drawLines() {
-  glEnableClientState(GL_VERTEX_ARRAY);
-  glVertexPointer(3, GL_DOUBLE, 0,
-                  controller_->GetData().GetCoordinateVertex().data());
-  glDrawElements(GL_LINES, controller_->GetData().GetStringPolygon().size(),
-                 GL_UNSIGNED_INT,
-                 controller_->GetData().GetStringPolygon().data());
-  glDisableClientState(GL_VERTEX_ARRAY);
-}
-
-void View::clearOpenGlWidget() {
-  makeCurrent();
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  doneCurrent();
-  update();
-}
-
-void View::mousePressEvent(QMouseEvent *mo) { mPos = mo->pos(); }
-
-void View::mouseMoveEvent(QMouseEvent *mo) {
-  const float sense = 0.3f;
-
-  xRot += sense * (mo->pos().y() - mPos.y());
-  yRot += sense * (mo->pos().x() - mPos.x());
-  mPos = mo->pos();
-  update();
-}
-
-// double *View::ConvertToDoubleString() {
-//     size_t j = 0;
-//     double *vertexes_string_;
-//     for (auto &i : controller_->GetData().GetCoordinateVertex()) {
-//         vertexes_string_[j++] = i;
-//         std::cout << vertexes_string_[j] << std::endl;
-//     }
-//     return vertexes_string_;
-// }
-//
-// int *View::ConvertToIntString() {
-//     size_t j = 0;
-//     int *polygons_string_;
-//     for (auto &i : controller_->GetData().GetStringPolygon()) {
-//         polygons_string_[j++] = i;
-//         std::cout << polygons_string_[j] << std::endl;
-//     }
-//     return polygons_string_;
-// }

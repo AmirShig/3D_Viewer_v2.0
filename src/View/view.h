@@ -21,23 +21,13 @@
 #include <QWidget>
 #include <QtOpenGLWidgets/qopenglwidget.h>
 
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class View;
-}
-QT_END_NAMESPACE
-
-class View : public QOpenGLWidget {
-  Q_OBJECT
-
+class GLWidget : public QOpenGLWidget {
 public:
-  /*-----------------openGL--------------------*/
   enum linesType { SOLID, DASHED };
   enum vertexesType { NONE, CIRCLE, SQUARE };
   enum projectionType { CENTRAL, PARALLEL };
 
-  View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
-  ~View();
+  GLWidget(QWidget *parent = nullptr, s21::Controller *c = nullptr);
 
   float xRot, yRot, zRot;
   QPoint mPos;
@@ -69,7 +59,26 @@ public:
 
   void mousePressEvent(QMouseEvent *) override;
   void mouseMoveEvent(QMouseEvent *) override;
-  /*-----------------openGL--------------------*/
+
+  //Принимаем контроллер для изменения данных в методе SetData()
+  void SetData(s21::Controller *c);
+
+private:
+  s21::Controller *controller_;
+};
+
+QT_BEGIN_NAMESPACE
+namespace Ui {
+class View;
+}
+QT_END_NAMESPACE
+
+class View : public QWidget {
+  Q_OBJECT
+
+public:
+  View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
+  ~View();
 
   QString file_path_;
   QString gifName;
@@ -130,7 +139,9 @@ private slots:
 private:
   Ui::View *ui;
   s21::Controller *controller_;
+  GLWidget *gl_widget_;
 
   int rotationPostition_;
 };
+
 #endif // MAINWINDOW_H
