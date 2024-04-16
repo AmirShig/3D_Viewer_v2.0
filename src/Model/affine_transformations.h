@@ -1,25 +1,31 @@
-#include "model.h"
+#include "data_3d_model.h"
 
 namespace s21 {
 
 /*!
  * \brief Абстрактный класс стратегия
+ * \param coordinate перечисление для типа координат
  */
 class Strategy {
 public:
-  virtual void Transformations(Data3DModel *data, double point) = 0;
+  enum coordinate { Y, Z };
+  virtual void Transformations(Data3DModel *data, double point,
+                               coordinate coordinate_x_y_z) = 0;
 };
 
 class MoveObj : public Strategy {
-  void Transformations(s21::Data3DModel *data, double point) override;
+  void Transformations(s21::Data3DModel *data, double point,
+                       coordinate coordinate_x_y_z) override;
 };
 
 class RotateObj : public Strategy {
-  void Transformations(s21::Data3DModel *data, double point) override;
+  void Transformations(s21::Data3DModel *data, double point,
+                       coordinate coordinate_x_y_z) override;
 };
 
-class Distance : public Strategy {
-  void Transformations(s21::Data3DModel *data, double point) override;
+class DistanceObj : public Strategy {
+  void Transformations(s21::Data3DModel *data, double point,
+                       coordinate coordinate_x_y_z) override;
 };
 
 class AffineTransformations {
@@ -28,7 +34,7 @@ public:
       : strategy_(concrete_strategy) {}
 
   void SetAffinneTransformations(Strategy *concrete_strategy);
-  void Transformations(Data3DModel *data, double point);
+  void Transformations(Data3DModel *data, double point, Strategy::coordinate coordinate_x_y_z);
 
 private:
   Strategy *strategy_;

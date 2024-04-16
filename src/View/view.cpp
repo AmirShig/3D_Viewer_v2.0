@@ -12,6 +12,11 @@ View::View(QWidget *parent, s21::Controller *controller)
   setWindowTitle("3D Viewer");
   timer = new QTimer(0);
 
+  //Инициализация стратегий (вращение, движение, удаление/приближение)
+  move_obj_ = new MoveObj();
+  rotation_obj_ = new RotateObj();
+  distance_obj_ = new DistanceObj();
+
   //Инициализация окна GLWidget
   gl_widget_ = new GLWidget(nullptr, controller);
   gl_widget_->setFixedSize(900, 720);
@@ -24,7 +29,6 @@ View::View(QWidget *parent, s21::Controller *controller)
           SLOT(OpenFilePushButtonClicked()));
   connect(ui->CleanPushButtonClicked, SIGNAL(clicked()), this,
           SLOT(CleanPushButtonClicked()));
-
 }
 
 View::~View() {
@@ -252,54 +256,47 @@ void View::on_SetDefault_button_clicked() {
 
 // Z Axis
 
-// void View::on_B_PLUS_MOVE_Z_clicked() {
-//   double value = ui->doubleSpinBox_MOVE_Z->value();
-//
-//   move_z(&all_data, value);
-//   update();
-// }
-//
-// void View::on_B_MINUS_MOVE_Z_clicked() {
-//   double value = ui->doubleSpinBox_MOVE_Z->value();
-//   value *= -1;
-//   move_z(&all_data, value);
-//   update();
-// }
-//
-//// Y Axis
-//
-// void View::on_B_PLUS_MOVE_Y_clicked() {
-//  double value = ui->doubleSpinBox_Y_MOVE->value();
-//
-//  move_y(&all_data, value);
-//  update();
-//}
-//
-// void View::on_B_MINUS_MOVE_Y_clicked() {
-//  double value = ui->doubleSpinBox_Y_MOVE->value();
-//  value *= -1;
-//
-//  move_y(&all_data, value);
-//  update();
-//}
-//
+void View::on_B_PLUS_MOVE_Z_clicked() {
+  double value = ui->doubleSpinBox_MOVE_Z->value();
+  controller_->Affine().SetAffinneTransformations(move_obj_);
+  controller_->Affine().Transformations(&controller_->GetData(), value, Strategy::coordinate::Z);
+  update();
+}
+
+void View::on_B_MINUS_MOVE_Z_clicked() {
+  double value = ui->doubleSpinBox_MOVE_Z->value();
+  update();
+}
+
+// Y Axis
+
+void View::on_B_PLUS_MOVE_Y_clicked() {
+  double value = ui->doubleSpinBox_Y_MOVE->value();
+
+  update();
+}
+
+void View::on_B_MINUS_MOVE_Y_clicked() {
+  double value = ui->doubleSpinBox_Y_MOVE->value();
+
+  update();
+}
+
 //// X Axis
-//
-// void View::on_B_PLUS_MOVE_X_clicked() {
-//  double value = ui->doubleSpinBox_X_MOVE->value();
-//
-//  move_x(&all_data, value);
-//  update();
-//}
-//
-// void View::on_B_MINUS_MOVE_X_clicked() {
-//  double value = ui->doubleSpinBox_X_MOVE->value();
-//  value *= -1;
-//
-//  move_x(&all_data, value);
-//  update();
-//}
-//
+
+void View::on_B_PLUS_MOVE_X_clicked() {
+  double value = ui->doubleSpinBox_X_MOVE->value();
+
+  update();
+}
+
+void View::on_B_MINUS_MOVE_X_clicked() {
+  double value = ui->doubleSpinBox_X_MOVE->value();
+  value *= -1;
+
+  update();
+}
+
 ///*                SIZE                */
 //
 // void View::on_pushButton_4_clicked() {
