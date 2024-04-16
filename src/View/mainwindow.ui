@@ -241,7 +241,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="openFilePushBtn">
+   <widget class="QPushButton" name="OpenFilePushButtonClicked">
     <property name="geometry">
      <rect>
       <x>930</x>
@@ -300,7 +300,7 @@ QPushButton:pressed {
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="cleanPushButton">
+   <widget class="QPushButton" name="CleanPushButtonClicked">
     <property name="geometry">
      <rect>
       <x>1150</x>
@@ -476,7 +476,7 @@ QPushButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="setBckgColor">
+        <widget class="QPushButton" name="SetBckgColorClicked">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -621,7 +621,7 @@ QPushButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="setLinesColor">
+        <widget class="QPushButton" name="SetLinesColorClicked">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -759,7 +759,7 @@ QPushButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="setVertexesColor">
+        <widget class="QPushButton" name="SetVertexesColorClicked">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
            <horstretch>0</horstretch>

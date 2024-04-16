@@ -54,10 +54,10 @@ class View : public QWidget {
   //  void readSettings();
 
  private slots:
-  void on_openFilePushBtn_clicked();
-  void on_setBckgColor_clicked();
-  void on_setLinesColor_clicked();
-  void on_setVertexesColor_clicked();
+  void OpenFilePushButtonClicked();
+  void SetBckgColorClicked();
+  void SetLinesColorClicked();
+  void SetVertexesColorClicked();
 
   //  void on_linesType_activated(int index);
   //  void on_lineSizeEditer_valueChanged(int value);
@@ -88,7 +88,7 @@ class View : public QWidget {
 
   // SetDefault
   void on_SetDefault_button_clicked();
-  void on_cleanPushButton_clicked();
+  void CleanPushButtonClicked();
 
   // Print screen & Create gif
   //  void on_createScreenPshBtn_clicked();
