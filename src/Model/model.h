@@ -12,37 +12,6 @@
 namespace s21 {
 
 /*!
- * \brief Родительский класс наблюдатель
- * имеет в себе виртуальный метод который
- * не имеет реализации
- */
-class Observer {
-public:
-  virtual void Update() = 0;
-};
-
-/*!
- * \brief Класс наблюдаемый
- * \param AddObserver добавляет нового наблюдателя
- * \param NotifyUpdate обновляет данные каждого наблюдателя
- */
-class Observable {
-public:
-  void AddObserver(Observer *new_observer) {
-    observers_.push_back(new_observer);
-  }
-
-  void NotifyUpdate() {
-    for (auto &i : observers_) {
-      i->Update();
-    }
-  }
-
-private:
-  std::vector<Observer *> observers_;
-};
-
-/*!
  * \brief Класс разбивает строку на лексемы и отдает "чистую" строку.
  */
 class Lexeme {
@@ -53,15 +22,13 @@ private:
 
 };
 
-class ParseObj : public Observer {
+class ParseObj  {
 public:
   bool ParseObjFile(std::string &file_path, Data3DModel *data);
   void WriteVertexes(Data3DModel *data);
   bool ParsePolygons(Data3DModel *data);
   void NegativePolygons(int *num, Data3DModel *data);
   void FirstPolygon(bool *is_first, int* lust_polygon, int* num, Data3DModel *data);
-  //
-  void Update() override;
 
 private:
   std::string string_data_from_file_;
@@ -69,10 +36,12 @@ private:
   Lexeme lexeme_;
 };
 
+
+
 /*!
  * \brief
  */
-class Model : public Observable {
+class Model {
 public:
   //Отдать данные в Controller
   Data3DModel &GetData() { return data_; }
