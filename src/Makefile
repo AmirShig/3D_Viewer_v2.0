@@ -22,7 +22,7 @@ install: clean
 	cd ../build && cmake .. && make
 
 rebuild:
-	cd ../build && make && ./3dViewer
+	cd ../build && make 3dViewer && ./3dViewer
 
 run:
 	cd ../build && ./3dViewer
@@ -38,6 +38,18 @@ style:
 	clang-format -i $(SRC_FILES)
 	@rm -rf .clang-format
 
+# Ниже три цели для сборки google test. (1 - стандартная через терминал, 2 - cmake, 3 - cmake)
 tests:
 	$(CXX) $(CXXFLAGS) $(TEST_SRC) Model/model.cc Model/data_3d_model.cc Model/lexem.cc Model/parce_obj.cc $(GTEST_FLAGS) -o test
 	./test
+
+google_test:
+	cd .. && cmake -S . -B build && cmake --build build && cd build && ctest --rerun-failed --output-on-failure
+
+debug_gtest: clean
+	mkdir ../build
+	cd ../build && cmake .. && make unit_test && ./unit_test
+
+run_test:
+	#cd ../build && ctest
+	cd ../build && ./unit_test

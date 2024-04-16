@@ -18,27 +18,37 @@ class ViewerTest : public ::testing::Test {
 };
 
 TEST_F(ViewerTest, CorrectCube) {
-  std::string file_path = "../obj/correct/cube.obj";
-  model_.ProccessingObjFile(file_path);
-
-  //  EXPECT_TRUE(model_.GetModelStatus());
+  std::string file_path =
+      "/Users/raisinib/Projects/in_process/3D_Viewer_v2.0/src/tests/obj/"
+      "correct/cube.obj";
+  EXPECT_TRUE(model_.ProccessingObjFile(file_path));
 }
 TEST_F(ViewerTest, CorrectCar) {
-  std::string file_path = "../obj/correct/car.obj";
-  model_.ProccessingObjFile(file_path);
-
-  //  EXPECT_TRUE(model_.GetModelStatus());
+  std::string file_path = "../src/tests/obj/correct/car.obj";
+  EXPECT_TRUE(model_.ProccessingObjFile(file_path));
 }
+
 TEST_F(ViewerTest, CorrectNegativeCube) {
-  std::string file_path = "../obj/correct/cube_neg.obj";
-  model_.ProccessingObjFile(file_path);
-
-  //  EXPECT_TRUE(model_.GetModelStatus());
+  std::string file_path = "../src/tests/obj/correct/cube_neg.obj";
+  EXPECT_TRUE(model_.ProccessingObjFile(file_path));
 }
 
-// TEST(test, one) { EXPECT_TRUE(true); }
-//
-// TEST(test, two) { EXPECT_FALSE(false); }
-// TEST(test, three) { EXPECT_EQ(2 + 3, 5); }
-//
-// TEST(test, four) { EXPECT_EQ(5 - 2, 3); }
+TEST_F(ViewerTest, IncorrectFileName) {
+  std::string file_path = "../src/tests/obj/correct/abrakadabra.obj";
+  EXPECT_FALSE(model_.ProccessingObjFile(file_path));
+}
+
+TEST_F(ViewerTest, IncorrectFileExtention) {
+  std::string file_path = "../src/tests/obj/correct/cube.org";
+  EXPECT_FALSE(model_.ProccessingObjFile(file_path));
+}
+
+TEST_F(ViewerTest, IncorrectFilePath) {
+  std::string file_path = "../src/tests/obj/cor/cube.org";
+  EXPECT_FALSE(model_.ProccessingObjFile(file_path));
+}
+
+TEST_F(ViewerTest, EmptyFilePath) {
+  std::string file_path = "";
+  EXPECT_FALSE(model_.ProccessingObjFile(file_path));
+}

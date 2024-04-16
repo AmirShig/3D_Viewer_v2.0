@@ -35,7 +35,7 @@ namespace s21 {
 class View : public QWidget {
   Q_OBJECT
 
-public:
+ public:
   View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
   ~View();
 
@@ -53,7 +53,7 @@ public:
   //  void writeSettings();
   //  void readSettings();
 
-private slots:
+ private slots:
   void OpenFilePushButtonClicked();
   void SetBckgColorClicked();
   void SetLinesColorClicked();
@@ -95,7 +95,7 @@ private slots:
   //  void on_createGifPshBtn_clicked();
   //    void createAnimation();
 
-private:
+ private:
   Ui::View *ui;
   s21::Controller *controller_;
   GLWidget *gl_widget_;
@@ -103,8 +103,7 @@ private:
   Strategy *rotation_obj_;
   Strategy *distance_obj_;
 
-
   int rotationPostition_;
 };
-} // namespace s21
-#endif // MAINWINDOW_H
+}  // namespace s21
+#endif  // MAINWINDOW_H

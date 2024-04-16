@@ -7,7 +7,7 @@ namespace s21 {
  * \param coordinate перечисление для типа координат
  */
 class Strategy {
-public:
+ public:
   enum coordinate { Y, Z };
   virtual void Transformations(Data3DModel *data, double point,
                                coordinate coordinate_x_y_z) = 0;
@@ -29,15 +29,16 @@ class DistanceObj : public Strategy {
 };
 
 class AffineTransformations {
-public:
+ public:
   AffineTransformations(Strategy *concrete_strategy)
       : strategy_(concrete_strategy) {}
 
   void SetAffinneTransformations(Strategy *concrete_strategy);
-  void Transformations(Data3DModel *data, double point, Strategy::coordinate coordinate_x_y_z);
+  void Transformations(Data3DModel *data, double point,
+                       Strategy::coordinate coordinate_x_y_z);
 
-private:
+ private:
   Strategy *strategy_;
 };
 
-} // namespace s21
+}  // namespace s21
