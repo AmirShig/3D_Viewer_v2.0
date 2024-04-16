@@ -26,7 +26,7 @@
 #include "QtGifImage/gifimage/qgifimage.h"
 #include "qopenglwindow.h"
 
-// namespace s21 {
+namespace s21 {
 
 class GLWidget : public QOpenGLWidget {
  public:
@@ -76,8 +76,7 @@ class GLWidget : public QOpenGLWidget {
   s21::Controller *controller_;
 };
 
-//
-//} // s21
+}  // namespace s21
 
 #define INC_3DVIEWER_2_SRC_VIEW_GLWIDGET_H_
 

@@ -9,7 +9,7 @@ namespace s21 {
  *\authors Dimitraki Vladimir
  */
 class Data3DModel {
-public:
+ public:
   Data3DModel() {}
   ~Data3DModel() {}
 
@@ -17,10 +17,10 @@ public:
   std::vector<int> &GetStringPolygon() { return string_polygon_; }
   void ClearData();
 
-private:
+ private:
   std::vector<double> coordinates_vertex_;
   std::vector<int> string_polygon_;
 };
-} // namespace s21
+}  // namespace s21
 
-#endif // INC_3DVIEWER_2_DATA3DMODEL_H
+#endif  // INC_3DVIEWER_2_DATA3DMODEL_H

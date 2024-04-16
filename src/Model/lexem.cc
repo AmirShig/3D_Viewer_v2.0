@@ -15,7 +15,6 @@ void Lexeme::CleanLexem(std::string &str) {
 
   for (size_t i = 0; i < str.length(); ++i) {
     if (std::isdigit(str[i]) || str[i + 1] == '/') {
-
       num = std::stoi(&str[i], &id);
       i += id;
 
@@ -39,4 +38,4 @@ void Lexeme::CleanLexem(std::string &str) {
   str = lexeme.str();
 }
 
-} // namespace s21
+}  // namespace s21

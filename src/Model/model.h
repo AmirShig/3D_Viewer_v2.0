@@ -17,7 +17,7 @@ namespace s21 {
  * не имеет реализации
  */
 class Observer {
-public:
+ public:
   virtual void Update() = 0;
 };
 
@@ -27,7 +27,7 @@ public:
  * \param NotifyUpdate обновляет данные каждого наблюдателя
  */
 class Observable {
-public:
+ public:
   void AddObserver(Observer *new_observer) {
     observers_.push_back(new_observer);
   }
@@ -38,7 +38,7 @@ public:
     }
   }
 
-private:
+ private:
   std::vector<Observer *> observers_;
 };
 
@@ -46,22 +46,23 @@ private:
  * \brief Класс разбивает строку на лексемы и отдает "чистую" строку.
  */
 class Lexeme {
-public:
+ public:
   /*! Очищает входную строку от линих символов */
   void CleanLexem(std::string &str);
 };
 
 class ParseObj : public Observer {
-public:
+ public:
   void ParseObjFile(std::string &file_path, Data3DModel *data);
   void WriteVertexes(Data3DModel *data);
   void ParsePolygons(Data3DModel *data);
   void NegativePolygons(int *num, Data3DModel *data);
-  void FirstPolygon(bool *is_first, int* lust_polygon, int* num, Data3DModel *data);
+  void FirstPolygon(bool *is_first, int *lust_polygon, int *num,
+                    Data3DModel *data);
   //
   void Update() override;
 
-private:
+ private:
   std::string string_data_from_file_;
   std::string file_name_;
   Lexeme lexeme_;
@@ -71,16 +72,16 @@ private:
  * \brief
  */
 class Model : public Observable {
-public:
+ public:
   //Отдать данные в Controller
   Data3DModel &GetData() { return data_; }
   bool ProccessingObjFile(std::string &file_path);
 
-private:
+ private:
   Data3DModel data_;
   ParseObj *parse_;
 };
 
-} // namespace s21
+}  // namespace s21
 
-#endif // INC_3DVIEWER_2_MODEL_H
+#endif  // INC_3DVIEWER_2_MODEL_H

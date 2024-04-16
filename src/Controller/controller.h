@@ -1,13 +1,14 @@
 #ifndef INC_3DVIEWER_2_CONTROLLER_H
 #define INC_3DVIEWER_2_CONTROLLER_H
 
-#include "../Model/model.h"
 #include <QString>
+
+#include "../Model/model.h"
 
 namespace s21 {
 
 class Controller {
-public:
+ public:
   Controller() {}
   Controller(Model *m) : model_(m) {}
 
@@ -15,9 +16,9 @@ public:
   std::string ConvertToStdString(QString &q_string);
   Data3DModel &GetData() { return model_->GetData(); }
 
-private:
+ private:
   Model *model_;
 };
-} // namespace s21
+}  // namespace s21
 
-#endif // INC_3DVIEWER_2_CONTROLLER_H
+#endif  // INC_3DVIEWER_2_CONTROLLER_H
