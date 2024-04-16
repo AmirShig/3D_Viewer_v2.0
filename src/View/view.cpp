@@ -19,6 +19,12 @@ View::View(QWidget *parent, s21::Controller *controller)
   layout->addWidget(gl_widget_);
 
   //  connect(timer, SIGNAL(timeout()), this, SLOT(createAnimation()));
+
+  connect(ui->OpenFilePushButtonClicked, SIGNAL(clicked()), this,
+          SLOT(OpenFilePushButtonClicked()));
+  connect(ui->CleanPushButtonClicked, SIGNAL(clicked()), this,
+          SLOT(CleanPushButtonClicked()));
+
 }
 
 View::~View() {
@@ -28,7 +34,7 @@ View::~View() {
   delete ui;
 }
 
-void View::on_openFilePushBtn_clicked() {
+void View::OpenFilePushButtonClicked() {
   file_path_ = QFileDialog::getOpenFileName(this, "Выбрать файл", "/Users",
                                             "All Files (*.obj)");
   ui->vertexCount->setText("");
@@ -44,26 +50,26 @@ void View::on_openFilePushBtn_clicked() {
   }
 }
 
-void View::on_setBckgColor_clicked() {
+void View::SetBckgColorClicked() {
   QColor color = QColorDialog::getColor(Qt::white, this, "Select color:");
   gl_widget_->backroundColor = color;
   gl_widget_->update();
 }
 
-void View::on_setLinesColor_clicked() {
+void View::SetLinesColorClicked() {
   QColor color = QColorDialog::getColor(Qt::white, this, "Select color:");
   gl_widget_->linesColor = color;
   gl_widget_->update();
 }
 
-void View::on_setVertexesColor_clicked() {
+void View::SetVertexesColorClicked() {
   QColor color = QColorDialog::getColor(Qt::white, this, "Select color:");
   gl_widget_->vertexesColor = color;
   gl_widget_->update();
 }
 
 // Clear Screen
-void View::on_cleanPushButton_clicked() {
+void View::CleanPushButtonClicked() {
   file_path_ = "";
   on_SetDefault_button_clicked();
   ui->fileNameLabel->setText("");
@@ -405,4 +411,4 @@ void View::on_SetDefault_button_clicked() {
 //   }
 // }
 
-}  // namespace s21
+} // namespace s21
