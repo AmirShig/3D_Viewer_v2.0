@@ -16,12 +16,22 @@ void AffineTransformations::SetAffinneTransformations(
  * \param data данные объекта
  * \param point входящая координата
  */
-void AffineTransformations::Transformations(s21::Data3DModel *data, double point) {
-  strategy_->Transformations(data, point);
+void AffineTransformations::Transformations(s21::Data3DModel *data,
+                                            double point, Strategy::coordinate coordinate_x_y_z) {
+  strategy_->Transformations(data, point, coordinate_x_y_z);
 }
 
-void MoveObj::Transformations(s21::Data3DModel *data, double point) {
+void MoveObj::Transformations(s21::Data3DModel *data, double point,
+                              coordinate coordinate_x_y_z) {
+  auto i = data->GetCoordinateVertex().begin();
+  if (coordinate_x_y_z == coordinate::Y)
+    ++i;
+  if (coordinate_x_y_z == coordinate::Z)
+    i += 2;
 
+  for (; i != data->GetCoordinateVertex().end(); ++i) {
+    *i += point;
+  }
 }
 
 } // namespace s21
