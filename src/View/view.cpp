@@ -38,16 +38,7 @@ void View::on_openFilePushBtn_clicked() {
     ui->polygonCount->setText(
         QString::number(controller_->GetData().GetStringPolygon().size()));
     QFileInfo check_file(file_path_);
-
     ui->fileNameLabel->setText(check_file.fileName());
-
-    //      for (const auto &i: controller_->GetData().GetStringPolygon()) {
-    //          std::cout << i << ' ';
-    //      }
-    //      std::cout << std::endl;
-    //      for (const auto &i: controller_->GetData().GetCoordinateVertex()) {
-    //          std::cout << i << ' ';
-    //      }
     update();
   }
 }
@@ -72,16 +63,14 @@ void View::on_setVertexesColor_clicked() {
 
 // Clear Screen
 void View::on_cleanPushButton_clicked() {
-  // Очищаем виджет Open GL
-  // Зануляем все настройки
   file_path_ = "";
   on_SetDefault_button_clicked();
 
   ui->fileNameLabel->setText("");
   ui->polygonCount->setText("");
   ui->vertexCount->setText("");
-  //  clearOpenGlWidget();
-  //  free_mem(&all_data);
+  gl_widget_->clearOpenGlWidget();
+  controller_->GetData().ClearData();
 }
 
 void View::on_SetDefault_button_clicked() {

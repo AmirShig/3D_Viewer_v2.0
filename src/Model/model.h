@@ -56,8 +56,6 @@ public:
   void ParseObjFile(std::string &file_path, Data3DModel *data);
   void WriteVertexes(Data3DModel *data);
   void ParsePolygons(Data3DModel *data);
-  void WritePolygons();
-  void CheckValidPolygons();
   void NegativePolygons(int *num, Data3DModel *data);
   void FirstPolygon(bool *is_first, int* lust_polygon, int* num, Data3DModel *data);
   //

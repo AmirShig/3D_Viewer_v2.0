@@ -9,13 +9,6 @@ void GLWidget::SetData(s21::Controller *c) {
       c->GetData().GetCoordinateVertex();
 }
 
-void GLWidget::onOpenFile() {
-  std::cout << "Vertex count: " << controller_->GetData().GetVertexes()
-            << std::endl;
-  std::cout << "Polygon count: " << controller_->GetData().GetPolygons()
-            << std::endl;
-}
-
 void GLWidget::initializeGL() {
   glClearColor(backroundColor.redF(), backroundColor.greenF(),
                backroundColor.blueF(), backroundColor.alphaF());

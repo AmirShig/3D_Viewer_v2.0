@@ -46,7 +46,6 @@ public:
   vertexesType vertexType;
   projectionType projection;
 
-  void onOpenFile();
   void clearOpenGlWidget();
   void setProjection();
   void drawVertexes();
