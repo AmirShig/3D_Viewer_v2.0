@@ -1,5 +1,7 @@
 #include "view.h"
 
+namespace s21 {
+
 GLWidget::GLWidget(QWidget *parent, s21::Controller *c)
     : QOpenGLWidget(parent), controller_(c) {}
 
@@ -123,22 +125,4 @@ void GLWidget::mouseMoveEvent(QMouseEvent *mo) {
   update();
 }
 
-// double *GLWidget::ConvertToDoubleString() {
-//     size_t j = 0;
-//     double *vertexes_string_;
-//     for (auto &i : controller_->GetData().GetCoordinateVertex()) {
-//         vertexes_string_[j++] = i;
-//         std::cout << vertexes_string_[j] << std::endl;
-//     }
-//     return vertexes_string_;
-// }
-//
-// int *GLWidget::ConvertToIntString() {
-//     size_t j = 0;
-//     int *polygons_string_;
-//     for (auto &i : controller_->GetData().GetStringPolygon()) {
-//         polygons_string_[j++] = i;
-//         std::cout << polygons_string_[j] << std::endl;
-//     }
-//     return polygons_string_;
-// }
+}  // namespace s21

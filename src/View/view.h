@@ -3,11 +3,10 @@
 
 #define GL_SILENCE_DEPRECATION
 
-#include "../Controller/controller.h"
-#include "QtGifImage/gifimage/qgifimage.h"
-#include "qopenglwindow.h"
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
+#include <QtOpenGLWidgets/qopenglwidget.h>
+
 #include <QColor>
 #include <QColorDialog>
 #include <QCoreApplication>
@@ -19,52 +18,11 @@
 #include <QSettings>
 #include <QTimer>
 #include <QWidget>
-#include <QtOpenGLWidgets/qopenglwidget.h>
 
-class GLWidget : public QOpenGLWidget {
-public:
-  enum linesType { SOLID, DASHED };
-  enum vertexesType { NONE, CIRCLE, SQUARE };
-  enum projectionType { CENTRAL, PARALLEL };
-
-  GLWidget(QWidget *parent = nullptr, s21::Controller *c = nullptr);
-
-  float xRot, yRot, zRot;
-  QPoint mPos;
-
-  int widgetWidth = width();
-  int widgetHeight = height();
-
-  QColor backroundColor;
-  QColor vertexesColor;
-  QColor linesColor;
-
-  int lineWidth;
-  int vertexSize;
-
-  linesType lineType;
-  vertexesType vertexType;
-  projectionType projection;
-
-  void clearOpenGlWidget();
-  void setProjection();
-  void drawVertexes();
-  void setLinesType();
-  void drawLines();
-
-  void initializeGL() override;
-  void paintGL() override;
-  void resizeGL(int w, int h) override;
-
-  void mousePressEvent(QMouseEvent *) override;
-  void mouseMoveEvent(QMouseEvent *) override;
-
-  //Принимаем контроллер для изменения данных в методе SetData()
-  void SetData(s21::Controller *c);
-
-private:
-  s21::Controller *controller_;
-};
+#include "../Controller/controller.h"
+#include "QtGifImage/gifimage/qgifimage.h"
+#include "glwidget.h"
+#include "qopenglwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -72,10 +30,12 @@ class View;
 }
 QT_END_NAMESPACE
 
+namespace s21 {
+
 class View : public QWidget {
   Q_OBJECT
 
-public:
+ public:
   View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
   ~View();
 
@@ -93,7 +53,7 @@ public:
   //  void writeSettings();
   //  void readSettings();
 
-private slots:
+ private slots:
   void on_openFilePushBtn_clicked();
   void on_setBckgColor_clicked();
   void on_setLinesColor_clicked();
@@ -135,12 +95,12 @@ private slots:
   //  void on_createGifPshBtn_clicked();
   //    void createAnimation();
 
-private:
+ private:
   Ui::View *ui;
   s21::Controller *controller_;
   GLWidget *gl_widget_;
 
   int rotationPostition_;
 };
-
-#endif // MAINWINDOW_H
+}  // namespace s21
+#endif  // MAINWINDOW_H

@@ -4,6 +4,8 @@
 
 #include "ui_mainwindow.h"
 
+namespace s21 {
+
 View::View(QWidget *parent, s21::Controller *controller)
     : ui(new Ui::View), controller_(controller) {
   ui->setupUi(this);
@@ -403,5 +405,4 @@ void View::on_SetDefault_button_clicked() {
 //   }
 // }
 
-// View::View(QWidget *parent)
-//         : QOpenGLWidget(parent){}
+}  // namespace s21

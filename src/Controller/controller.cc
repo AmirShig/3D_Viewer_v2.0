@@ -3,8 +3,8 @@
 namespace s21 {
 
 bool Controller::GetStringFilePath(QString &q_string) {
-    std::string std_string = q_string.toStdString();
-    return model_->ProccessingObjFile(std_string);
+  std::string std_string = q_string.toStdString();
+  return model_->ProccessingObjFile(std_string);
 }
 
-} // namespace s21
+}  // namespace s21
