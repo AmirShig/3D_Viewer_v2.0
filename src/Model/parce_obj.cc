@@ -11,7 +11,7 @@ void ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
   std::ifstream file;
   file.open(file_path);
   if (file.is_open()) {
-    int i;
+    //    int i;
     while (std::getline(file, string_data_from_file_)) {
       WriteVertexes(data);
       ParsePolygons(data);

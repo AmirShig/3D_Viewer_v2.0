@@ -2,6 +2,7 @@
 #define INC_3DVIEWER_2_DATA3DMODEL_H
 
 #include <iostream>
+#include <vector>
 
 namespace s21 {
 /*!

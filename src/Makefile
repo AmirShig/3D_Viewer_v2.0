@@ -1,4 +1,8 @@
-.PHONY : all install clean rebuild run
+.PHONY : all install clean rebuild run style tests
+
+CXX := g++
+CXXFLAGS := -Wall -Wextra -Werror -std=c++17
+GTEST_FLAGS= -lgtest_main -pthread -lgtest
 
 SRC_DIR := .
 EXTENSIONS := cc cpp h
@@ -9,11 +13,8 @@ SRC_FILES := $(call find_files,$(SRC_DIR))
 # Фильтрация только файлов с расширением .cc
 CC_FILES := $(filter-out ./gui/desktop/main.cc ./gui/desktop/SnakeView.cc, $(filter %.cc,$(SRC_FILES)))
 
-#SRC_FILES= view/glwidget.cc \
-#			view/glwidget.h \
-#			view/main.cc \
-#			view/view.h \
-#			view/view.cpp
+TEST_SRC := tests/unit_tests.cc
+
 
 all: install run
 
@@ -29,7 +30,7 @@ run:
 
 clean:
 	clear
-	rm -rf ../build
+	rm -rf ../build test
 	make style
 
 style:
@@ -38,4 +39,6 @@ style:
 	clang-format -i $(SRC_FILES)
 	@rm -rf .clang-format
 
-.PHONY : style
+tests:
+	$(CXX) $(CXXFLAGS) $(TEST_SRC) Model/model.cc Model/data_3d_model.cc Model/lexem.cc Model/parce_obj.cc $(GTEST_FLAGS) -o test
+	./test
