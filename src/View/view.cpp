@@ -27,7 +27,6 @@ View::~View() {
 }
 
 void View::on_openFilePushBtn_clicked() {
-  QWidget::clearFocus();
   file_path_ = QFileDialog::getOpenFileName(this, "Выбрать файл", "/Users",
                                             "All Files (*.obj)");
   ui->vertexCount->setText("");
@@ -65,7 +64,6 @@ void View::on_setVertexesColor_clicked() {
 void View::on_cleanPushButton_clicked() {
   file_path_ = "";
   on_SetDefault_button_clicked();
-
   ui->fileNameLabel->setText("");
   ui->polygonCount->setText("");
   ui->vertexCount->setText("");

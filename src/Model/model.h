@@ -48,14 +48,16 @@ private:
 class Lexeme {
 public:
   /*! Очищает входную строку от линих символов */
-  void CleanLexem(std::string &str);
+  void CheckLexem(std::string &str, Data3DModel *data);
+private:
+
 };
 
 class ParseObj : public Observer {
 public:
-  void ParseObjFile(std::string &file_path, Data3DModel *data);
+  bool ParseObjFile(std::string &file_path, Data3DModel *data);
   void WriteVertexes(Data3DModel *data);
-  void ParsePolygons(Data3DModel *data);
+  bool ParsePolygons(Data3DModel *data);
   void NegativePolygons(int *num, Data3DModel *data);
   void FirstPolygon(bool *is_first, int* lust_polygon, int* num, Data3DModel *data);
   //
