@@ -15,7 +15,6 @@ CC_FILES := $(filter-out ./gui/desktop/main.cc ./gui/desktop/SnakeView.cc, $(fil
 
 TEST_SRC := tests/unit_tests.cc
 
-
 all: install run
 
 install: clean
