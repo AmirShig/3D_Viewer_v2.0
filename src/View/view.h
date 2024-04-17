@@ -5,7 +5,6 @@
 
 #include <QtOpenGLWidgets/qopenglwidget.h>
 
-#include <iostream>
 #include <QColor>
 #include <QColorDialog>
 #include <QCoreApplication>
@@ -16,8 +15,9 @@
 #include <QPainter>
 #include <QSettings>
 #include <QTimer>
-#include <QWidget>
 #include <QVBoxLayout>
+#include <QWidget>
+#include <iostream>
 
 #include "../Controller/controller.h"
 #include "QtGifImage/gifimage/qgifimage.h"
@@ -35,7 +35,7 @@ namespace s21 {
 class View : public QWidget {
   Q_OBJECT
 
-public:
+ public:
   enum class SelectionStrategy { kMove, kRotate, kDistance };
   View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
   ~View();
@@ -54,17 +54,18 @@ public:
   //  void writeSettings();
   //  void readSettings();
 
-private slots:
+ private slots:
   void OpenFilePushButtonClicked();
   void SetBckgColorClicked();
   void SetLinesColorClicked();
   void SetVertexesColorClicked();
 
-  //  void on_linesType_activated(int index);
-  //  void on_lineSizeEditer_valueChanged(int value);
-  //  void on_vertexesType_activated(int index);
-  //  void on_vertexSizeEditer_valueChanged(int value);
-  //  void on_projectionType_activated(int index);
+  void ProjectionTypeChanged(int index);
+  void LinesTypeChanged(int index);
+  void VertexesTypeChanged(int index);
+
+  void VertexSizeValueChanged(int value);
+  void LinesWidthValueChanged(int value);
 
   // Affine_Transformations
   void ButtonPlusMoveZ();
@@ -95,12 +96,12 @@ private slots:
   //  void on_createGifPshBtn_clicked();
   //    void createAnimation();
 
-private:
+ private:
   Ui::View *ui;
   s21::Controller *controller_;
   GLWidget *gl_widget_;
 
   int rotationPostition_;
 };
-} // namespace s21
-#endif // MAINWINDOW_H
+}  // namespace s21
+#endif  // MAINWINDOW_H

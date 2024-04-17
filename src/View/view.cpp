@@ -9,6 +9,7 @@ View::View(QWidget *parent, s21::Controller *controller)
   ui->setupUi(this);
   setWindowTitle("3D Viewer");
   timer = new QTimer(nullptr);
+  controller_->GetData().ClearData();
 
   //Инициализация окна GLWidget
   gl_widget_ = new GLWidget(nullptr, controller);
@@ -22,6 +23,27 @@ View::View(QWidget *parent, s21::Controller *controller)
           SLOT(OpenFilePushButtonClicked()));
   connect(ui->CleanPushButtonClicked, SIGNAL(clicked()), this,
           SLOT(CleanPushButtonClicked()));
+  // color buttons
+  connect(ui->SetBckgColorClicked, SIGNAL(clicked()), this,
+          SLOT(SetBckgColorClicked()));
+  connect(ui->SetLinesColorClicked, SIGNAL(clicked()), this,
+          SLOT(SetLinesColorClicked()));
+  connect(ui->SetVertexesColorClicked, SIGNAL(clicked()), this,
+          SLOT(SetVertexesColorClicked()));
+
+  // Bonus part 1
+  connect(ui->projectionType, SIGNAL(currentIndexChanged(int)), this,
+          SLOT(ProjectionTypeChanged(int)));
+  connect(ui->linesType, SIGNAL(currentIndexChanged(int)), this,
+          SLOT(LinesTypeChanged(int)));
+  connect(ui->VertexesType, SIGNAL(currentIndexChanged(int)), this,
+          SLOT(VertexesTypeChanged(int)));
+
+  connect(ui->lineSizeEditer, SIGNAL(valueChanged(int)), this,
+          SLOT(LinesWidthValueChanged(int)));
+  connect(ui->vertexSizeEditer, SIGNAL(valueChanged(int)), this,
+          SLOT(VertexSizeValueChanged(int)));
+
   // Affine
   connect(ui->ButtonPlusMoveZ, SIGNAL(clicked()), this,
           SLOT(ButtonPlusMoveZ()));
@@ -63,19 +85,20 @@ void View::OpenFilePushButtonClicked() {
 
 void View::SetBckgColorClicked() {
   QColor color = QColorDialog::getColor(Qt::white, this, "Select color:");
-  gl_widget_->backroundColor = color;
+  //  gl_widget_->backround_color_ = color;
+  gl_widget_->SetBackgroundColor(color);
   gl_widget_->update();
 }
 
 void View::SetLinesColorClicked() {
   QColor color = QColorDialog::getColor(Qt::white, this, "Select color:");
-  gl_widget_->linesColor = color;
+  gl_widget_->SetLinesColor(color);
   gl_widget_->update();
 }
 
 void View::SetVertexesColorClicked() {
   QColor color = QColorDialog::getColor(Qt::white, this, "Select color:");
-  gl_widget_->vertexesColor = color;
+  gl_widget_->SetVertexesColor(color);
   gl_widget_->update();
 }
 
@@ -91,23 +114,12 @@ void View::CleanPushButtonClicked() {
 }
 
 void View::on_SetDefault_button_clicked() {
-  gl_widget_->backroundColor = QColor(Qt::black);
-  gl_widget_->linesColor = QColor(Qt::white);
-  gl_widget_->vertexesColor = QColor(Qt::white);
-  gl_widget_->lineWidth = 1;
+  gl_widget_->SetDefault();
   ui->lineSizeEditer->setValue(1);
-  gl_widget_->vertexSize = 1;
   ui->vertexSizeEditer->setValue(0);
   ui->projectionType->setCurrentIndex(0);
-  ui->vertexesType->setCurrentIndex(0);
+  ui->VertexesType->setCurrentIndex(0);
   ui->linesType->setCurrentIndex(0);
-  gl_widget_->projection = GLWidget::CENTRAL;
-  gl_widget_->lineType = GLWidget::SOLID;
-  gl_widget_->vertexType = GLWidget::NONE;
-  gl_widget_->xRot = 0;
-  gl_widget_->yRot = 0;
-  gl_widget_->zRot = 0;
-  gl_widget_->scaleMatrix.setToIdentity();
 
   //   Ставим на изначальное положение объект
   //    if (all_data.polygons_value != NULL &&
@@ -128,44 +140,42 @@ void View::on_SetDefault_button_clicked() {
 }
 
 //// BONUS PART 1
-// void View::on_linesType_activated(int index) {
-//   if (index == 0) {
-//     lineType = View::SOLID;
-//   } else if (index == 1) {
-//     lineType = View::DASHED;
-//   }
-//   update();
-// }
-//
-// void View::on_lineSizeEditer_valueChanged(int value) {
-//   lineWidth = value;
-//   update();
-// }
-//
-// void View::on_vertexesType_activated(int index) {
-//   if (index == 0) {
-//     vertexType = View::NONE;
-//   } else if (index == 1) {
-//     vertexType = View::CIRCLE;
-//   } else if (index == 2) {
-//     vertexType = View::SQUARE;
-//   }
-//   update();
-// }
-//
-// void View::on_vertexSizeEditer_valueChanged(int value) {
-//   vertexSize = value;
-//   update();
-// }
-//
-// void View::on_projectionType_activated(int index) {
-//   if (index == 0) {
-//     projection = View::CENTRAL;
-//   } else if (index == 1) {
-//     projection = View::PARALLEL;
-//   }
-//   update();
-// }
+
+void View::ProjectionTypeChanged(int index) {
+  if (index == 0) {
+    gl_widget_->SetProjectionType(GLWidget::ProjectionType::kCentral);
+  } else if (index == 1) {
+    gl_widget_->SetProjectionType(GLWidget::ProjectionType::kParallel);
+  }
+}
+
+void View::LinesTypeChanged(int index) {
+  if (index == 0) {
+    gl_widget_->SetLinesType(GLWidget::LinesType::kSolid);
+  } else if (index == 1) {
+    gl_widget_->SetLinesType(GLWidget::LinesType::kDashed);
+  }
+}
+
+void View::VertexesTypeChanged(int index) {
+  if (index == 0) {
+    gl_widget_->SetVertexesType(GLWidget::VertexesType::kNone);
+  } else if (index == 1) {
+    gl_widget_->SetVertexesType(GLWidget::VertexesType::kCircle);
+  } else if (index == 2) {
+    gl_widget_->SetVertexesType(GLWidget::VertexesType::kSquare);
+  }
+}
+
+void View::VertexSizeValueChanged(int value) {
+  gl_widget_->SetVertexesSize(value);
+  update();
+}
+
+void View::LinesWidthValueChanged(int value) {
+  gl_widget_->SetLinesWidth(value);
+  update();
+}
 
 // void View::writeSettings() {
 //   QString pathSettings = QCoreApplication::applicationDirPath();
@@ -174,14 +184,14 @@ void View::on_SetDefault_button_clicked() {
 //
 //   settings.setValue("file_path_", file_path_);
 //   settings.setValue("backgroundColor", ui.);
-//   settings.setValue("linesColor", linesColor);
-//   settings.setValue("vertexesColor", vertexesColor);
+//   settings.setValue("lines_color_", lines_color_);
+//   settings.setValue("vertexes_color_", vertexes_color_);
 //   settings.setValue("lineSizeEditer", ui->lineSizeEditer->value());
 //   settings.setValue("lineWidth", lineWidth);
 //   settings.setValue("vertexSize", vertexSize);
 //   settings.setValue("vertexSizeEditer", ui->vertexSizeEditer->value());
 //
-//   settings.setValue("vertexesType", ui->vertexesType->currentIndex());
+//   settings.setValue("VertexesType", ui->VertexesType->currentIndex());
 //   settings.setValue("linesType", ui->linesType->currentIndex());
 //   settings.setValue("projectionType", ui->projectionType->currentIndex());
 //
@@ -189,8 +199,8 @@ void View::on_SetDefault_button_clicked() {
 //   settings.setValue("vertexType", vertexType);
 //   settings.setValue("projection", projection);
 //
-//   settings.setValue("xRot", xRot);
-//   settings.setValue("yRot", yRot);
+//   settings.setValue("x_rot_", x_rot_);
+//   settings.setValue("y_rot_", y_rot_);
 //   settings.setValue("zRot", zRot);
 //
 //   settings.endGroup();
@@ -224,13 +234,14 @@ void View::on_SetDefault_button_clicked() {
 //     }
 //   }
 //
-//   backroundColor =
+//   backround_color_ =
 //       QColor(settings.value("backgroundColor",
 //       QColor(Qt::black)).toString());
-//   linesColor =
-//       QColor(settings.value("linesColor", QColor(Qt::white)).toString());
-//   vertexesColor =
-//       QColor(settings.value("vertexesColor", QColor(Qt::white)).toString());
+//   lines_color_ =
+//       QColor(settings.value("lines_color_", QColor(Qt::white)).toString());
+//   vertexes_color_ =
+//       QColor(settings.value("vertexes_color_",
+//       QColor(Qt::white)).toString());
 //
 //   ui->lineSizeEditer->setValue(settings.value("lineSizeEditer", 1).toInt());
 //   lineWidth = settings.value("lineWidth", 1).toInt();
@@ -239,20 +250,20 @@ void View::on_SetDefault_button_clicked() {
 //   1).toInt()); vertexSize = settings.value("vertexSize",
 //   1).toInt();
 //
-//   ui->vertexesType->setCurrentIndex(settings.value("vertexesType",
+//   ui->VertexesType->setCurrentIndex(settings.value("VertexesType",
 //   0).toInt()); ui->linesType->setCurrentIndex(settings.value("linesType",
 //   0).toInt()); ui->projectionType->setCurrentIndex(
 //       settings.value("projectionType", 0).toInt());
 //
 //   lineType = static_cast<View::linesType>(
 //       settings.value("lineType", View::SOLID).toInt());
-//   vertexType = static_cast<View::vertexesType>(
+//   vertexType = static_cast<View::VertexesType>(
 //       settings.value("vertexType", View::NONE).toInt());
 //   projection = static_cast<View::projectionType>(
 //       settings.value("projection", View::CENTRAL).toInt());
 //
-//   xRot = settings.value("xRot", 0).toDouble();
-//   yRot = settings.value("yRot", 0).toDouble();
+//   x_rot_ = settings.value("x_rot_", 0).toDouble();
+//   y_rot_ = settings.value("y_rot_", 0).toDouble();
 //   zRot = settings.value("zRot", 0).toDouble();
 //
 //   settings.endGroup();
@@ -283,28 +294,28 @@ void View::ButtonPlusMoveY() {
   gl_widget_->update();
 }
 
- void View::ButtonMinusMoveY() {
+void View::ButtonMinusMoveY() {
   double value = ui->doubleSpinBox_Y_MOVE->value();
-     controller_->Affine(Strategy::SelectionStrategy::kMove,
-                         Strategy::TypeCoordinate::kY, &controller_->GetData(),
-                         -value);
-     gl_widget_->update();
+  controller_->Affine(Strategy::SelectionStrategy::kMove,
+                      Strategy::TypeCoordinate::kY, &controller_->GetData(),
+                      -value);
+  gl_widget_->update();
 }
 
- void View::ButtonPlusMoveX() {
+void View::ButtonPlusMoveX() {
   double value = ui->doubleSpinBox_X_MOVE->value();
-     controller_->Affine(Strategy::SelectionStrategy::kMove,
-                         Strategy::TypeCoordinate::kX, &controller_->GetData(),
-                         value);
-     gl_widget_->update();
+  controller_->Affine(Strategy::SelectionStrategy::kMove,
+                      Strategy::TypeCoordinate::kX, &controller_->GetData(),
+                      value);
+  gl_widget_->update();
 }
 
- void View::ButtonMinusMoveX() {
+void View::ButtonMinusMoveX() {
   double value = ui->doubleSpinBox_X_MOVE->value();
-     controller_->Affine(Strategy::SelectionStrategy::kMove,
-                         Strategy::TypeCoordinate::kX, &controller_->GetData(),
-                         -value);
-     gl_widget_->update();
+  controller_->Affine(Strategy::SelectionStrategy::kMove,
+                      Strategy::TypeCoordinate::kX, &controller_->GetData(),
+                      -value);
+  gl_widget_->update();
 }
 
 ///*                SIZE                */
@@ -418,4 +429,4 @@ void View::ButtonPlusMoveY() {
 //   }
 // }
 
-} // namespace s21
+}  // namespace s21

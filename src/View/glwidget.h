@@ -20,6 +20,7 @@
 #include <QColorDialog>
 #include <QCoreApplication>
 #include <QFileDialog>
+#include <QMatrix4x4>
 #include <QMessageBox>
 #include <QMouseEvent>
 #include <QOpenGLFunctions>
@@ -27,7 +28,6 @@
 #include <QSettings>
 #include <QTimer>
 #include <QWidget>
-#include <QMatrix4x4>
 
 #include "../Controller/controller.h"
 #include "QtGifImage/gifimage/qgifimage.h"
@@ -37,45 +37,83 @@ namespace s21 {
 
 class GLWidget : public QOpenGLWidget {
  public:
-  enum linesType { SOLID, DASHED };
-  enum vertexesType { NONE, CIRCLE, SQUARE };
-  enum projectionType { CENTRAL, PARALLEL };
+  enum class LinesType { kSolid, kDashed };
+  enum class VertexesType { kNone, kCircle, kSquare };
+  enum class ProjectionType { kCentral, kParallel };
 
-  GLWidget(QWidget *parent = nullptr, s21::Controller *c = nullptr);
+  explicit GLWidget(QWidget *parent = nullptr, s21::Controller *c = nullptr);
 
   void SetController(s21::Controller *c) { controller_ = c; }
+  void SetDefault();
 
-  float xRot, yRot, zRot;
-  QPoint mPos;
-  QMatrix4x4 scaleMatrix;
+  void SetLinesType(LinesType type) {
+    lines_type_ = type;
+    update();
+  }
 
-  int widgetWidth = width();
-  int widgetHeight = height();
+  void SetVertexesType(VertexesType type) {
+    vertexes_type_ = type;
+    update();
+  }
 
-  QColor backroundColor;
-  QColor vertexesColor;
-  QColor linesColor;
+  void SetProjectionType(ProjectionType type) {
+    projection_type_ = type;
+    update();
+  }
 
-  int lineWidth;
-  int vertexSize;
+  void SetBackgroundColor(QColor color) {
+    backround_color_ = color;
+    update();
+  }
+  void SetVertexesColor(QColor color) {
+    vertexes_color_ = color;
+    update();
+  }
+  void SetLinesColor(QColor color) {
+    lines_color_ = color;
+    update();
+  }
+  void SetVertexesSize(int size) {
+    vertex_size_ = size;
+    update();
+  }
+  void SetLinesWidth(int width) {
+    line_width_ = width;
+    update();
+  }
 
-  linesType lineType;
-  vertexesType vertexType;
-  projectionType projection;
+  QColor GetBackgroundColor() { return backround_color_; }
+  QColor GetVertexesColor() { return vertexes_color_; }
+  QColor GetLinesColor() { return lines_color_; }
+  [[nodiscard]] int GetLineWidth() const { return line_width_; }
+  [[nodiscard]] int GetVertexSize() const { return vertex_size_; }
+  LinesType GetLinesType() { return lines_type_; }
+  VertexesType GetVertexesType() { return vertexes_type_; }
+  ProjectionType GetProjectionType() { return projection_type_; }
 
-//  void onOpenFile();
   void clearOpenGlWidget();
-
-
-
-
-
 
   //Принимаем контроллер для изменения данных в методе SetData()
   void SetData(s21::Controller *c);
 
  private:
   s21::Controller *controller_;
+  float x_rot_, y_rot_, zRot;
+  QPoint m_pos_;
+  QMatrix4x4 scale_matrix_;
+
+  int widgetWidth = width();
+  int widgetHeight = height();
+
+  QColor backround_color_;
+  QColor vertexes_color_;
+  QColor lines_color_;
+  int line_width_;
+  int vertex_size_;
+
+  LinesType lines_type_;
+  VertexesType vertexes_type_;
+  ProjectionType projection_type_;
 
   void setProjection();
   void drawVertexes();

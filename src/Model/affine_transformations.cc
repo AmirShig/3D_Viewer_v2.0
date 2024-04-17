@@ -35,10 +35,11 @@ void MoveObj::Transformations(s21::Data3DModel *data, double point,
   }
 }
 
-//void RotateObj::Transformations(s21::Data3DModel *data, double point, s21::Strategy::TypeCoordinate coordinate_x_y_z) {
+// void RotateObj::Transformations(s21::Data3DModel *data, double point,
+// s21::Strategy::TypeCoordinate coordinate_x_y_z) {
 //
-//} {
+// } {
 //
-//};
+// };
 
 }  // namespace s21

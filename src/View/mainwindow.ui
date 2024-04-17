@@ -717,7 +717,7 @@ QPushButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="vertexesType">
+        <widget class="QComboBox" name="VertexesType">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
            <horstretch>0</horstretch>
