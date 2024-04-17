@@ -1,0 +1,22 @@
+        -:    0:Source:/home/shigapov_amir/Projects/in_progress/3DViewer/src/Model/lexem.cc
+        -:    0:Graph:/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/CMakeFiles/unit_test.dir/src/Model/lexem.cc.gcno
+        -:    0:Data:/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/CMakeFiles/unit_test.dir/src/Model/lexem.cc.gcda
+        -:    0:Runs:7
+        -:    1:#include "model.h"
+        -:    2:
+        -:    3:namespace s21 {
+        -:    4:
+function _ZN3s216Lexeme10CheckLexemERNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPNS_11Data3DModelE called 3530 returned 100% blocks executed 100%
+     3530:    5:void Lexeme::CheckLexem(std::string __attribute__((unused)) & str,
+        -:    6:                        Data3DModel *data) {
+     3530:    7:  if (data->GetCoordinateVertex().empty()) data->ClearData();
+     3530:    7-block  0
+call    0 returned 3530
+call    1 returned 3530
+branch  2 taken 7 (fallthrough)
+branch  3 taken 3523
+        7:    7-block  1
+call    4 returned 7
+     3530:    8:}
+        -:    9:
+        -:   10:}  // namespace s21

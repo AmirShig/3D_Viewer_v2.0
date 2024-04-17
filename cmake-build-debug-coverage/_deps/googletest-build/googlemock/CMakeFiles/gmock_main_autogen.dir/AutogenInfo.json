@@ -1,0 +1,87 @@
+{
+	"BUILD_DIR" : "/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-build/googlemock/gmock_main_autogen",
+	"CMAKE_BINARY_DIR" : "/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-build/googlemock",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-src/googlemock",
+	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
+	"CMAKE_LIST_FILES" : 
+	[
+		"/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-src/googlemock/CMakeLists.txt",
+		"/usr/share/cmake-3.29/Modules/FindThreads.cmake",
+		"/usr/share/cmake-3.29/Modules/CheckLibraryExists.cmake",
+		"/usr/share/cmake-3.29/Modules/CheckIncludeFile.cmake",
+		"/usr/share/cmake-3.29/Modules/CheckCSourceCompiles.cmake",
+		"/usr/share/cmake-3.29/Modules/FindPackageHandleStandardArgs.cmake",
+		"/usr/share/cmake-3.29/Modules/FindPackageMessage.cmake",
+		"/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-src/googlemock/cmake/gmock.pc.in",
+		"/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-src/googlemock/cmake/gmock_main.pc.in"
+	],
+	"CMAKE_SOURCE_DIR" : "/home/shigapov_amir/Projects/in_progress/3DViewer",
+	"CROSS_CONFIG" : false,
+	"DEP_FILE" : "/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-build/googlemock/gmock_main_autogen/deps",
+	"DEP_FILE_RULE_NAME" : "gmock_main_autogen/timestamp",
+	"HEADERS" : [],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-build/googlemock/gmock_main_autogen/include",
+	"MOC_COMPILATION_FILE" : "/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-build/googlemock/gmock_main_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : [],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-build/googlemock",
+		"/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-src/googlemock",
+		"/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-src/googlemock/include",
+		"/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-src/googletest/include",
+		"/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-src/googletest",
+		"/usr/include/c++/11",
+		"/usr/include/x86_64-linux-gnu/c++/11",
+		"/usr/include/c++/11/backward",
+		"/usr/lib/gcc/x86_64-linux-gnu/11/include",
+		"/usr/local/include",
+		"/usr/include/x86_64-linux-gnu",
+		"/usr/include"
+	],
+	"MOC_MACRO_NAMES" : [ "Q_OBJECT", "Q_GADGET", "Q_NAMESPACE", "Q_NAMESPACE_EXPORT" ],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : false,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"/usr/bin/c++",
+		"-std=c++17",
+		"-dM",
+		"-E",
+		"-c",
+		"/usr/share/cmake-3.29/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-build/googlemock/gmock_main_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : [],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 8,
+	"PARSE_CACHE_FILE" : "/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-build/googlemock/CMakeFiles/gmock_main_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "/usr/lib/qt6/libexec/moc",
+	"QT_UIC_EXECUTABLE" : "/usr/lib/qt6/libexec/uic",
+	"QT_VERSION_MAJOR" : 6,
+	"QT_VERSION_MINOR" : 2,
+	"SETTINGS_FILE" : "/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-build/googlemock/CMakeFiles/gmock_main_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[
+			"/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-src/googlemock/src/gmock_main.cc",
+			"MU",
+			null
+		]
+	],
+	"UIC_OPTIONS" : [],
+	"UIC_SEARCH_PATHS" : [],
+	"UIC_SKIP" : [],
+	"UIC_UI_FILES" : [],
+	"USE_BETTER_GRAPH" : false,
+	"VERBOSITY" : 0
+}

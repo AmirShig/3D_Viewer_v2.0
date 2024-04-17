@@ -25,6 +25,10 @@ class Lexeme {
 
 class ParseObj {
  public:
+  //  ParseObj() {
+  //    string_data_from_file_.reserve(1024);
+  //    file_name_.reserve(1024);
+  //  }
   bool ParseObjFile(std::string &file_path, Data3DModel *data);
   void WriteVertexes(Data3DModel *data);
   bool ParsePolygons(Data3DModel *data);
@@ -50,7 +54,7 @@ class Model {
 
  private:
   Data3DModel data_;
-  ParseObj *parse_;
+  ParseObj parse_;
   AffineTransformations *affine_;
 };
 

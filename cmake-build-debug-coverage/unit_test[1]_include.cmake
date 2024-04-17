@@ -1,0 +1,5 @@
+if(EXISTS "/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/unit_test[1]_tests.cmake")
+  include("/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/unit_test[1]_tests.cmake")
+else()
+  add_test(unit_test_NOT_BUILT unit_test_NOT_BUILT)
+endif()

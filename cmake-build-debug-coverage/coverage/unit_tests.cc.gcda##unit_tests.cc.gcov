@@ -1,0 +1,602 @@
+        -:    0:Source:/home/shigapov_amir/Projects/in_progress/3DViewer/src/tests/unit_tests.cc
+        -:    0:Graph:/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/CMakeFiles/unit_test.dir/src/tests/unit_tests.cc.gcno
+        -:    0:Data:/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/CMakeFiles/unit_test.dir/src/tests/unit_tests.cc.gcda
+        -:    0:Runs:7
+        -:    1://
+        -:    2:// Created by Raisin Ibben on 16/04/2024.
+        -:    3://
+        -:    4:
+        -:    5:#include <gtest/gtest.h>
+        -:    6:
+        -:    7:#include "../Model/model.h"
+        -:    8://#include "../Controller/controller.h"
+        -:    9:
+        -:   10:class ViewerTest : public ::testing::Test {
+        -:   11: protected:
+        -:   12:  s21::Model model_;
+        -:   13:  //  s21::Controller controller_;
+        -:   14:
+        -:   15:  //  void SetUp() override {
+        -:   16:  //    controller_ = s21::Controller(&model_);
+        -:   17:  //  }
+        -:   18:};
+        -:   19:
+        4:   20:TEST_F(ViewerTest, CorrectCube) {
+        1:   21:  std::string file_path = "../src/tests/obj/correct/cube.obj";
+       1*:   22:  EXPECT_TRUE(model_.ProccessingObjFile(file_path));
+        1:   23:}
+------------------
+_ZN27ViewerTest_CorrectCube_TestC2Ev:
+function _ZN27ViewerTest_CorrectCube_TestC2Ev called 1 returned 100% blocks executed 100%
+        1:   20:TEST_F(ViewerTest, CorrectCube) {
+        1:   20-block  0
+call    0 returned 1
+------------------
+_ZN27ViewerTest_CorrectCube_TestD0Ev:
+function _ZN27ViewerTest_CorrectCube_TestD0Ev called 1 returned 100% blocks executed 100%
+        1:   20:TEST_F(ViewerTest, CorrectCube) {
+        1:   20-block  0
+call    0 returned 1
+call    1 returned 1
+------------------
+_ZN27ViewerTest_CorrectCube_TestD2Ev:
+function _ZN27ViewerTest_CorrectCube_TestD2Ev called 1 returned 100% blocks executed 100%
+        1:   20:TEST_F(ViewerTest, CorrectCube) {
+        1:   20-block  0
+call    0 returned 1
+------------------
+_ZN27ViewerTest_CorrectCube_Test8TestBodyEv:
+function _ZN27ViewerTest_CorrectCube_Test8TestBodyEv called 1 returned 100% blocks executed 30%
+        1:   20:TEST_F(ViewerTest, CorrectCube) {
+        1:   21:  std::string file_path = "../src/tests/obj/correct/cube.obj";
+        1:   21-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+    $$$$$:   21-block  1
+       1*:   22:  EXPECT_TRUE(model_.ProccessingObjFile(file_path));
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   22-block  0
+call    3 returned 1
+call    4 returned 1
+branch  5 taken 0 (fallthrough)
+branch  6 taken 1
+    %%%%%:   22-block  1
+call    7 never executed
+branch  8 never executed
+branch  9 never executed
+    %%%%%:   22-block  2
+call   10 never executed
+branch 11 never executed
+branch 12 never executed
+    %%%%%:   22-block  3
+call   13 never executed
+call   14 never executed
+branch 15 never executed
+branch 16 never executed
+    %%%%%:   22-block  4
+call   17 never executed
+branch 18 never executed
+branch 19 never executed
+    %%%%%:   22-block  5
+call   20 never executed
+call   21 never executed
+call   22 never executed
+        1:   22-block  6
+call   23 returned 1
+    $$$$$:   22-block  7
+call   24 never executed
+    $$$$$:   22-block  8
+    $$$$$:   22-block  9
+call   25 never executed
+    $$$$$:   22-block 10
+    $$$$$:   22-block 11
+call   26 never executed
+    $$$$$:   22-block 12
+    $$$$$:   22-block 13
+call   27 never executed
+        1:   23:}
+call    0 returned 1
+    $$$$$:   23-block  0
+call    1 never executed
+------------------
+        4:   24:TEST_F(ViewerTest, CorrectCar) {
+        1:   25:  std::string file_path = "../src/tests/obj/correct/car.obj";
+       1*:   26:  EXPECT_TRUE(model_.ProccessingObjFile(file_path));
+        1:   27:}
+------------------
+_ZN26ViewerTest_CorrectCar_TestC2Ev:
+function _ZN26ViewerTest_CorrectCar_TestC2Ev called 1 returned 100% blocks executed 100%
+        1:   24:TEST_F(ViewerTest, CorrectCar) {
+        1:   24-block  0
+call    0 returned 1
+------------------
+_ZN26ViewerTest_CorrectCar_TestD0Ev:
+function _ZN26ViewerTest_CorrectCar_TestD0Ev called 1 returned 100% blocks executed 100%
+        1:   24:TEST_F(ViewerTest, CorrectCar) {
+        1:   24-block  0
+call    0 returned 1
+call    1 returned 1
+------------------
+_ZN26ViewerTest_CorrectCar_TestD2Ev:
+function _ZN26ViewerTest_CorrectCar_TestD2Ev called 1 returned 100% blocks executed 100%
+        1:   24:TEST_F(ViewerTest, CorrectCar) {
+        1:   24-block  0
+call    0 returned 1
+------------------
+_ZN26ViewerTest_CorrectCar_Test8TestBodyEv:
+function _ZN26ViewerTest_CorrectCar_Test8TestBodyEv called 1 returned 100% blocks executed 30%
+        1:   24:TEST_F(ViewerTest, CorrectCar) {
+        1:   25:  std::string file_path = "../src/tests/obj/correct/car.obj";
+        1:   25-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+    $$$$$:   25-block  1
+       1*:   26:  EXPECT_TRUE(model_.ProccessingObjFile(file_path));
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   26-block  0
+call    3 returned 1
+call    4 returned 1
+branch  5 taken 0 (fallthrough)
+branch  6 taken 1
+    %%%%%:   26-block  1
+call    7 never executed
+branch  8 never executed
+branch  9 never executed
+    %%%%%:   26-block  2
+call   10 never executed
+branch 11 never executed
+branch 12 never executed
+    %%%%%:   26-block  3
+call   13 never executed
+call   14 never executed
+branch 15 never executed
+branch 16 never executed
+    %%%%%:   26-block  4
+call   17 never executed
+branch 18 never executed
+branch 19 never executed
+    %%%%%:   26-block  5
+call   20 never executed
+call   21 never executed
+call   22 never executed
+        1:   26-block  6
+call   23 returned 1
+    $$$$$:   26-block  7
+call   24 never executed
+    $$$$$:   26-block  8
+    $$$$$:   26-block  9
+call   25 never executed
+    $$$$$:   26-block 10
+    $$$$$:   26-block 11
+call   26 never executed
+    $$$$$:   26-block 12
+    $$$$$:   26-block 13
+call   27 never executed
+        1:   27:}
+call    0 returned 1
+    $$$$$:   27-block  0
+call    1 never executed
+------------------
+        -:   28:
+        4:   29:TEST_F(ViewerTest, CorrectNegativeCube) {
+        1:   30:  std::string file_path = "../src/tests/obj/correct/cube_neg.obj";
+       1*:   31:  EXPECT_TRUE(model_.ProccessingObjFile(file_path));
+        1:   32:}
+------------------
+_ZN35ViewerTest_CorrectNegativeCube_TestC2Ev:
+function _ZN35ViewerTest_CorrectNegativeCube_TestC2Ev called 1 returned 100% blocks executed 100%
+        1:   29:TEST_F(ViewerTest, CorrectNegativeCube) {
+        1:   29-block  0
+call    0 returned 1
+------------------
+_ZN35ViewerTest_CorrectNegativeCube_TestD0Ev:
+function _ZN35ViewerTest_CorrectNegativeCube_TestD0Ev called 1 returned 100% blocks executed 100%
+        1:   29:TEST_F(ViewerTest, CorrectNegativeCube) {
+        1:   29-block  0
+call    0 returned 1
+call    1 returned 1
+------------------
+_ZN35ViewerTest_CorrectNegativeCube_TestD2Ev:
+function _ZN35ViewerTest_CorrectNegativeCube_TestD2Ev called 1 returned 100% blocks executed 100%
+        1:   29:TEST_F(ViewerTest, CorrectNegativeCube) {
+        1:   29-block  0
+call    0 returned 1
+------------------
+_ZN35ViewerTest_CorrectNegativeCube_Test8TestBodyEv:
+function _ZN35ViewerTest_CorrectNegativeCube_Test8TestBodyEv called 1 returned 100% blocks executed 30%
+        1:   29:TEST_F(ViewerTest, CorrectNegativeCube) {
+        1:   30:  std::string file_path = "../src/tests/obj/correct/cube_neg.obj";
+        1:   30-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+    $$$$$:   30-block  1
+       1*:   31:  EXPECT_TRUE(model_.ProccessingObjFile(file_path));
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   31-block  0
+call    3 returned 1
+call    4 returned 1
+branch  5 taken 0 (fallthrough)
+branch  6 taken 1
+    %%%%%:   31-block  1
+call    7 never executed
+branch  8 never executed
+branch  9 never executed
+    %%%%%:   31-block  2
+call   10 never executed
+branch 11 never executed
+branch 12 never executed
+    %%%%%:   31-block  3
+call   13 never executed
+call   14 never executed
+branch 15 never executed
+branch 16 never executed
+    %%%%%:   31-block  4
+call   17 never executed
+branch 18 never executed
+branch 19 never executed
+    %%%%%:   31-block  5
+call   20 never executed
+call   21 never executed
+call   22 never executed
+        1:   31-block  6
+call   23 returned 1
+    $$$$$:   31-block  7
+call   24 never executed
+    $$$$$:   31-block  8
+    $$$$$:   31-block  9
+call   25 never executed
+    $$$$$:   31-block 10
+    $$$$$:   31-block 11
+call   26 never executed
+    $$$$$:   31-block 12
+    $$$$$:   31-block 13
+call   27 never executed
+        1:   32:}
+call    0 returned 1
+    $$$$$:   32-block  0
+call    1 never executed
+------------------
+        -:   33:
+        4:   34:TEST_F(ViewerTest, IncorrectFileName) {
+        1:   35:  std::string file_path = "../src/tests/obj/correct/abrakadabra.obj";
+       1*:   36:  EXPECT_FALSE(model_.ProccessingObjFile(file_path));
+        1:   37:}
+------------------
+_ZN33ViewerTest_IncorrectFileName_TestC2Ev:
+function _ZN33ViewerTest_IncorrectFileName_TestC2Ev called 1 returned 100% blocks executed 100%
+        1:   34:TEST_F(ViewerTest, IncorrectFileName) {
+        1:   34-block  0
+call    0 returned 1
+------------------
+_ZN33ViewerTest_IncorrectFileName_TestD0Ev:
+function _ZN33ViewerTest_IncorrectFileName_TestD0Ev called 1 returned 100% blocks executed 100%
+        1:   34:TEST_F(ViewerTest, IncorrectFileName) {
+        1:   34-block  0
+call    0 returned 1
+call    1 returned 1
+------------------
+_ZN33ViewerTest_IncorrectFileName_TestD2Ev:
+function _ZN33ViewerTest_IncorrectFileName_TestD2Ev called 1 returned 100% blocks executed 100%
+        1:   34:TEST_F(ViewerTest, IncorrectFileName) {
+        1:   34-block  0
+call    0 returned 1
+------------------
+_ZN33ViewerTest_IncorrectFileName_Test8TestBodyEv:
+function _ZN33ViewerTest_IncorrectFileName_Test8TestBodyEv called 1 returned 100% blocks executed 30%
+        1:   34:TEST_F(ViewerTest, IncorrectFileName) {
+        1:   35:  std::string file_path = "../src/tests/obj/correct/abrakadabra.obj";
+        1:   35-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+    $$$$$:   35-block  1
+       1*:   36:  EXPECT_FALSE(model_.ProccessingObjFile(file_path));
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   36-block  0
+call    3 returned 1
+call    4 returned 1
+branch  5 taken 0 (fallthrough)
+branch  6 taken 1
+    %%%%%:   36-block  1
+call    7 never executed
+branch  8 never executed
+branch  9 never executed
+    %%%%%:   36-block  2
+call   10 never executed
+branch 11 never executed
+branch 12 never executed
+    %%%%%:   36-block  3
+call   13 never executed
+call   14 never executed
+branch 15 never executed
+branch 16 never executed
+    %%%%%:   36-block  4
+call   17 never executed
+branch 18 never executed
+branch 19 never executed
+    %%%%%:   36-block  5
+call   20 never executed
+call   21 never executed
+call   22 never executed
+        1:   36-block  6
+call   23 returned 1
+    $$$$$:   36-block  7
+call   24 never executed
+    $$$$$:   36-block  8
+    $$$$$:   36-block  9
+call   25 never executed
+    $$$$$:   36-block 10
+    $$$$$:   36-block 11
+call   26 never executed
+    $$$$$:   36-block 12
+    $$$$$:   36-block 13
+call   27 never executed
+        1:   37:}
+call    0 returned 1
+    $$$$$:   37-block  0
+call    1 never executed
+------------------
+        -:   38:
+        4:   39:TEST_F(ViewerTest, IncorrectFileExtention) {
+        1:   40:  std::string file_path = "../src/tests/obj/correct/cube.org";
+       1*:   41:  EXPECT_FALSE(model_.ProccessingObjFile(file_path));
+        1:   42:}
+------------------
+_ZN38ViewerTest_IncorrectFileExtention_TestC2Ev:
+function _ZN38ViewerTest_IncorrectFileExtention_TestC2Ev called 1 returned 100% blocks executed 100%
+        1:   39:TEST_F(ViewerTest, IncorrectFileExtention) {
+        1:   39-block  0
+call    0 returned 1
+------------------
+_ZN38ViewerTest_IncorrectFileExtention_TestD0Ev:
+function _ZN38ViewerTest_IncorrectFileExtention_TestD0Ev called 1 returned 100% blocks executed 100%
+        1:   39:TEST_F(ViewerTest, IncorrectFileExtention) {
+        1:   39-block  0
+call    0 returned 1
+call    1 returned 1
+------------------
+_ZN38ViewerTest_IncorrectFileExtention_TestD2Ev:
+function _ZN38ViewerTest_IncorrectFileExtention_TestD2Ev called 1 returned 100% blocks executed 100%
+        1:   39:TEST_F(ViewerTest, IncorrectFileExtention) {
+        1:   39-block  0
+call    0 returned 1
+------------------
+_ZN38ViewerTest_IncorrectFileExtention_Test8TestBodyEv:
+function _ZN38ViewerTest_IncorrectFileExtention_Test8TestBodyEv called 1 returned 100% blocks executed 30%
+        1:   39:TEST_F(ViewerTest, IncorrectFileExtention) {
+        1:   40:  std::string file_path = "../src/tests/obj/correct/cube.org";
+        1:   40-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+    $$$$$:   40-block  1
+       1*:   41:  EXPECT_FALSE(model_.ProccessingObjFile(file_path));
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   41-block  0
+call    3 returned 1
+call    4 returned 1
+branch  5 taken 0 (fallthrough)
+branch  6 taken 1
+    %%%%%:   41-block  1
+call    7 never executed
+branch  8 never executed
+branch  9 never executed
+    %%%%%:   41-block  2
+call   10 never executed
+branch 11 never executed
+branch 12 never executed
+    %%%%%:   41-block  3
+call   13 never executed
+call   14 never executed
+branch 15 never executed
+branch 16 never executed
+    %%%%%:   41-block  4
+call   17 never executed
+branch 18 never executed
+branch 19 never executed
+    %%%%%:   41-block  5
+call   20 never executed
+call   21 never executed
+call   22 never executed
+        1:   41-block  6
+call   23 returned 1
+    $$$$$:   41-block  7
+call   24 never executed
+    $$$$$:   41-block  8
+    $$$$$:   41-block  9
+call   25 never executed
+    $$$$$:   41-block 10
+    $$$$$:   41-block 11
+call   26 never executed
+    $$$$$:   41-block 12
+    $$$$$:   41-block 13
+call   27 never executed
+        1:   42:}
+call    0 returned 1
+    $$$$$:   42-block  0
+call    1 never executed
+------------------
+        -:   43:
+        4:   44:TEST_F(ViewerTest, IncorrectFilePath) {
+        1:   45:  std::string file_path = "../src/tests/obj/cor/cube.org";
+       1*:   46:  EXPECT_FALSE(model_.ProccessingObjFile(file_path));
+        1:   47:}
+------------------
+_ZN33ViewerTest_IncorrectFilePath_TestC2Ev:
+function _ZN33ViewerTest_IncorrectFilePath_TestC2Ev called 1 returned 100% blocks executed 100%
+        1:   44:TEST_F(ViewerTest, IncorrectFilePath) {
+        1:   44-block  0
+call    0 returned 1
+------------------
+_ZN33ViewerTest_IncorrectFilePath_TestD0Ev:
+function _ZN33ViewerTest_IncorrectFilePath_TestD0Ev called 1 returned 100% blocks executed 100%
+        1:   44:TEST_F(ViewerTest, IncorrectFilePath) {
+        1:   44-block  0
+call    0 returned 1
+call    1 returned 1
+------------------
+_ZN33ViewerTest_IncorrectFilePath_TestD2Ev:
+function _ZN33ViewerTest_IncorrectFilePath_TestD2Ev called 1 returned 100% blocks executed 100%
+        1:   44:TEST_F(ViewerTest, IncorrectFilePath) {
+        1:   44-block  0
+call    0 returned 1
+------------------
+_ZN33ViewerTest_IncorrectFilePath_Test8TestBodyEv:
+function _ZN33ViewerTest_IncorrectFilePath_Test8TestBodyEv called 1 returned 100% blocks executed 30%
+        1:   44:TEST_F(ViewerTest, IncorrectFilePath) {
+        1:   45:  std::string file_path = "../src/tests/obj/cor/cube.org";
+        1:   45-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+    $$$$$:   45-block  1
+       1*:   46:  EXPECT_FALSE(model_.ProccessingObjFile(file_path));
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   46-block  0
+call    3 returned 1
+call    4 returned 1
+branch  5 taken 0 (fallthrough)
+branch  6 taken 1
+    %%%%%:   46-block  1
+call    7 never executed
+branch  8 never executed
+branch  9 never executed
+    %%%%%:   46-block  2
+call   10 never executed
+branch 11 never executed
+branch 12 never executed
+    %%%%%:   46-block  3
+call   13 never executed
+call   14 never executed
+branch 15 never executed
+branch 16 never executed
+    %%%%%:   46-block  4
+call   17 never executed
+branch 18 never executed
+branch 19 never executed
+    %%%%%:   46-block  5
+call   20 never executed
+call   21 never executed
+call   22 never executed
+        1:   46-block  6
+call   23 returned 1
+    $$$$$:   46-block  7
+call   24 never executed
+    $$$$$:   46-block  8
+    $$$$$:   46-block  9
+call   25 never executed
+    $$$$$:   46-block 10
+    $$$$$:   46-block 11
+call   26 never executed
+    $$$$$:   46-block 12
+    $$$$$:   46-block 13
+call   27 never executed
+        1:   47:}
+call    0 returned 1
+    $$$$$:   47-block  0
+call    1 never executed
+------------------
+        -:   48:
+        4:   49:TEST_F(ViewerTest, EmptyFilePath) {
+        1:   50:  std::string file_path = "";
+       1*:   51:  EXPECT_FALSE(model_.ProccessingObjFile(file_path));
+        1:   52:}
+------------------
+_ZN29ViewerTest_EmptyFilePath_TestC2Ev:
+function _ZN29ViewerTest_EmptyFilePath_TestC2Ev called 1 returned 100% blocks executed 100%
+        1:   49:TEST_F(ViewerTest, EmptyFilePath) {
+        1:   49-block  0
+call    0 returned 1
+------------------
+_ZN29ViewerTest_EmptyFilePath_TestD0Ev:
+function _ZN29ViewerTest_EmptyFilePath_TestD0Ev called 1 returned 100% blocks executed 100%
+        1:   49:TEST_F(ViewerTest, EmptyFilePath) {
+        1:   49-block  0
+call    0 returned 1
+call    1 returned 1
+------------------
+_ZN29ViewerTest_EmptyFilePath_TestD2Ev:
+function _ZN29ViewerTest_EmptyFilePath_TestD2Ev called 1 returned 100% blocks executed 100%
+        1:   49:TEST_F(ViewerTest, EmptyFilePath) {
+        1:   49-block  0
+call    0 returned 1
+------------------
+_ZN29ViewerTest_EmptyFilePath_Test8TestBodyEv:
+function _ZN29ViewerTest_EmptyFilePath_Test8TestBodyEv called 1 returned 100% blocks executed 30%
+        1:   49:TEST_F(ViewerTest, EmptyFilePath) {
+        1:   50:  std::string file_path = "";
+        1:   50-block  0
+call    0 returned 1
+call    1 returned 1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 0 (throw)
+    $$$$$:   50-block  1
+       1*:   51:  EXPECT_FALSE(model_.ProccessingObjFile(file_path));
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   51-block  0
+call    3 returned 1
+call    4 returned 1
+branch  5 taken 0 (fallthrough)
+branch  6 taken 1
+    %%%%%:   51-block  1
+call    7 never executed
+branch  8 never executed
+branch  9 never executed
+    %%%%%:   51-block  2
+call   10 never executed
+branch 11 never executed
+branch 12 never executed
+    %%%%%:   51-block  3
+call   13 never executed
+call   14 never executed
+branch 15 never executed
+branch 16 never executed
+    %%%%%:   51-block  4
+call   17 never executed
+branch 18 never executed
+branch 19 never executed
+    %%%%%:   51-block  5
+call   20 never executed
+call   21 never executed
+call   22 never executed
+        1:   51-block  6
+call   23 returned 1
+    $$$$$:   51-block  7
+call   24 never executed
+    $$$$$:   51-block  8
+    $$$$$:   51-block  9
+call   25 never executed
+    $$$$$:   51-block 10
+    $$$$$:   51-block 11
+call   26 never executed
+    $$$$$:   51-block 12
+    $$$$$:   51-block 13
+call   27 never executed
+        1:   52:}
+call    0 returned 1
+    $$$$$:   52-block  0
+call    1 never executed
+------------------

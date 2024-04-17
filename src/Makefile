@@ -44,12 +44,12 @@ tests:
 	./test
 
 google_test:
-	cd .. && cmake -S . -B build && cmake --build build && cd build && ctest --rerun-failed --output-on-failure
+	cd .. && cmake -S . -B build && cmake --build build && cd build && ctest
 
 debug_gtest: clean
 	mkdir ../build
 	cd ../build && cmake .. && make unit_test && ./unit_test
 
 run_test:
-	#cd ../build && ctest
-	cd ../build && ./unit_test
+	cd ../build && ctest
+	#cd ../build && ./unit_test

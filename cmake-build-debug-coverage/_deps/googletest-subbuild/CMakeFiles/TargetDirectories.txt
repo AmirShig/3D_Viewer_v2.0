@@ -1,0 +1,3 @@
+/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-subbuild/CMakeFiles/googletest-populate.dir
+/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-subbuild/CMakeFiles/edit_cache.dir
+/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/_deps/googletest-subbuild/CMakeFiles/rebuild_cache.dir

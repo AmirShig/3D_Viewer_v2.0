@@ -1,0 +1,35 @@
+        -:    0:Source:/home/shigapov_amir/Projects/in_progress/3DViewer/src/Model/data_3d_model.h
+        -:    0:Graph:/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/CMakeFiles/unit_test.dir/src/Model/parce_obj.cc.gcno
+        -:    0:Data:/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/CMakeFiles/unit_test.dir/src/Model/parce_obj.cc.gcda
+        -:    0:Runs:7
+        -:    1:#ifndef INC_3DVIEWER_2_DATA3DMODEL_H
+        -:    2:#define INC_3DVIEWER_2_DATA3DMODEL_H
+        -:    3:
+        -:    4:#include <iostream>
+        -:    5:#include <vector>
+        -:    6:
+        -:    7:namespace s21 {
+        -:    8:/*!
+        -:    9: * \brief Class for storage data
+        -:   10: *\authors Dimitraki Vladimir
+        -:   11: */
+        -:   12:class Data3DModel {
+        -:   13: public:
+        -:   14:  Data3DModel() {}
+        -:   15:  ~Data3DModel() {}
+        -:   16:
+function _ZN3s2111Data3DModel19GetCoordinateVertexEv called 0 returned 0% blocks executed 0%
+    #####:   17:  std::vector<double> &GetCoordinateVertex() { return coordinates_vertex_; }
+    %%%%%:   17-block  0
+function _ZN3s2111Data3DModel16GetStringPolygonEv called 10724 returned 100% blocks executed 100%
+    10724:   18:  std::vector<int> &GetStringPolygon() { return string_polygon_; }
+    10724:   18-block  0
+        -:   19:  void ClearData();
+        -:   20:
+        -:   21: private:
+        -:   22:  std::vector<double> coordinates_vertex_;
+        -:   23:  std::vector<int> string_polygon_;
+        -:   24:};
+        -:   25:}  // namespace s21
+        -:   26:
+        -:   27:#endif  // INC_3DVIEWER_2_DATA3DMODEL_H

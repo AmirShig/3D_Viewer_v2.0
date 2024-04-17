@@ -18,9 +18,7 @@ class ViewerTest : public ::testing::Test {
 };
 
 TEST_F(ViewerTest, CorrectCube) {
-  std::string file_path =
-      "/Users/raisinib/Projects/in_process/3D_Viewer_v2.0/src/tests/obj/"
-      "correct/cube.obj";
+  std::string file_path = "../src/tests/obj/correct/cube.obj";
   EXPECT_TRUE(model_.ProccessingObjFile(file_path));
 }
 TEST_F(ViewerTest, CorrectCar) {

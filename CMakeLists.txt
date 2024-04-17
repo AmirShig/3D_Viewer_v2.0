@@ -17,6 +17,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
 find_package(Qt6 COMPONENTS Widgets OpenGL REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Widgets OpenGLWidgets)
 
+
 add_executable(3dViewer
         src/Model/data_3d_model.h
         src/Model/data_3d_model.cc
@@ -36,7 +37,7 @@ add_executable(3dViewer
         src/Model/affine_transformations.h
 )
 
-target_link_libraries(3dViewer PRIVATE Qt6::Widgets Qt6::OpenGLWidgets)
+target_link_libraries(3dViewer PRIVATE Qt6::Widgets Qt6::OpenGLWidgets OpenGL::GLU)
 
 include(FetchContent)
 FetchContent_Declare(

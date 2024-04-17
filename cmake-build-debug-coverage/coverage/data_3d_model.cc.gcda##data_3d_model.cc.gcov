@@ -1,0 +1,16 @@
+        -:    0:Source:/home/shigapov_amir/Projects/in_progress/3DViewer/src/Model/data_3d_model.cc
+        -:    0:Graph:/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/CMakeFiles/unit_test.dir/src/Model/data_3d_model.cc.gcno
+        -:    0:Data:/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/CMakeFiles/unit_test.dir/src/Model/data_3d_model.cc.gcda
+        -:    0:Runs:7
+        -:    1:#include "data_3d_model.h"
+        -:    2:
+        -:    3:namespace s21 {
+function _ZN3s2111Data3DModel9ClearDataEv called 7 returned 100% blocks executed 100%
+        7:    4:void Data3DModel::ClearData() {
+        7:    5:  coordinates_vertex_.clear();
+        7:    5-block  0
+call    0 returned 7
+        7:    6:  string_polygon_.clear();
+call    0 returned 7
+        7:    7:}
+        -:    8:}  // namespace s21

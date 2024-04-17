@@ -1,0 +1,320 @@
+        -:    0:Source:/home/shigapov_amir/Projects/in_progress/3DViewer/src/Model/parce_obj.cc
+        -:    0:Graph:/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/CMakeFiles/unit_test.dir/src/Model/parce_obj.cc.gcno
+        -:    0:Data:/home/shigapov_amir/Projects/in_progress/3DViewer/cmake-build-debug-coverage/CMakeFiles/unit_test.dir/src/Model/parce_obj.cc.gcda
+        -:    0:Runs:7
+        -:    1:#include "model.h"
+        -:    2:
+        -:    3:/*!
+        -:    4: * \brief read file
+        -:    5: *\authors Dimitraki Vladimir
+        -:    6: * opens the file and reads the coordinates of vertices and polygons
+        -:    7: * from it to write the data to the Data3DModel structure.
+        -:    8: */
+        -:    9:namespace s21 {
+function _ZN3s218ParseObj12ParseObjFileERNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPNS_11Data3DModelE called 7 returned 100% blocks executed 89%
+        7:   10:bool ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
+        7:   11:  bool state_file = true;
+        7:   12:  std::ifstream file;
+        7:   12-block  0
+call    0 returned 7
+branch  1 taken 7 (fallthrough)
+branch  2 taken 0 (throw)
+        7:   13:  file.open(file_path);
+        7:   13-block  0
+call    0 returned 7
+branch  1 taken 7 (fallthrough)
+branch  2 taken 0 (throw)
+        7:   14:  if (file.is_open()) {
+        7:   14-block  0
+call    0 returned 7
+branch  1 taken 7 (fallthrough)
+branch  2 taken 0 (throw)
+        7:   14-block  1
+branch  3 taken 3 (fallthrough)
+branch  4 taken 4
+     3533:   15:    while (std::getline(file, string_data_from_file_)) {
+        3:   15-block  0
+     3533:   15-block  1
+call    0 returned 3533
+branch  1 taken 3533 (fallthrough)
+branch  2 taken 0 (throw)
+     3533:   15-block  2
+call    3 returned 3533
+branch  4 taken 3533 (fallthrough)
+branch  5 taken 0 (throw)
+     3533:   15-block  3
+branch  6 taken 3530
+branch  7 taken 3 (fallthrough)
+     3530:   16:      WriteVertexes(data);
+     3530:   16-block  0
+call    0 returned 3530
+branch  1 taken 3530 (fallthrough)
+branch  2 taken 0 (throw)
+     3530:   17:      ParsePolygons(data);
+     3530:   17-block  0
+call    0 returned 3530
+branch  1 taken 3530 (fallthrough)
+branch  2 taken 0 (throw)
+     3530:   18:      lexeme_.CheckLexem(string_data_from_file_, data);
+     3530:   18-block  0
+call    0 returned 3530
+branch  1 taken 3530 (fallthrough)
+branch  2 taken 0 (throw)
+        -:   19:    }
+        3:   20:    file.close();
+        3:   20-block  0
+call    0 returned 3
+branch  1 taken 3 (fallthrough)
+branch  2 taken 0 (throw)
+        -:   21:  } else {
+        4:   22:    state_file = false;
+        4:   22-block  0
+        -:   23:  }
+        7:   24:  return state_file;
+        7:   24-block  0
+        7:   25:}
+        7:   25-block  0
+call    0 returned 7
+    $$$$$:   25-block  1
+call    1 never executed
+        -:   26:
+function _ZN3s218ParseObj13WriteVertexesEPNS_11Data3DModelE called 3530 returned 100% blocks executed 85%
+     3530:   27:void ParseObj::WriteVertexes(Data3DModel *data) {
+     3530:   28:  std::string string_data;
+     3530:   28-block  0
+call    0 returned 3530
+     3530:   29:  double x = 0, y = 0, z = 0;
+     3530:   30:  char s = ' ';
+        -:   31:
+     3530:   32:  std::stringstream convert_string(string_data_from_file_);
+call    0 returned 3530
+call    1 returned 3530
+branch  2 taken 3530 (fallthrough)
+branch  3 taken 0 (throw)
+     3530:   33:  if (convert_string >> s >> x >> y >> z && s == 'v') {
+     3530:   33-block  0
+call    0 returned 3530
+branch  1 taken 3530 (fallthrough)
+branch  2 taken 0 (throw)
+     3530:   33-block  1
+call    3 returned 3530
+branch  4 taken 3530 (fallthrough)
+branch  5 taken 0 (throw)
+     3530:   33-block  2
+call    6 returned 3530
+branch  7 taken 3530 (fallthrough)
+branch  8 taken 0 (throw)
+     3530:   33-block  3
+call    9 returned 3530
+branch 10 taken 3530 (fallthrough)
+branch 11 taken 0 (throw)
+     3530:   33-block  4
+call   12 returned 3530
+branch 13 taken 3530 (fallthrough)
+branch 14 taken 0 (throw)
+     3530:   33-block  5
+branch 15 taken 1523 (fallthrough)
+branch 16 taken 2007
+     1523:   33-block  6
+branch 17 taken 1517 (fallthrough)
+branch 18 taken 6
+     1517:   33-block  7
+     2013:   33-block  8
+     3530:   33-block  9
+branch 19 taken 1517 (fallthrough)
+branch 20 taken 2013
+     1517:   34:    data->GetCoordinateVertex().push_back(x);
+     1517:   34-block  0
+call    0 returned 1517
+call    1 returned 1517
+branch  2 taken 1517 (fallthrough)
+branch  3 taken 0 (throw)
+     1517:   35:    data->GetCoordinateVertex().push_back(y);
+     1517:   35-block  0
+call    0 returned 1517
+call    1 returned 1517
+branch  2 taken 1517 (fallthrough)
+branch  3 taken 0 (throw)
+     1517:   36:    data->GetCoordinateVertex().push_back(z);
+     1517:   36-block  0
+call    0 returned 1517
+call    1 returned 1517
+branch  2 taken 1517 (fallthrough)
+branch  3 taken 0 (throw)
+        -:   37:  }
+     3530:   38:}
+     3530:   38-block  0
+call    0 returned 3530
+call    1 returned 3530
+    $$$$$:   38-block  1
+call    2 never executed
+    $$$$$:   38-block  2
+call    3 never executed
+        -:   39:
+function _ZN3s218ParseObj13ParsePolygonsEPNS_11Data3DModelE called 3530 returned 100% blocks executed 87%
+     3530:   40:bool ParseObj::ParsePolygons(Data3DModel *data) {
+        -:   41:  /*! \param is_first проверяет первый ли полигон мы парсим*/
+     3530:   42:  bool is_first = true;
+        -:   43:
+        -:   44:  /*! \param lust_polygon сохраняем первый полигон для записи в конец*/
+     3530:   45:  int first_polygon = 0;
+        -:   46:
+     3530:   47:  int num = 0;
+     3530:   48:  size_t id = 0, i = 0;
+        -:   49:
+     4894:   50:  if (string_data_from_file_[i] == 'f' &&
+     3530:   50-block  0
+call    0 returned 3530
+branch  1 taken 3530 (fallthrough)
+branch  2 taken 0 (throw)
+     3530:   50-block  1
+branch  3 taken 1364 (fallthrough)
+branch  4 taken 2166
+     1364:   50-block  2
+     2166:   50-block  3
+     3530:   50-block  4
+branch  5 taken 1364 (fallthrough)
+branch  6 taken 2166
+     1364:   51:      string_data_from_file_[i + 1] == ' ') {
+     1364:   51-block  0
+call    0 returned 1364
+branch  1 taken 1364 (fallthrough)
+branch  2 taken 0 (throw)
+     1364:   51-block  1
+branch  3 taken 1364 (fallthrough)
+branch  4 taken 0
+     9454:   52:    for (; i < string_data_from_file_.length(); ++i) {
+     1364:   52-block  0
+     8090:   52-block  1
+     9454:   52-block  2
+call    0 returned 9454
+branch  1 taken 8090
+branch  2 taken 1364 (fallthrough)
+    10842:   53:      if (std::isdigit(string_data_from_file_[i]) ||
+     8090:   53-block  0
+call    0 returned 8090
+branch  1 taken 8090 (fallthrough)
+branch  2 taken 0 (throw)
+     8090:   53-block  1
+branch  3 taken 2752 (fallthrough)
+branch  4 taken 5338
+     5362:   53-block  2
+     2728:   53-block  3
+     8090:   53-block  4
+branch  5 taken 5362 (fallthrough)
+branch  6 taken 2728
+     2752:   54:          string_data_from_file_[i] == '-') {
+     2752:   54-block  0
+call    0 returned 2752
+branch  1 taken 2752 (fallthrough)
+branch  2 taken 0 (throw)
+     2752:   54-block  1
+branch  3 taken 24 (fallthrough)
+branch  4 taken 2728
+     5362:   55:        num = std::stoi(&string_data_from_file_[i], &id);
+     5362:   55-block  0
+call    0 returned 5362
+call    1 returned 5362
+branch  2 taken 5362 (fallthrough)
+branch  3 taken 0 (throw)
+     5362:   55-block  1
+call    4 returned 5362
+branch  5 taken 5362 (fallthrough)
+branch  6 taken 0 (throw)
+     5362:   55-block  2
+call    7 returned 5362
+branch  8 taken 5362 (fallthrough)
+branch  9 taken 0 (throw)
+     5362:   55-block  3
+call   10 returned 5362
+call   11 returned 5362
+    $$$$$:   55-block  4
+call   12 never executed
+    $$$$$:   55-block  5
+    $$$$$:   55-block  6
+call   13 never executed
+    $$$$$:   55-block  7
+     5362:   56:        i += id;
+     5362:   57:        NegativePolygons(&num, data);
+call    0 returned 5362
+branch  1 taken 5362 (fallthrough)
+branch  2 taken 0 (throw)
+     5362:   58:        FirstPolygon(&is_first, &first_polygon, &num, data);
+     5362:   58-block  0
+call    0 returned 5362
+branch  1 taken 5362 (fallthrough)
+branch  2 taken 0 (throw)
+    31292:   59:        for (; i < string_data_from_file_.length() &&
+     5362:   59-block  0
+    20568:   59-block  1
+    25930:   59-block  2
+call    0 returned 25930
+branch  1 taken 24566 (fallthrough)
+branch  2 taken 1364
+    20568:   59-block  3
+     5362:   59-block  4
+    25930:   59-block  5
+branch  3 taken 20568
+branch  4 taken 5362 (fallthrough)
+    24566:   60:               string_data_from_file_[i] != ' ';
+    24566:   60-block  0
+call    0 returned 24566
+branch  1 taken 24566 (fallthrough)
+branch  2 taken 0 (throw)
+    24566:   60-block  1
+branch  3 taken 20568 (fallthrough)
+branch  4 taken 3998
+        -:   61:             ++i) {
+        -:   62:        }
+        -:   63:      }
+        -:   64:    }
+     1364:   65:    data->GetStringPolygon().push_back(first_polygon);
+     1364:   65-block  0
+call    0 returned 1364
+call    1 returned 1364
+branch  2 taken 1364 (fallthrough)
+branch  3 taken 0 (throw)
+        -:   66:  }
+     3530:   67:  return true;
+     3530:   67-block  0
+     3530:   67-block  1
+        -:   68:}
+        -:   69:
+function _ZN3s218ParseObj16NegativePolygonsEPiPNS_11Data3DModelE called 5362 returned 100% blocks executed 100%
+     5362:   70:void ParseObj::NegativePolygons(int *num, Data3DModel *data) {
+     5362:   71:  if (*num > 0)
+     5362:   71-block  0
+branch  0 taken 5338 (fallthrough)
+branch  1 taken 24
+     5338:   72:    *num -= 1;
+     5338:   72-block  0
+        -:   73:  else
+       24:   74:    *num = (data->GetCoordinateVertex().size() / 3) - abs(*num);
+       24:   74-block  0
+call    0 returned 24
+call    1 returned 24
+     5362:   75:  data->GetStringPolygon().push_back(*num);
+     5362:   75-block  0
+call    0 returned 5362
+call    1 returned 5362
+     5362:   76:}
+        -:   77:
+function _ZN3s218ParseObj12FirstPolygonEPbPiS2_PNS_11Data3DModelE called 5362 returned 100% blocks executed 100%
+     5362:   78:void ParseObj::FirstPolygon(bool *is_first, int *first_polygon, int *num,
+        -:   79:                            Data3DModel *data) {
+     5362:   80:  if (*is_first) {
+     5362:   80-block  0
+branch  0 taken 1364 (fallthrough)
+branch  1 taken 3998
+     1364:   81:    *first_polygon = *num;
+     1364:   82:    *is_first = false;
+     1364:   82-block  0
+        -:   83:  } else {
+     3998:   84:    data->GetStringPolygon().push_back(*num);
+     3998:   84-block  0
+call    0 returned 3998
+call    1 returned 3998
+        -:   85:  }
+     5362:   86:}
+        -:   87:
+        -:   88:}  // namespace s21
