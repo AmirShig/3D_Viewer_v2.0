@@ -57,6 +57,7 @@ run_test:
 	cd ../build && ctest
 	cd ../build && ./unit_test
 
+
 # Usage example: make push MSG="write here what was added"
 push: clean
 	git add ..
