@@ -12,11 +12,6 @@ View::View(QWidget *parent, s21::Controller *controller)
   setWindowTitle("3D Viewer");
   timer = new QTimer(0);
 
-  //Инициализация стратегий (вращение, движение, удаление/приближение)
-  move_obj_ = new MoveObj();
-  rotation_obj_ = new RotateObj();
-  distance_obj_ = new DistanceObj();
-
   //Инициализация окна GLWidget
   gl_widget_ = new GLWidget(nullptr, controller);
   gl_widget_->setFixedSize(900, 720);
@@ -258,8 +253,9 @@ void View::on_SetDefault_button_clicked() {
 
 void View::on_B_PLUS_MOVE_Z_clicked() {
   double value = ui->doubleSpinBox_MOVE_Z->value();
-  controller_->Affine().SetAffinneTransformations(move_obj_);
-  controller_->Affine().Transformations(&controller_->GetData(), value, Strategy::coordinate::Z);
+  controller_->Affine(Strategy::SelectionStrategy::kMove,
+                      Strategy::TypeCoordinate::kZ, &controller_->GetData(),
+                      value);
   update();
 }
 
@@ -408,4 +404,4 @@ void View::on_B_MINUS_MOVE_X_clicked() {
 //   }
 // }
 
-} // namespace s21
+}  // namespace s21

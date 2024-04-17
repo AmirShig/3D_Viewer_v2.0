@@ -3,8 +3,7 @@
 namespace s21 {
 
 void Lexeme::CheckLexem(std::string &str, Data3DModel *data) {
-    if (!data->GetCoordinateVertex().size())
-        data->ClearData();
+  if (!data->GetCoordinateVertex().size()) data->ClearData();
 }
 
-} // namespace s21
+}  // namespace s21

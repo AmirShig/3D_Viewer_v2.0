@@ -7,37 +7,43 @@ namespace s21 {
  * \param coordinate перечисление для типа координат
  */
 class Strategy {
-public:
-  enum coordinate { Y, Z };
+ public:
+  enum class TypeCoordinate { kY, kZ };
+  enum class SelectionStrategy { kMove, kRotate, kDistance };
+
   virtual void Transformations(Data3DModel *data, double point,
-                               coordinate coordinate_x_y_z) = 0;
+                               TypeCoordinate coordinate_x_y_z) = 0;
 };
 
 class MoveObj : public Strategy {
   void Transformations(s21::Data3DModel *data, double point,
-                       coordinate coordinate_x_y_z) override;
+                       TypeCoordinate coordinate_x_y_z) override;
 };
 
-class RotateObj : public Strategy {
-  void Transformations(s21::Data3DModel *data, double point,
-                       coordinate coordinate_x_y_z) override;
-};
-
-class DistanceObj : public Strategy {
-  void Transformations(s21::Data3DModel *data, double point,
-                       coordinate coordinate_x_y_z) override;
-};
+// class RotateObj : public Strategy {
+//   void Transformations(s21::Data3DModel *data, double point,
+//                        TypeCoordinate coordinate_x_y_z) override;
+// };
+//
+// class DistanceObj : public Strategy {
+//   void Transformations(s21::Data3DModel *data, double point,
+//                        TypeCoordinate coordinate_x_y_z) override;
+// };
 
 class AffineTransformations {
-public:
+ public:
+  AffineTransformations() {}
   AffineTransformations(Strategy *concrete_strategy)
       : strategy_(concrete_strategy) {}
 
-  void SetAffinneTransformations(Strategy *concrete_strategy);
-  void Transformations(Data3DModel *data, double point, Strategy::coordinate coordinate_x_y_z);
+  void SetStrategy(Strategy *concrete_strategy);
+  void Transformations(Data3DModel *data, double point,
+                       Strategy::TypeCoordinate coordinate_x_y_z);
 
-private:
+  Strategy &GetStrategy() { return *strategy_; }
+
+ private:
   Strategy *strategy_;
 };
 
-} // namespace s21
+}  // namespace s21

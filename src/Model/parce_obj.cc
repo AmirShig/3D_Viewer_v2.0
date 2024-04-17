@@ -15,7 +15,7 @@ bool ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
     while (std::getline(file, string_data_from_file_)) {
       WriteVertexes(data);
       ParsePolygons(data);
-      lexeme_.CheckLexem(string_data_from_file_ ,data);
+      lexeme_.CheckLexem(string_data_from_file_, data);
     }
     file.close();
   } else
@@ -83,4 +83,4 @@ void ParseObj::FirstPolygon(bool *is_first, int *first_polygon, int *num,
   }
 }
 
-} // namespace s21
+}  // namespace s21

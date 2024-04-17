@@ -6,8 +6,7 @@ namespace s21 {
  * \brief Устанавливает конкретную стратегию
  * \param concrete_strategy указатель на конктретную стратегию
  */
-void AffineTransformations::SetAffinneTransformations(
-    Strategy *concrete_strategy) {
+void AffineTransformations::SetStrategy(Strategy *concrete_strategy) {
   strategy_ = concrete_strategy;
 }
 
@@ -16,22 +15,21 @@ void AffineTransformations::SetAffinneTransformations(
  * \param data данные объекта
  * \param point входящая координата
  */
-void AffineTransformations::Transformations(s21::Data3DModel *data,
-                                            double point, Strategy::coordinate coordinate_x_y_z) {
+void AffineTransformations::Transformations(
+    s21::Data3DModel *data, double point,
+    Strategy::TypeCoordinate coordinate_x_y_z) {
   strategy_->Transformations(data, point, coordinate_x_y_z);
 }
 
 void MoveObj::Transformations(s21::Data3DModel *data, double point,
-                              coordinate coordinate_x_y_z) {
+                              TypeCoordinate coordinate_x_y_z) {
   auto i = data->GetCoordinateVertex().begin();
-  if (coordinate_x_y_z == coordinate::Y)
-    ++i;
-  if (coordinate_x_y_z == coordinate::Z)
-    i += 2;
+  if (coordinate_x_y_z == TypeCoordinate::kY) ++i;
+  if (coordinate_x_y_z == TypeCoordinate::kZ) i += 2;
 
-  for (; i != data->GetCoordinateVertex().end(); ++i) {
+  for (; i != data->GetCoordinateVertex().end(); i += 3) {
     *i += point;
   }
 }
 
-} // namespace s21
+}  // namespace s21
