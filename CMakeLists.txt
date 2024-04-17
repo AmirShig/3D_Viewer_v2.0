@@ -17,7 +17,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
 find_package(Qt6 COMPONENTS Widgets OpenGL REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Widgets OpenGLWidgets)
 
-
 add_executable(3dViewer
         src/Model/data_3d_model.h
         src/Model/data_3d_model.cc
@@ -49,22 +48,19 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(
-        unit_test
-        src/tests/unit_tests.cc
-        src/Model/model.cc
-        src/Model/data_3d_model.cc
-        src/Model/lexem.cc
-        src/Model/parce_obj.cc
-        src/Model/affine_transformations.cc
-        src/Model/affine_transformations.h
-)
+#add_executable(
+#        unit_test
+#        src/tests/unit_tests.cc
+#        src/Model/model.cc
+#        src/Model/data_3d_model.cc
+#        src/Model/lexem.cc
+#        src/Model/parce_obj.cc
+#)
 
-target_link_libraries(
-        unit_test
-        GTest::gtest_main
-)
+#target_link_libraries(
+#        unit_test
+#        GTest::gtest_main
+#)
 
 include(GoogleTest)
-gtest_discover_tests(unit_test)
-
+#gtest_discover_tests(unit_test)

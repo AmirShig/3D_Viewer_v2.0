@@ -25,8 +25,8 @@ void MoveObj::Transformations(s21::Data3DModel *data, double point,
                               TypeCoordinate coordinate_x_y_z) {
   size_t j = 0;
   auto i = data->GetCoordinateVertex().begin();
-  if (coordinate_x_y_z == TypeCoordinate::kY) ++i;
-  if (coordinate_x_y_z == TypeCoordinate::kZ) i += 2;
+  if (coordinate_x_y_z == TypeCoordinate::kY) ++i, ++j;
+  if (coordinate_x_y_z == TypeCoordinate::kZ) i += 2, j += 2;
 
   for (; i != data->GetCoordinateVertex().end() &&
          j < data->GetCoordinateVertex().size();
@@ -34,5 +34,11 @@ void MoveObj::Transformations(s21::Data3DModel *data, double point,
     *i += point;
   }
 }
+
+//void RotateObj::Transformations(s21::Data3DModel *data, double point, s21::Strategy::TypeCoordinate coordinate_x_y_z) {
+//
+//} {
+//
+//};
 
 }  // namespace s21
