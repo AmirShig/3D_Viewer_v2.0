@@ -70,11 +70,11 @@ class View : public QWidget {
   // Affine_Transformations
   // Move
   void on_B_PLUS_MOVE_Z_clicked();
-  void on_B_MINUS_MOVE_Z_clicked();
-  void on_B_PLUS_MOVE_Y_clicked();
-  void on_B_MINUS_MOVE_Y_clicked();
-  void on_B_PLUS_MOVE_X_clicked();
-  void on_B_MINUS_MOVE_X_clicked();
+//  void on_B_MINUS_MOVE_Z_clicked();
+//  void on_B_PLUS_MOVE_Y_clicked();
+//  void on_B_MINUS_MOVE_Y_clicked();
+//  void on_B_PLUS_MOVE_X_clicked();
+//  void on_B_MINUS_MOVE_X_clicked();
   //
   //  // Size
   //  void on_pushButton_4_clicked();

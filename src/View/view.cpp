@@ -7,7 +7,7 @@
 namespace s21 {
 
 View::View(QWidget *parent, s21::Controller *controller)
-    : ui(new Ui::View), controller_(controller) {
+    : QWidget(parent) ,ui(new Ui::View), controller_(controller) {
   ui->setupUi(this);
   setWindowTitle("3D Viewer");
   timer = new QTimer(0);
@@ -259,39 +259,39 @@ void View::on_B_PLUS_MOVE_Z_clicked() {
   gl_widget_->update();
 }
 
-void View::on_B_MINUS_MOVE_Z_clicked() {
-  double value = ui->doubleSpinBox_MOVE_Z->value();
-  update();
-}
-
-// Y Axis
-
-void View::on_B_PLUS_MOVE_Y_clicked() {
-  double value = ui->doubleSpinBox_Y_MOVE->value();
-
-  update();
-}
-
-void View::on_B_MINUS_MOVE_Y_clicked() {
-  double value = ui->doubleSpinBox_Y_MOVE->value();
-
-  update();
-}
-
-//// X Axis
-
-void View::on_B_PLUS_MOVE_X_clicked() {
-  double value = ui->doubleSpinBox_X_MOVE->value();
-
-  update();
-}
-
-void View::on_B_MINUS_MOVE_X_clicked() {
-  double value = ui->doubleSpinBox_X_MOVE->value();
-  value *= -1;
-
-  update();
-}
+//void View::on_B_MINUS_MOVE_Z_clicked() {
+//  double value = ui->doubleSpinBox_MOVE_Z->value();
+//  update();
+//}
+//
+//// Y Axis
+//
+//void View::on_B_PLUS_MOVE_Y_clicked() {
+//  double value = ui->doubleSpinBox_Y_MOVE->value();
+//
+//  update();
+//}
+//
+//void View::on_B_MINUS_MOVE_Y_clicked() {
+//  double value = ui->doubleSpinBox_Y_MOVE->value();
+//
+//  update();
+//}
+//
+////// X Axis
+//
+//void View::on_B_PLUS_MOVE_X_clicked() {
+//  double value = ui->doubleSpinBox_X_MOVE->value();
+//
+//  update();
+//}
+//
+//void View::on_B_MINUS_MOVE_X_clicked() {
+//  double value = ui->doubleSpinBox_X_MOVE->value();
+//  value *= -1;
+//
+//  update();
+//}
 
 ///*                SIZE                */
 //
