@@ -52,4 +52,4 @@ debug_gtest: clean
 
 run_test:
 	cd ../build && ctest
-	#cd ../build && ./unit_test
+	cd ../build && ./unit_test
