@@ -256,7 +256,7 @@ void View::on_B_PLUS_MOVE_Z_clicked() {
   controller_->Affine(Strategy::SelectionStrategy::kMove,
                       Strategy::TypeCoordinate::kZ, &controller_->GetData(),
                       value);
-  update();
+  gl_widget_->update();
 }
 
 void View::on_B_MINUS_MOVE_Z_clicked() {

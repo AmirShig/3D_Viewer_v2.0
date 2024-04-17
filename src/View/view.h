@@ -5,8 +5,7 @@
 
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
-//#include <GL/gl.h>
-//#include <GL/glu.h>
+
 #include <QtOpenGLWidgets/qopenglwidget.h>
 
 #include <QColor>
