@@ -1,14 +1,65 @@
-.PHONY : install clean rebuild run
+.PHONY : all install clean rebuild run style tests
+
+CXX := g++
+CXXFLAGS := -Wall -Wextra -Werror -std=c++17
+GTEST_FLAGS= -lgtest_main -pthread -lgtest
+
+SRC_DIR := .
+EXTENSIONS := cc cpp h
+# Функция для обнаружения файлов с заданными расширениями в директории и ее поддиректориях
+find_files = $(foreach ext,$(EXTENSIONS),$(wildcard $(1)/*.$(ext))) $(foreach d,$(wildcard $(1)/*),$(call find_files,$(d)))
+SRC_FILES := $(call find_files,$(SRC_DIR))
+
+# Фильтрация только файлов с расширением .cc
+CC_FILES := $(filter-out ./gui/desktop/main.cc ./gui/desktop/SnakeView.cc, $(filter %.cc,$(SRC_FILES)))
+
+TEST_SRC := tests/unit_tests.cc
+
+MSG=Minor bug fixes
+BRANCH=$(shell git branch --show-current)
+
+all: install run
 
 install: clean
 	mkdir ../build
 	cd ../build && cmake .. && make
 
 rebuild:
-	cd ../build && make && ./3dViewer
+	cd ../build && make 3dViewer && ./3dViewer
 
 run:
 	cd ../build && ./3dViewer
 
 clean:
-	rm -rf ../build
+	clear
+	rm -rf ../build test
+	make style
+
+style:
+	@cp ../materials/linters/.clang-format .
+	clang-format -n $(SRC_FILES)
+	clang-format -i $(SRC_FILES)
+	@rm -rf .clang-format
+
+# Ниже три цели для сборки google test. (1 - стандартная через терминал, 2 - cmake, 3 - cmake)
+tests:
+	$(CXX) $(CXXFLAGS) $(TEST_SRC) Model/model.cc Model/data_3d_model.cc Model/lexem.cc Model/parce_obj.cc $(GTEST_FLAGS) -o test
+	./test
+
+google_test:
+	cd .. && cmake -S . -B build && cmake --build build && cd build && ctest
+
+debug_gtest: clean
+	mkdir ../build
+	cd ../build && cmake .. && make unit_test && ./unit_test
+
+run_test:
+	cd ../build && ctest
+	cd ../build && ./unit_test
+
+
+# Usage example: make push MSG="write here what was added"
+push: clean
+	git add ..
+	git commit -m "$(BRANCH): $(MSG)"
+	git push origin $(BRANCH)

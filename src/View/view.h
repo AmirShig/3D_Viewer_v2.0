@@ -3,11 +3,8 @@
 
 #define GL_SILENCE_DEPRECATION
 
-#include "../Controller/controller.h"
-#include "QtGifImage/gifimage/qgifimage.h"
-#include "qopenglwindow.h"
-#include <OpenGL/gl.h>
-#include <OpenGL/glu.h>
+#include <QtOpenGLWidgets/qopenglwidget.h>
+
 #include <QColor>
 #include <QColorDialog>
 #include <QCoreApplication>
@@ -18,8 +15,14 @@
 #include <QPainter>
 #include <QSettings>
 #include <QTimer>
+#include <QVBoxLayout>
 #include <QWidget>
-#include <QtOpenGLWidgets/qopenglwidget.h>
+#include <iostream>
+
+#include "../Controller/controller.h"
+#include "QtGifImage/gifimage/qgifimage.h"
+#include "glwidget.h"
+#include "qopenglwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -27,49 +30,15 @@ class View;
 }
 QT_END_NAMESPACE
 
-class View : public QOpenGLWidget {
+namespace s21 {
+
+class View : public QWidget {
   Q_OBJECT
 
-public:
-  /*-----------------openGL--------------------*/
-  enum linesType { SOLID, DASHED };
-  enum vertexesType { NONE, CIRCLE, SQUARE };
-  enum projectionType { CENTRAL, PARALLEL };
-
+ public:
+  enum class SelectionStrategy { kMove, kRotate, kDistance };
   View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
   ~View();
-
-  float xRot, yRot, zRot;
-  QPoint mPos;
-
-  int widgetWidth = width();
-  int widgetHeight = height();
-
-  QColor backroundColor;
-  QColor vertexesColor;
-  QColor linesColor;
-
-  int lineWidth;
-  int vertexSize;
-
-  linesType lineType;
-  vertexesType vertexType;
-  projectionType projection;
-
-  void onOpenFile();
-  void clearOpenGlWidget();
-  void setProjection();
-  void drawVertexes();
-  void setLinesType();
-  void drawLines();
-
-  void initializeGL() override;
-  void paintGL() override;
-  void resizeGL(int w, int h) override;
-
-  void mousePressEvent(QMouseEvent *) override;
-  void mouseMoveEvent(QMouseEvent *) override;
-  /*-----------------openGL--------------------*/
 
   QString file_path_;
   QString gifName;
@@ -85,26 +54,26 @@ public:
   //  void writeSettings();
   //  void readSettings();
 
-private slots:
-  void on_openFilePushBtn_clicked();
-  void on_setBckgColor_clicked();
-  void on_setLinesColor_clicked();
-  void on_setVertexesColor_clicked();
+ private slots:
+  void OpenFilePushButtonClicked();
+  void SetBckgColorClicked();
+  void SetLinesColorClicked();
+  void SetVertexesColorClicked();
 
-  //  void on_linesType_activated(int index);
-  //  void on_lineSizeEditer_valueChanged(int value);
-  //  void on_vertexesType_activated(int index);
-  //  void on_vertexSizeEditer_valueChanged(int value);
-  //  void on_projectionType_activated(int index);
+  void ProjectionTypeChanged(int index);
+  void LinesTypeChanged(int index);
+  void VertexesTypeChanged(int index);
+
+  void VertexSizeValueChanged(int value);
+  void LinesWidthValueChanged(int value);
 
   // Affine_Transformations
-  // Move
-  //  void on_B_PLUS_MOVE_Z_clicked();
-  //  void on_B_MINUS_MOVE_Z_clicked();
-  //  void on_B_PLUS_MOVE_Y_clicked();
-  //  void on_B_MINUS_MOVE_Y_clicked();
-  //  void on_B_PLUS_MOVE_X_clicked();
-  //  void on_B_MINUS_MOVE_X_clicked();
+  void ButtonPlusMoveZ();
+  void ButtonMinusMoveZ();
+  void ButtonPlusMoveY();
+  void ButtonMinusMoveY();
+  void ButtonPlusMoveX();
+  void ButtonMinusMoveX();
   //
   //  // Size
   //  void on_pushButton_4_clicked();
@@ -120,17 +89,19 @@ private slots:
 
   // SetDefault
   void on_SetDefault_button_clicked();
-  void on_cleanPushButton_clicked();
+  void CleanPushButtonClicked();
 
   // Print screen & Create gif
   //  void on_createScreenPshBtn_clicked();
   //  void on_createGifPshBtn_clicked();
   //    void createAnimation();
 
-private:
+ private:
   Ui::View *ui;
   s21::Controller *controller_;
+  GLWidget *gl_widget_;
 
   int rotationPostition_;
 };
-#endif // MAINWINDOW_H
+}  // namespace s21
+#endif  // MAINWINDOW_H

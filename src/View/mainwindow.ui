@@ -41,9 +41,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">QWidget {
-    background-color: rgb(53, 53, 54);
-}</string>
+    <string notr="true"/>
    </property>
    <widget class="QWidget" name="formLayoutWidget">
     <property name="geometry">
@@ -243,7 +241,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="openFilePushBtn">
+   <widget class="QPushButton" name="OpenFilePushButtonClicked">
     <property name="geometry">
      <rect>
       <x>930</x>
@@ -302,20 +300,7 @@ QPushButton:pressed {
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QOpenGLWidget" name="myGl">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>901</width>
-      <height>741</height>
-     </rect>
-    </property>
-    <property name="cursor">
-     <cursorShape>OpenHandCursor</cursorShape>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="cleanPushButton">
+   <widget class="QPushButton" name="CleanPushButtonClicked">
     <property name="geometry">
      <rect>
       <x>1150</x>
@@ -491,7 +476,7 @@ QPushButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="setBckgColor">
+        <widget class="QPushButton" name="SetBckgColorClicked">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -636,7 +621,7 @@ QPushButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="setLinesColor">
+        <widget class="QPushButton" name="SetLinesColorClicked">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -732,7 +717,7 @@ QPushButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="vertexesType">
+        <widget class="QComboBox" name="VertexesType">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -774,7 +759,7 @@ QPushButton:pressed {
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="setVertexesColor">
+        <widget class="QPushButton" name="SetVertexesColorClicked">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -883,7 +868,7 @@ QPushButton:pressed {
        <string>X</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="B_PLUS_MOVE_Z">
+     <widget class="QPushButton" name="ButtonPlusMoveZ">
       <property name="geometry">
        <rect>
         <x>70</x>
@@ -914,7 +899,7 @@ QPushButton:pressed {
        <string>+</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="B_MINUS_MOVE_Z">
+     <widget class="QPushButton" name="ButtonMinusMoveZ">
       <property name="geometry">
        <rect>
         <x>280</x>
@@ -961,7 +946,7 @@ QPushButton:pressed {
        <double>0.100000000000000</double>
       </property>
      </widget>
-     <widget class="QPushButton" name="B_PLUS_MOVE_Y">
+     <widget class="QPushButton" name="ButtonPlusMoveY">
       <property name="geometry">
        <rect>
         <x>70</x>
@@ -1008,7 +993,7 @@ QPushButton:pressed {
        <double>0.100000000000000</double>
       </property>
      </widget>
-     <widget class="QPushButton" name="B_MINUS_MOVE_Y">
+     <widget class="QPushButton" name="ButtonMinusMoveY">
       <property name="geometry">
        <rect>
         <x>280</x>
@@ -1039,7 +1024,7 @@ QPushButton:pressed {
        <string>-</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="B_PLUS_MOVE_X">
+     <widget class="QPushButton" name="ButtonPlusMoveX">
       <property name="geometry">
        <rect>
         <x>70</x>
@@ -1089,7 +1074,7 @@ QPushButton:pressed {
        <double>0.100000000000000</double>
       </property>
      </widget>
-     <widget class="QPushButton" name="B_MINUS_MOVE_X">
+     <widget class="QPushButton" name="ButtonMinusMoveX">
       <property name="geometry">
        <rect>
         <x>280</x>
@@ -1529,6 +1514,17 @@ QPushButton:pressed {
     <property name="text">
      <string>Set default</string>
     </property>
+   </widget>
+   <widget class="QWidget" name="gridWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>90</y>
+      <width>481</width>
+      <height>511</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout"/>
    </widget>
   </widget>
  </widget>

@@ -7,80 +7,62 @@
 #include <string>
 #include <vector>
 
+#include "affine_transformations.h"
 #include "data_3d_model.h"
 
 namespace s21 {
 
 /*!
- * \brief Родительский класс наблюдатель
- * имеет в себе виртуальный метод который
- * не имеет реализации
- */
-class Observer {
-public:
-  virtual void Update() = 0;
-};
-
-/*!
- * \brief Класс наблюдаемый
- * \param AddObserver добавляет нового наблюдателя
- * \param NotifyUpdate обновляет данные каждого наблюдателя
- */
-class Observable {
-public:
-  void AddObserver(Observer *new_observer) {
-    observers_.push_back(new_observer);
-  }
-
-  void NotifyUpdate() {
-    for (auto &i : observers_) {
-      i->Update();
-    }
-  }
-
-private:
-  std::vector<Observer *> observers_;
-};
-
-/*!
  * \brief Класс разбивает строку на лексемы и отдает "чистую" строку.
  */
 class Lexeme {
-public:
+ public:
   /*! Очищает входную строку от линих символов */
-  void CleanLexem(std::string &str);
+  void CheckLexem(Data3DModel *data);
+
+ private:
 };
 
-class ParseObj : public Observer {
-public:
-  void ParseObjFile(std::string &file_path, Data3DModel *data);
+class ParseObj {
+ public:
+  bool ParseObjFile(std::string &file_path, Data3DModel *data);
   void WriteVertexes(Data3DModel *data);
   void ParsePolygons(Data3DModel *data);
-  void WritePolygons();
-  void CheckValidPolygons();
-  //
-  void Update() override;
+  void NegativePolygons(int *num, Data3DModel *data);
+  void FirstPolygon(bool *is_first, int *lust_polygon, int *num,
+                    Data3DModel *data);
 
-private:
+ private:
   std::string string_data_from_file_;
   std::string file_name_;
   Lexeme lexeme_;
 };
 
 /*!
- * \brief
+ * \brief Главный класс который реализован по паттерну "Фасад"
  */
-class Model : public Observable {
-public:
+class Model {
+ public:
+  Model() {
+    move_obj_ = new MoveObj();
+    //    rotation_obj_ = new RotateObj();
+    //    distance_obj_ = new DistanceObj();
+  }
   //Отдать данные в Controller
   Data3DModel &GetData() { return data_; }
   bool ProccessingObjFile(std::string &file_path);
+  void Affine(Strategy::SelectionStrategy select_strategy,
+              Strategy::TypeCoordinate type, Data3DModel *data, double point);
 
-private:
+ private:
   Data3DModel data_;
-  ParseObj *parse_;
+  ParseObj parse_;
+  AffineTransformations affine_;
+  Strategy *move_obj_;
+  //  Strategy *rotation_obj_;
+  //  Strategy *distance_obj_;
 };
 
-} // namespace s21
+}  // namespace s21
 
-#endif // INC_3DVIEWER_2_MODEL_H
+#endif  // INC_3DVIEWER_2_MODEL_H
