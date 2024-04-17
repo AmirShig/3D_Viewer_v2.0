@@ -27,6 +27,7 @@
 #include <QSettings>
 #include <QTimer>
 #include <QWidget>
+#include <QMatrix4x4>
 
 #include "../Controller/controller.h"
 #include "QtGifImage/gifimage/qgifimage.h"
@@ -46,6 +47,7 @@ class GLWidget : public QOpenGLWidget {
 
   float xRot, yRot, zRot;
   QPoint mPos;
+  QMatrix4x4 scaleMatrix;
 
   int widgetWidth = width();
   int widgetHeight = height();
@@ -61,8 +63,20 @@ class GLWidget : public QOpenGLWidget {
   vertexesType vertexType;
   projectionType projection;
 
-  void onOpenFile();
+//  void onOpenFile();
   void clearOpenGlWidget();
+
+
+
+
+
+
+  //Принимаем контроллер для изменения данных в методе SetData()
+  void SetData(s21::Controller *c);
+
+ private:
+  s21::Controller *controller_;
+
   void setProjection();
   void drawVertexes();
   void setLinesType();
@@ -72,14 +86,11 @@ class GLWidget : public QOpenGLWidget {
   void paintGL() override;
   void resizeGL(int w, int h) override;
 
+  void wheelEvent(QWheelEvent *event) override;
   void mousePressEvent(QMouseEvent *) override;
   void mouseMoveEvent(QMouseEvent *) override;
 
-  //Принимаем контроллер для изменения данных в методе SetData()
-  void SetData(s21::Controller *c);
-
- private:
-  s21::Controller *controller_;
+  void setScale(float scale);
 };
 
 }  // namespace s21

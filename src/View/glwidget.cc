@@ -3,7 +3,9 @@
 namespace s21 {
 
 GLWidget::GLWidget(QWidget *parent, s21::Controller *c)
-    : QOpenGLWidget(parent), controller_(c) {}
+    : QOpenGLWidget(parent), controller_(c) {
+  scaleMatrix.setToIdentity();
+}
 
 void GLWidget::SetData(s21::Controller *c) {
   controller_->GetData().GetStringPolygon() = c->GetData().GetStringPolygon();
@@ -17,6 +19,11 @@ void GLWidget::initializeGL() {
   glEnable(GL_DEPTH_TEST);
 }
 
+void GLWidget::setScale(float scale) {
+//  scaleMatrix.setToIdentity();
+  scaleMatrix.scale(scale, scale, scale);
+}
+
 void GLWidget::paintGL() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glMatrixMode(GL_MODELVIEW);
@@ -26,6 +33,7 @@ void GLWidget::paintGL() {
   glTranslated(0, 0, -10);
   glRotatef(xRot, 1, 0, 0);
   glRotatef(yRot, 0, 1, 0);
+  glMultMatrixf(scaleMatrix.data());
   setProjection();
   drawVertexes();
   setLinesType();
@@ -124,5 +132,17 @@ void GLWidget::mouseMoveEvent(QMouseEvent *mo) {
   mPos = mo->pos();
   update();
 }
+
+void GLWidget::wheelEvent(QWheelEvent *event) {
+  const float scaleFactor = 0.9f;
+
+  if (event->angleDelta().y() > 0) {
+    setScale(scaleFactor);
+  } else {
+    setScale(1.0f / scaleFactor);
+  }
+  update();
+}
+
 
 }  // namespace s21

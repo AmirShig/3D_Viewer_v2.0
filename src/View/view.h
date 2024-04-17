@@ -3,10 +3,9 @@
 
 #define GL_SILENCE_DEPRECATION
 
-//#include <OpenGL/gl.h>
-//#include <OpenGL/glu.h>
 #include <QtOpenGLWidgets/qopenglwidget.h>
 
+#include <iostream>
 #include <QColor>
 #include <QColorDialog>
 #include <QCoreApplication>
@@ -18,6 +17,7 @@
 #include <QSettings>
 #include <QTimer>
 #include <QWidget>
+#include <QVBoxLayout>
 
 #include "../Controller/controller.h"
 #include "QtGifImage/gifimage/qgifimage.h"

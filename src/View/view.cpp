@@ -1,7 +1,5 @@
 #include "view.h"
 
-#include <iostream>
-
 #include "ui_mainwindow.h"
 
 namespace s21 {
@@ -10,12 +8,12 @@ View::View(QWidget *parent, s21::Controller *controller)
     : QWidget(parent), ui(new Ui::View), controller_(controller) {
   ui->setupUi(this);
   setWindowTitle("3D Viewer");
-  timer = new QTimer(0);
+  timer = new QTimer(nullptr);
 
   //Инициализация окна GLWidget
   gl_widget_ = new GLWidget(nullptr, controller);
   gl_widget_->setFixedSize(900, 720);
-  QVBoxLayout *layout = new QVBoxLayout(ui->centralwidget);
+  auto *layout = new QVBoxLayout(ui->centralwidget);
   layout->addWidget(gl_widget_);
 
   //  connect(timer, SIGNAL(timeout()), this, SLOT(createAnimation()));
@@ -38,6 +36,7 @@ void View::OpenFilePushButtonClicked() {
                                             "All Files (*.obj)");
   ui->vertexCount->setText("");
   ui->polygonCount->setText("");
+  controller_->GetData().ClearData();
   if (controller_->GetStringFilePath(file_path_)) {
     ui->vertexCount->setText(
         QString::number(controller_->GetData().GetCoordinateVertex().size()));
@@ -45,7 +44,7 @@ void View::OpenFilePushButtonClicked() {
         QString::number(controller_->GetData().GetStringPolygon().size()));
     QFileInfo check_file(file_path_);
     ui->fileNameLabel->setText(check_file.fileName());
-    update();
+    gl_widget_->update();
   }
 }
 
@@ -95,6 +94,7 @@ void View::on_SetDefault_button_clicked() {
   gl_widget_->xRot = 0;
   gl_widget_->yRot = 0;
   gl_widget_->zRot = 0;
+  gl_widget_->scaleMatrix.setToIdentity();
 
   //   Ставим на изначальное положение объект
   //    if (all_data.polygons_value != NULL &&
@@ -111,7 +111,7 @@ void View::on_SetDefault_button_clicked() {
   ui->doubleSpinBox_Y_MOVE->setValue(0);
   ui->doubleSpinBox_MOVE_Z->setValue(0);
 
-  update();
+  gl_widget_->update();
 }
 
 //// BONUS PART 1
