@@ -1,8 +1,0 @@
-ViewerTest.CorrectCube 1 0.00572555
-ViewerTest.CorrectCar 1 0.00971499
-ViewerTest.CorrectNegativeCube 1 0.0041417
-ViewerTest.IncorrectFileName 1 0.0034264
-ViewerTest.IncorrectFileExtention 1 0.00482549
-ViewerTest.IncorrectFilePath 1 0.00554371
-ViewerTest.EmptyFilePath 1 0.0032166
----
