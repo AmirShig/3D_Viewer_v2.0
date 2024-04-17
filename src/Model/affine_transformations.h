@@ -8,7 +8,7 @@ namespace s21 {
  */
 class Strategy {
  public:
-  enum class TypeCoordinate { kY, kZ };
+  enum class TypeCoordinate { kX, kY, kZ };
   enum class SelectionStrategy { kMove, kRotate, kDistance };
 
   virtual void Transformations(Data3DModel *data, double point,

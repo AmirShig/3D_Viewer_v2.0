@@ -125,4 +125,4 @@ void GLWidget::mouseMoveEvent(QMouseEvent *mo) {
   update();
 }
 
-} // namespace s21
+}  // namespace s21

@@ -7,7 +7,7 @@
 namespace s21 {
 
 View::View(QWidget *parent, s21::Controller *controller)
-    : QWidget(parent) ,ui(new Ui::View), controller_(controller) {
+    : QWidget(parent), ui(new Ui::View), controller_(controller) {
   ui->setupUi(this);
   setWindowTitle("3D Viewer");
   timer = new QTimer(0);
@@ -19,11 +19,24 @@ View::View(QWidget *parent, s21::Controller *controller)
   layout->addWidget(gl_widget_);
 
   //  connect(timer, SIGNAL(timeout()), this, SLOT(createAnimation()));
-
+  // Open & clean
   connect(ui->OpenFilePushButtonClicked, SIGNAL(clicked()), this,
           SLOT(OpenFilePushButtonClicked()));
   connect(ui->CleanPushButtonClicked, SIGNAL(clicked()), this,
           SLOT(CleanPushButtonClicked()));
+  // Affine
+  connect(ui->ButtonPlusMoveZ, SIGNAL(clicked()), this,
+          SLOT(ButtonPlusMoveZ()));
+  connect(ui->ButtonMinusMoveZ, SIGNAL(clicked()), this,
+          SLOT(ButtonMinusMoveZ()));
+  connect(ui->ButtonPlusMoveY, SIGNAL(clicked()), this,
+          SLOT(ButtonPlusMoveY()));
+  connect(ui->ButtonMinusMoveY, SIGNAL(clicked()), this,
+          SLOT(ButtonMinusMoveY()));
+  connect(ui->ButtonPlusMoveX, SIGNAL(clicked()), this,
+          SLOT(ButtonPlusMoveX()));
+  connect(ui->ButtonMinusMoveX, SIGNAL(clicked()), this,
+          SLOT(ButtonMinusMoveX()));
 }
 
 View::~View() {
@@ -246,12 +259,7 @@ void View::on_SetDefault_button_clicked() {
 // }
 
 // AFFINE_TRANSFORMATIONS
-
-/*             MOVE                */
-
-// Z Axis
-
-void View::on_B_PLUS_MOVE_Z_clicked() {
+void View::ButtonPlusMoveZ() {
   double value = ui->doubleSpinBox_MOVE_Z->value();
   controller_->Affine(Strategy::SelectionStrategy::kMove,
                       Strategy::TypeCoordinate::kZ, &controller_->GetData(),
@@ -259,39 +267,45 @@ void View::on_B_PLUS_MOVE_Z_clicked() {
   gl_widget_->update();
 }
 
-//void View::on_B_MINUS_MOVE_Z_clicked() {
-//  double value = ui->doubleSpinBox_MOVE_Z->value();
-//  update();
-//}
-//
-//// Y Axis
-//
-//void View::on_B_PLUS_MOVE_Y_clicked() {
-//  double value = ui->doubleSpinBox_Y_MOVE->value();
-//
-//  update();
-//}
-//
-//void View::on_B_MINUS_MOVE_Y_clicked() {
-//  double value = ui->doubleSpinBox_Y_MOVE->value();
-//
-//  update();
-//}
-//
-////// X Axis
-//
-//void View::on_B_PLUS_MOVE_X_clicked() {
-//  double value = ui->doubleSpinBox_X_MOVE->value();
-//
-//  update();
-//}
-//
-//void View::on_B_MINUS_MOVE_X_clicked() {
-//  double value = ui->doubleSpinBox_X_MOVE->value();
-//  value *= -1;
-//
-//  update();
-//}
+void View::ButtonMinusMoveZ() {
+  double value = ui->doubleSpinBox_MOVE_Z->value();
+  controller_->Affine(Strategy::SelectionStrategy::kMove,
+                      Strategy::TypeCoordinate::kZ, &controller_->GetData(),
+                      -value);
+  gl_widget_->update();
+}
+
+void View::ButtonPlusMoveY() {
+  double value = ui->doubleSpinBox_Y_MOVE->value();
+  controller_->Affine(Strategy::SelectionStrategy::kMove,
+                      Strategy::TypeCoordinate::kY, &controller_->GetData(),
+                      value);
+  gl_widget_->update();
+}
+
+ void View::ButtonMinusMoveY() {
+  double value = ui->doubleSpinBox_Y_MOVE->value();
+     controller_->Affine(Strategy::SelectionStrategy::kMove,
+                         Strategy::TypeCoordinate::kY, &controller_->GetData(),
+                         -value);
+     gl_widget_->update();
+}
+
+ void View::ButtonPlusMoveX() {
+  double value = ui->doubleSpinBox_X_MOVE->value();
+     controller_->Affine(Strategy::SelectionStrategy::kMove,
+                         Strategy::TypeCoordinate::kX, &controller_->GetData(),
+                         value);
+     gl_widget_->update();
+}
+
+ void View::ButtonMinusMoveX() {
+  double value = ui->doubleSpinBox_X_MOVE->value();
+     controller_->Affine(Strategy::SelectionStrategy::kMove,
+                         Strategy::TypeCoordinate::kX, &controller_->GetData(),
+                         -value);
+     gl_widget_->update();
+}
 
 ///*                SIZE                */
 //
@@ -404,4 +418,4 @@ void View::on_B_PLUS_MOVE_Z_clicked() {
 //   }
 // }
 
-}  // namespace s21
+} // namespace s21

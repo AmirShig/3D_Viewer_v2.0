@@ -868,7 +868,7 @@ QPushButton:pressed {
        <string>X</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="B_PLUS_MOVE_Z">
+     <widget class="QPushButton" name="ButtonPlusMoveZ">
       <property name="geometry">
        <rect>
         <x>70</x>
@@ -899,7 +899,7 @@ QPushButton:pressed {
        <string>+</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="B_MINUS_MOVE_Z">
+     <widget class="QPushButton" name="ButtonMinusMoveZ">
       <property name="geometry">
        <rect>
         <x>280</x>
@@ -946,7 +946,7 @@ QPushButton:pressed {
        <double>0.100000000000000</double>
       </property>
      </widget>
-     <widget class="QPushButton" name="B_PLUS_MOVE_Y">
+     <widget class="QPushButton" name="ButtonPlusMoveY">
       <property name="geometry">
        <rect>
         <x>70</x>
@@ -993,7 +993,7 @@ QPushButton:pressed {
        <double>0.100000000000000</double>
       </property>
      </widget>
-     <widget class="QPushButton" name="B_MINUS_MOVE_Y">
+     <widget class="QPushButton" name="ButtonMinusMoveY">
       <property name="geometry">
        <rect>
         <x>280</x>
@@ -1024,7 +1024,7 @@ QPushButton:pressed {
        <string>-</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="B_PLUS_MOVE_X">
+     <widget class="QPushButton" name="ButtonPlusMoveX">
       <property name="geometry">
        <rect>
         <x>70</x>
@@ -1074,7 +1074,7 @@ QPushButton:pressed {
        <double>0.100000000000000</double>
       </property>
      </widget>
-     <widget class="QPushButton" name="B_MINUS_MOVE_X">
+     <widget class="QPushButton" name="ButtonMinusMoveX">
       <property name="geometry">
        <rect>
         <x>280</x>

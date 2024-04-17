@@ -18,8 +18,9 @@ bool ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
       lexeme_.CheckLexem(data);
     }
     file.close();
-  } else
+  } else {
     state_file = false;
+  }
   return state_file;
 }
 
