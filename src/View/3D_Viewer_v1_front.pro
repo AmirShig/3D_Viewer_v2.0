@@ -16,15 +16,18 @@ SOURCES += \
     ../Model/parce_obj.cc \
     ../Model/model.cc \
     ../Model/lexem.cc \
-    ../Controller/controller.cc
+    ../Controller/controller.cc \
+    ../Model/affine_transformations.cc
 
 
 HEADERS += \
     view.h \
     ../Model/parce_obj.h \
+    ../View/view.h \
     ../Model/model.h \
     ../Controller/controller.h \
-    ../Model/data_3d_model.h
+    ../Model/data_3d_model.h \
+    ../Model/affine_transformations.h
 
 
 FORMS += \

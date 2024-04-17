@@ -56,6 +56,8 @@ add_executable(
         src/Model/data_3d_model.cc
         src/Model/lexem.cc
         src/Model/parce_obj.cc
+        src/Model/affine_transformations.cc
+        src/Model/affine_transformations.h
 )
 
 target_link_libraries(

@@ -36,6 +36,7 @@ class View : public QWidget {
   Q_OBJECT
 
  public:
+  enum class SelectionStrategy { kMove, kRotate, kDistance };
   View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
   ~View();
 
@@ -68,11 +69,11 @@ class View : public QWidget {
   // Affine_Transformations
   // Move
   void on_B_PLUS_MOVE_Z_clicked();
-  void on_B_MINUS_MOVE_Z_clicked();
-  void on_B_PLUS_MOVE_Y_clicked();
-  void on_B_MINUS_MOVE_Y_clicked();
-  void on_B_PLUS_MOVE_X_clicked();
-  void on_B_MINUS_MOVE_X_clicked();
+  //  void on_B_MINUS_MOVE_Z_clicked();
+  //  void on_B_PLUS_MOVE_Y_clicked();
+  //  void on_B_MINUS_MOVE_Y_clicked();
+  //  void on_B_PLUS_MOVE_X_clicked();
+  //  void on_B_MINUS_MOVE_X_clicked();
   //
   //  // Size
   //  void on_pushButton_4_clicked();
@@ -99,9 +100,6 @@ class View : public QWidget {
   Ui::View *ui;
   s21::Controller *controller_;
   GLWidget *gl_widget_;
-  Strategy *move_obj_;
-  Strategy *rotation_obj_;
-  Strategy *distance_obj_;
 
   int rotationPostition_;
 };

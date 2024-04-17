@@ -18,20 +18,16 @@ namespace s21 {
 class Lexeme {
  public:
   /*! Очищает входную строку от линих символов */
-  void CheckLexem(std::string &str, Data3DModel *data);
+  void CheckLexem(Data3DModel *data);
 
  private:
 };
 
 class ParseObj {
  public:
-  //  ParseObj() {
-  //    string_data_from_file_.reserve(1024);
-  //    file_name_.reserve(1024);
-  //  }
   bool ParseObjFile(std::string &file_path, Data3DModel *data);
   void WriteVertexes(Data3DModel *data);
-  bool ParsePolygons(Data3DModel *data);
+  void ParsePolygons(Data3DModel *data);
   void NegativePolygons(int *num, Data3DModel *data);
   void FirstPolygon(bool *is_first, int *lust_polygon, int *num,
                     Data3DModel *data);
@@ -47,15 +43,24 @@ class ParseObj {
  */
 class Model {
  public:
+  Model() {
+    move_obj_ = new MoveObj();
+    //    rotation_obj_ = new RotateObj();
+    //    distance_obj_ = new DistanceObj();
+  }
   //Отдать данные в Controller
   Data3DModel &GetData() { return data_; }
   bool ProccessingObjFile(std::string &file_path);
-  AffineTransformations &Affine() { return *affine_; }
+  void Affine(Strategy::SelectionStrategy select_strategy,
+              Strategy::TypeCoordinate type, Data3DModel *data, double point);
 
  private:
   Data3DModel data_;
   ParseObj parse_;
-  AffineTransformations *affine_;
+  AffineTransformations affine_;
+  Strategy *move_obj_;
+  //  Strategy *rotation_obj_;
+  //  Strategy *distance_obj_;
 };
 
 }  // namespace s21

@@ -16,7 +16,10 @@ class Controller {
   }
   Controller(Model *m) : model_(m) {}
 
-  AffineTransformations Affine() { return model_->Affine(); }
+  void Affine(Strategy::SelectionStrategy select_strategy,
+              Strategy::TypeCoordinate type, Data3DModel *data, double point) {
+    model_->Affine(select_strategy, type, data, point);
+  }
   bool GetStringFilePath(QString &q_string);
   std::string ConvertToStdString(QString &q_string);
   Data3DModel &GetData() { return model_->GetData(); }

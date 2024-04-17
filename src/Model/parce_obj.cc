@@ -15,7 +15,7 @@ bool ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
     while (std::getline(file, string_data_from_file_)) {
       WriteVertexes(data);
       ParsePolygons(data);
-      lexeme_.CheckLexem(string_data_from_file_, data);
+      lexeme_.CheckLexem(data);
     }
     file.close();
   } else {
@@ -37,7 +37,7 @@ void ParseObj::WriteVertexes(Data3DModel *data) {
   }
 }
 
-bool ParseObj::ParsePolygons(Data3DModel *data) {
+void ParseObj::ParsePolygons(Data3DModel *data) {
   /*! \param is_first проверяет первый ли полигон мы парсим*/
   bool is_first = true;
 
@@ -64,7 +64,6 @@ bool ParseObj::ParsePolygons(Data3DModel *data) {
     }
     data->GetStringPolygon().push_back(first_polygon);
   }
-  return true;
 }
 
 void ParseObj::NegativePolygons(int *num, Data3DModel *data) {
