@@ -23,13 +23,18 @@ void AffineTransformations::Transformations(
 
 void MoveObj::Transformations(s21::Data3DModel *data, double point,
                               TypeCoordinate coordinate_x_y_z) {
+  size_t j = 0;
   auto i = data->GetCoordinateVertex().begin();
-  if (coordinate_x_y_z == TypeCoordinate::kY) ++i;
-  if (coordinate_x_y_z == TypeCoordinate::kZ) i += 2;
+  if (coordinate_x_y_z == TypeCoordinate::kY)
+    ++i;
+  if (coordinate_x_y_z == TypeCoordinate::kZ)
+    i += 2;
 
-  for (; i != data->GetCoordinateVertex().end(); i += 3) {
+  for (; i != data->GetCoordinateVertex().end() &&
+         j < data->GetCoordinateVertex().size();
+       i += 3, j += 3) {
     *i += point;
   }
 }
 
-}  // namespace s21
+} // namespace s21
