@@ -60,5 +60,5 @@ run_test:
 # Usage example: make push MSG="write here what was added"
 push: clean
 	git add ..
-	git commit -m "$(BRANCH) $(MSG)"
-	#git push origin $(BRANCH)
+	git commit -m "$(BRANCH): $(MSG)"
+	git push origin $(BRANCH)
