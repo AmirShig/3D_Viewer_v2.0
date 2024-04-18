@@ -27,7 +27,7 @@ void GLWidget::SetDefault() {
 
   x_rot_ = 0;
   y_rot_ = 0;
-  zRot = 0;
+  z_rot_ = 0;
   scale_matrix_.setToIdentity();
 
   update();
