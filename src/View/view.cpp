@@ -8,7 +8,7 @@ View::View(QWidget *parent, s21::Controller *controller)
     : QWidget(parent), ui(new Ui::View), controller_(controller) {
   ui->setupUi(this);
   setWindowTitle("3D Viewer");
-  timer = new QTimer(nullptr);
+  gif_timer_ = new QTimer(nullptr);
   controller_->GetData().ClearData();
 
   //Инициализация окна GLWidget
@@ -17,7 +17,6 @@ View::View(QWidget *parent, s21::Controller *controller)
   auto *layout = new QVBoxLayout(ui->centralwidget);
   layout->addWidget(gl_widget_);
 
-  //  connect(timer, SIGNAL(timeout()), this, SLOT(createAnimation()));
   // Open & clean
   connect(ui->OpenFilePushButtonClicked, SIGNAL(clicked()), this,
           SLOT(OpenFilePushButtonClicked()));
@@ -44,6 +43,13 @@ View::View(QWidget *parent, s21::Controller *controller)
   connect(ui->vertexSizeEditer, SIGNAL(valueChanged(int)), this,
           SLOT(VertexSizeValueChanged(int)));
 
+  // Gif & screen
+  connect(gif_timer_, SIGNAL(timeout()), this, SLOT(CreateAnimation()));
+  connect(ui->createScreenPshBtn, SIGNAL(clicked()), this,
+          SLOT(CreateScreenClicked()));
+  connect(ui->createGifPshBtn, SIGNAL(clicked()), this,
+          SLOT(CreateGifClicked()));
+
   // Affine
   connect(ui->ButtonPlusMoveZ, SIGNAL(clicked()), this,
           SLOT(ButtonPlusMoveZ()));
@@ -62,7 +68,7 @@ View::View(QWidget *parent, s21::Controller *controller)
 
 View::~View() {
   writeSettings();
-  delete timer;
+  delete gif_timer_;
   delete ui;
 }
 
@@ -377,52 +383,52 @@ void View::ButtonMinusMoveX() {
  *  Screenshot & Gif animation
  **/
 
-// void View::on_createScreenPshBtn_clicked() {
-//   QString fileName =
-//       QFileDialog::getSaveFileName(this, "Сохранить скриншот", "/Users",
-//                                    "Images (*.jpeg *.bmp);;All Files (*)");
-//   if (!fileName.isEmpty()) {
-//     QImage screen = grabFramebuffer();
-//     screen.save(fileName);
-//     QMessageBox successMessage;
-//     successMessage.setText("Printscreen saved successfully!");
-//     successMessage.exec();
-//   } else {
-//     QMessageBox::warning(this, "", "Printscreen creating failed!");
-//   }
-// }
-//
-// void View::on_createGifPshBtn_clicked() {
-//   gifName = QFileDialog::getSaveFileName(this, "Save gif", "/Users",
-//                                          "Gif (*.gif);;All Files (*)");
-//   if (!gifName.isEmpty() && !screenCounter) {
-//     gifFrame = new QGifImage;
-//     gifFrame->setDefaultDelay(10);
-//     timer->setInterval(100);
-//     timer->start();
-//     ui->createGifPshBtn->setEnabled(false);
-//   } else {
-//     QMessageBox::warning(this, "", "Gif creating failed!");
-//   }
-// }
+void View::CreateScreenClicked() {
+  QString file_name =
+      QFileDialog::getSaveFileName(this, "Сохранить скриншот", "/Users",
+                                   "Images (*.jpeg *.bmp);;All Files (*)");
+  if (!file_name.isEmpty()) {
+    QImage screen = gl_widget_->grabFramebuffer();
+    screen.save(file_name);
+    QMessageBox success_msg;
+    success_msg.setText("Printscreen saved successfully!");
+    success_msg.exec();
+  } else {
+    QMessageBox::warning(this, "", "Printscreen creating failed!");
+  }
+}
 
-// void View::createAnimation() {
-//   if (screenCounter < 50) {
-//     QImage screen = grabFramebuffer();
-//     gifFrame->addFrame(screen);
-//     screenCounter++;
-//     ui->createGifPshBtn->setText(QString::number(screenCounter / 10, 10));
-//   } else {
-//     QMessageBox successMessage;
-//     successMessage.setText("Gif saved successfully!");
-//     successMessage.exec();
-//     timer->stop();
-//     screenCounter = 0;
-//     gifFrame->save(gifName);
-//     delete gifFrame;
-//     ui->createGifPshBtn->setText("Create gif");
-//     ui->createGifPshBtn->setEnabled(true);
-//   }
-// }
+void View::CreateGifClicked() {
+  gif_name_ = QFileDialog::getSaveFileName(this, "Save gif", "/Users",
+                                           "Gif (*.gif);;All Files (*)");
+  if (!gif_name_.isEmpty() && !screen_counter_) {
+    gif_frame_ = new QGifImage;
+    gif_frame_->setDefaultDelay(10);
+    gif_timer_->setInterval(100);
+    gif_timer_->start();
+    ui->createGifPshBtn->setEnabled(false);
+  } else {
+    QMessageBox::warning(this, "", "Gif creating failed!");
+  }
+}
+
+void View::CreateAnimation() {
+  if (screen_counter_ < 50) {
+    QImage screen = gl_widget_->grabFramebuffer();
+    gif_frame_->addFrame(screen);
+    screen_counter_++;
+    ui->createGifPshBtn->setText(QString::number(screen_counter_ / 10, 10));
+  } else {
+    QMessageBox success_msg;
+    success_msg.setText("Gif saved successfully!");
+    success_msg.exec();
+    gif_timer_->stop();
+    screen_counter_ = 0;
+    gif_frame_->save(gif_name_);
+    delete gif_frame_;
+    ui->createGifPshBtn->setText("Create gif");
+    ui->createGifPshBtn->setEnabled(true);
+  }
+}
 
 }  // namespace s21

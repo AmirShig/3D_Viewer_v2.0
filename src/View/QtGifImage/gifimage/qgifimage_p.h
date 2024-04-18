@@ -28,7 +28,7 @@
 #include <QColor>
 #include <QVector>
 
-#include "gif_lib.h"
+#include "../3rdParty/giflib/gif_lib.h"
 #include "qgifimage.h"
 
 class QGifFrameInfoData {
