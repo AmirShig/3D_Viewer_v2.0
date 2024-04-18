@@ -37,6 +37,19 @@ View::View(QWidget *parent, s21::Controller *controller)
           SLOT(ButtonPlusMoveX()));
   connect(ui->ButtonMinusMoveX, SIGNAL(clicked()), this,
           SLOT(ButtonMinusMoveX()));
+
+  connect(ui->ButtonRotatePlusX, SIGNAL(clicked()), this,
+          SLOT(ButtonRotatePlusX()));
+  connect(ui->ButtonRotateMinusX, SIGNAL(clicked()), this,
+          SLOT(ButtonRotateMinusX()));
+  connect(ui->ButtonRotatePlusY, SIGNAL(clicked()), this,
+          SLOT(ButtonRotatePlusY()));
+  connect(ui->ButtonRotateMinusY, SIGNAL(clicked()), this,
+          SLOT(ButtonRotateMinusY()));
+  connect(ui->ButtonRotatePlusZ, SIGNAL(clicked()), this,
+          SLOT(ButtonRotatePlusZ()));
+  connect(ui->ButtonRotateMinusZ, SIGNAL(clicked()), this,
+          SLOT(ButtonRotateMinusZ()));
 }
 
 View::~View() {
@@ -283,28 +296,28 @@ void View::ButtonPlusMoveY() {
   gl_widget_->update();
 }
 
- void View::ButtonMinusMoveY() {
+void View::ButtonMinusMoveY() {
   double value = ui->doubleSpinBox_Y_MOVE->value();
-     controller_->Affine(Strategy::SelectionStrategy::kMove,
-                         Strategy::TypeCoordinate::kY, &controller_->GetData(),
-                         -value);
-     gl_widget_->update();
+  controller_->Affine(Strategy::SelectionStrategy::kMove,
+                      Strategy::TypeCoordinate::kY, &controller_->GetData(),
+                      -value);
+  gl_widget_->update();
 }
 
- void View::ButtonPlusMoveX() {
+void View::ButtonPlusMoveX() {
   double value = ui->doubleSpinBox_X_MOVE->value();
-     controller_->Affine(Strategy::SelectionStrategy::kMove,
-                         Strategy::TypeCoordinate::kX, &controller_->GetData(),
-                         value);
-     gl_widget_->update();
+  controller_->Affine(Strategy::SelectionStrategy::kMove,
+                      Strategy::TypeCoordinate::kX, &controller_->GetData(),
+                      value);
+  gl_widget_->update();
 }
 
- void View::ButtonMinusMoveX() {
+void View::ButtonMinusMoveX() {
   double value = ui->doubleSpinBox_X_MOVE->value();
-     controller_->Affine(Strategy::SelectionStrategy::kMove,
-                         Strategy::TypeCoordinate::kX, &controller_->GetData(),
-                         -value);
-     gl_widget_->update();
+  controller_->Affine(Strategy::SelectionStrategy::kMove,
+                      Strategy::TypeCoordinate::kX, &controller_->GetData(),
+                      -value);
+  gl_widget_->update();
 }
 
 ///*                SIZE                */
@@ -325,45 +338,57 @@ void View::ButtonPlusMoveY() {
 //
 //// X Axis
 //
-// void View::on_ROTATE_X_PLUS_clicked() {
-//  int value = ui->ROTATE_X_VALUE->value();
-//  rotation_x(&all_data, value);
-//  update();
-//}
-//
-// void View::on_ROTATE_X_MINUS_clicked() {
-//  int value = ui->ROTATE_X_VALUE->value() * -1;
-//  rotation_x(&all_data, value);
-//  update();
-//}
-//
-//// Y Axis
-//
-// void View::on_ROTATE_Y_PLUS_clicked() {
-//  int value = ui->ROTATE_Y_VALUE->value();
-//  rotation_y(&all_data, value);
-//  update();
-//}
-//
-// void View::on_ROTATE_Y_MINUS_clicked() {
-//  int value = ui->ROTATE_Y_VALUE->value() * -1;
-//  rotation_y(&all_data, value);
-//  update();
-//}
-//
-//// Z Axis
-//
-// void View::on_ROTATE_Z_PLUS_clicked() {
-//  int value = ui->ROTATE_Z_VALUE->value();
-//  rotation_z(&all_data, value);
-//  update();
-//}
-//
-// void View::on_ROTATE_Z_MINUS_clicked() {
-//  int value = ui->ROTATE_Z_VALUE->value() * -1;
-//  rotation_z(&all_data, value);
-//  update();
-//}
+void View::ButtonRotatePlusX() {
+  int value = ui->ROTATE_X_VALUE->value();
+  controller_->Affine(Strategy::SelectionStrategy::kRotate,
+                      Strategy::TypeCoordinate::kX, &controller_->GetData(),
+                      (double)value);
+  gl_widget_->update();
+}
+
+void View::ButtonRotateMinusX() {
+  int value = ui->ROTATE_X_VALUE->value();
+  controller_->Affine(Strategy::SelectionStrategy::kRotate,
+                      Strategy::TypeCoordinate::kX, &controller_->GetData(),
+                      -(double)value);
+  gl_widget_->update();
+}
+
+// Y Axis
+
+void View::ButtonRotatePlusY() {
+  int value = ui->ROTATE_Y_VALUE->value();
+  controller_->Affine(Strategy::SelectionStrategy::kRotate,
+                      Strategy::TypeCoordinate::kY, &controller_->GetData(),
+                      (double)value);
+  gl_widget_->update();
+}
+
+void View::ButtonRotateMinusY() {
+  int value = ui->ROTATE_Y_VALUE->value();
+  controller_->Affine(Strategy::SelectionStrategy::kRotate,
+                      Strategy::TypeCoordinate::kY, &controller_->GetData(),
+                      -(double)value);
+  gl_widget_->update();
+}
+
+// Z Axis
+
+void View::ButtonRotatePlusZ() {
+  int value = ui->ROTATE_Z_VALUE->value();
+  controller_->Affine(Strategy::SelectionStrategy::kRotate,
+                      Strategy::TypeCoordinate::kZ, &controller_->GetData(),
+                      (double)value);
+  gl_widget_->update();
+}
+
+void View::ButtonRotateMinusZ() {
+  int value = ui->ROTATE_Z_VALUE->value();
+  controller_->Affine(Strategy::SelectionStrategy::kRotate,
+                      Strategy::TypeCoordinate::kZ, &controller_->GetData(),
+                      -(double)value);
+  gl_widget_->update();
+}
 
 /*
  *  3th Bonus part
@@ -418,4 +443,4 @@ void View::ButtonPlusMoveY() {
 //   }
 // }
 
-} // namespace s21
+}  // namespace s21

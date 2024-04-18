@@ -1251,7 +1251,7 @@ QPushButton:pressed {
        <string>Z</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="ROTATE_X_MINUS">
+     <widget class="QPushButton" name="ButtonRotateMinusX">
       <property name="geometry">
        <rect>
         <x>280</x>
@@ -1282,7 +1282,7 @@ QPushButton:pressed {
        <string>-</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="ROTATE_X_PLUS">
+     <widget class="QPushButton" name="ButtonRotatePlusX">
       <property name="geometry">
        <rect>
         <x>70</x>
@@ -1313,7 +1313,7 @@ QPushButton:pressed {
        <string>+</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="ROTATE_Y_MINUS">
+     <widget class="QPushButton" name="ButtonRotateMinusY">
       <property name="geometry">
        <rect>
         <x>280</x>
@@ -1344,7 +1344,7 @@ QPushButton:pressed {
        <string>-</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="ROTATE_Y_PLUS">
+     <widget class="QPushButton" name="ButtonRotatePlusY">
       <property name="geometry">
        <rect>
         <x>70</x>
@@ -1375,7 +1375,7 @@ QPushButton:pressed {
        <string>+</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="ROTATE_Z_MINUS">
+     <widget class="QPushButton" name="ButtonRotateMinusZ">
       <property name="geometry">
        <rect>
         <x>280</x>
@@ -1406,7 +1406,7 @@ QPushButton:pressed {
        <string>-</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="ROTATE_Z_PLUS">
+     <widget class="QPushButton" name="ButtonRotatePlusZ">
       <property name="geometry">
        <rect>
         <x>70</x>

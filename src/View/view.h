@@ -35,7 +35,7 @@ namespace s21 {
 class View : public QWidget {
   Q_OBJECT
 
-public:
+ public:
   enum class SelectionStrategy { kMove, kRotate, kDistance };
   View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
   ~View();
@@ -54,7 +54,7 @@ public:
   //  void writeSettings();
   //  void readSettings();
 
-private slots:
+ private slots:
   void OpenFilePushButtonClicked();
   void SetBckgColorClicked();
   void SetLinesColorClicked();
@@ -79,12 +79,12 @@ private slots:
   //  void on_pushButton_5_clicked();
   //
   //  // Rotate
-  //  void on_ROTATE_X_PLUS_clicked();
-  //  void on_ROTATE_X_MINUS_clicked();
-  //  void on_ROTATE_Y_PLUS_clicked();
-  //  void on_ROTATE_Y_MINUS_clicked();
-  //  void on_ROTATE_Z_PLUS_clicked();
-  //  void on_ROTATE_Z_MINUS_clicked();
+  void ButtonRotatePlusX();
+  void ButtonRotateMinusX();
+  void ButtonRotatePlusY();
+  void ButtonRotateMinusY();
+  void ButtonRotatePlusZ();
+  void ButtonRotateMinusZ();
 
   // SetDefault
   void on_SetDefault_button_clicked();
@@ -95,12 +95,12 @@ private slots:
   //  void on_createGifPshBtn_clicked();
   //    void createAnimation();
 
-private:
+ private:
   Ui::View *ui;
   s21::Controller *controller_;
   GLWidget *gl_widget_;
 
   int rotationPostition_;
 };
-} // namespace s21
-#endif // MAINWINDOW_H
+}  // namespace s21
+#endif  // MAINWINDOW_H

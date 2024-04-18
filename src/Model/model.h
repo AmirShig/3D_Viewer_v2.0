@@ -26,7 +26,7 @@ private:
 class ParseObj {
 public:
   bool ParseObjFile(std::string &file_path, Data3DModel *data);
-  void WriteVertexes(Data3DModel *data);
+  void WriteVertexes(Data3DModel *data, size_t *i);
   void ParsePolygons(Data3DModel *data);
   void NegativePolygons(int *num, Data3DModel *data);
   void FirstPolygon(bool *is_first, int *lust_polygon, int *num,
@@ -36,6 +36,7 @@ private:
   std::string string_data_from_file_;
   std::string file_name_;
   Lexeme lexeme_;
+  Data3DModel::Coordinate coordinate_;
 };
 
 /*!
@@ -45,8 +46,8 @@ class Model {
 public:
   Model() {
     move_obj_ = new MoveObj();
-//    rotation_obj_ = new RotateObj();
-//    distance_obj_ = new DistanceObj();
+    rotate_obj_ = new RotateObj();
+    //    distance_obj_ = new DistanceObj();
   }
   //Отдать данные в Controller
   Data3DModel &GetData() { return data_; }
@@ -59,8 +60,11 @@ private:
   ParseObj parse_;
   AffineTransformations affine_;
   Strategy *move_obj_;
-//  Strategy *rotation_obj_;
-//  Strategy *distance_obj_;
+  Strategy *rotate_obj_;
+  //  Strategy *rotation_x_;
+  //  Strategy *rotation_y_;
+  //  Strategy *rotation_z_;
+  //  Strategy *distance_obj_;
 };
 
 } // namespace s21

@@ -9,21 +9,27 @@ namespace s21 {
 class Strategy {
  public:
   enum class TypeCoordinate { kX, kY, kZ };
-  enum class SelectionStrategy { kMove, kRotate, kDistance };
+  enum class SelectionStrategy { kMove, kRotate };
 
   virtual void Transformations(Data3DModel *data, double point,
                                TypeCoordinate coordinate_x_y_z) = 0;
 };
 
 class MoveObj : public Strategy {
-  void Transformations(s21::Data3DModel *data, double point,
+  void Transformations(Data3DModel *data, double point,
                        TypeCoordinate coordinate_x_y_z) override;
 };
 
-// class RotateObj : public Strategy {
-//   void Transformations(s21::Data3DModel *data, double point,
-//                        TypeCoordinate coordinate_x_y_z) override;
-// };
+class RotateObj : public Strategy {
+  void Transformations(Data3DModel *data, double point,
+                       TypeCoordinate coordinate_x_y_z) override;
+  void Rotate(Data3DModel *data, double point,
+              void (RotateObj::*SomeMethod)(Data3DModel::Coordinate &, double));
+  void RotateX(Data3DModel::Coordinate &i, double point);
+  void RotateY(Data3DModel::Coordinate &i, double point);
+  void RotateZ(Data3DModel::Coordinate &i, double point);
+};
+
 //
 // class DistanceObj : public Strategy {
 //   void Transformations(s21::Data3DModel *data, double point,

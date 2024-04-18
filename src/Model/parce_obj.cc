@@ -11,9 +11,11 @@ bool ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
   bool state_file = true;
   std::ifstream file;
   file.open(file_path);
+
+  size_t i = 0;
   if (file.is_open()) {
     while (std::getline(file, string_data_from_file_)) {
-      WriteVertexes(data);
+      WriteVertexes(data, &i);
       ParsePolygons(data);
       lexeme_.CheckLexem(data);
     }
@@ -24,16 +26,15 @@ bool ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
   return state_file;
 }
 
-void ParseObj::WriteVertexes(Data3DModel *data) {
+void ParseObj::WriteVertexes(Data3DModel *data, size_t *i) {
   std::string string_data;
-  double x = 0, y = 0, z = 0;
   char s = ' ';
 
   std::stringstream convert_string(string_data_from_file_);
-  if (convert_string >> s >> x >> y >> z && s == 'v') {
-    data->GetCoordinateVertex().push_back(x);
-    data->GetCoordinateVertex().push_back(y);
-    data->GetCoordinateVertex().push_back(z);
+  if (convert_string >> s >> coordinate_.X >> coordinate_.Y >> coordinate_.Z &&
+      s == 'v') {
+    data->GetCoordinateVertex().push_back(coordinate_);
+    ++(*i);
   }
 }
 
@@ -70,7 +71,7 @@ void ParseObj::NegativePolygons(int *num, Data3DModel *data) {
   if (*num > 0)
     *num -= 1;
   else
-    *num = (data->GetCoordinateVertex().size() / 3) - abs(*num);
+    *num = data->GetCoordinateVertex().size() - abs(*num);
   data->GetStringPolygon().push_back(*num);
 }
 

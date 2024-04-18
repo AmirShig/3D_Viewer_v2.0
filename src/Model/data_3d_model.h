@@ -11,15 +11,19 @@ namespace s21 {
  */
 class Data3DModel {
  public:
+  struct Coordinate {
+    Coordinate() : X{}, Y{}, Z{} {}
+    double X, Y, Z;
+  };
   Data3DModel() {}
   ~Data3DModel() {}
 
-  std::vector<double> &GetCoordinateVertex() { return coordinates_vertex_; }
+  std::vector<Coordinate> &GetCoordinateVertex() { return coordinates_vertex_; }
   std::vector<int> &GetStringPolygon() { return string_polygon_; }
   void ClearData();
 
  private:
-  std::vector<double> coordinates_vertex_;
+  std::vector<Coordinate> coordinates_vertex_;
   std::vector<int> string_polygon_;
 };
 }  // namespace s21
