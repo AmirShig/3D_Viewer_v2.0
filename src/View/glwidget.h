@@ -82,6 +82,10 @@ class GLWidget : public QOpenGLWidget {
     update();
   }
 
+  void SetRotX(float value) { x_rot_ = value; }
+  void SetRotY(float value) { y_rot_ = value; }
+  void SetRotZ(float value) { z_rot_ = value; }
+
   QColor GetBackgroundColor() { return backround_color_; }
   QColor GetVertexesColor() { return vertexes_color_; }
   QColor GetLinesColor() { return lines_color_; }
@@ -90,6 +94,9 @@ class GLWidget : public QOpenGLWidget {
   LinesType GetLinesType() { return lines_type_; }
   VertexesType GetVertexesType() { return vertexes_type_; }
   ProjectionType GetProjectionType() { return projection_type_; }
+  [[nodiscard]] float GetRotX() const { return x_rot_; }
+  [[nodiscard]] float GetRotY() const { return y_rot_; }
+  [[nodiscard]] float GetRotZ() const { return z_rot_; }
 
   void clearOpenGlWidget();
 
@@ -98,7 +105,7 @@ class GLWidget : public QOpenGLWidget {
 
  private:
   s21::Controller *controller_;
-  float x_rot_, y_rot_, zRot;
+  float x_rot_, y_rot_, z_rot_;
   QPoint m_pos_;
   QMatrix4x4 scale_matrix_;
 

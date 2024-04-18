@@ -22,7 +22,7 @@ all: install run
 
 install: clean
 	mkdir ../build
-	cd ../build && cmake .. && make
+	cd ../build && cmake .. && make 3dViewer
 
 rebuild:
 	cd ../build && make 3dViewer && ./3dViewer

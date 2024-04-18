@@ -50,9 +50,9 @@ class View : public QWidget {
   int rotatedY = 0;
   int rotatedZ = 0;
 
-  // QSettings
-  //  void writeSettings();
-  //  void readSettings();
+  //   QSettings
+  void writeSettings();
+  void readSettings();
 
  private slots:
   void OpenFilePushButtonClicked();
