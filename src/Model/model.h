@@ -47,7 +47,7 @@ public:
   Model() {
     move_obj_ = new MoveObj();
     rotate_obj_ = new RotateObj();
-    //    distance_obj_ = new DistanceObj();
+    distance_obj_ = new DistanceObj();
   }
   //Отдать данные в Controller
   Data3DModel &GetData() { return data_; }
@@ -61,10 +61,7 @@ private:
   AffineTransformations affine_;
   Strategy *move_obj_;
   Strategy *rotate_obj_;
-  //  Strategy *rotation_x_;
-  //  Strategy *rotation_y_;
-  //  Strategy *rotation_z_;
-  //  Strategy *distance_obj_;
+  Strategy *distance_obj_;
 };
 
 } // namespace s21

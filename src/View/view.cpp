@@ -50,6 +50,10 @@ View::View(QWidget *parent, s21::Controller *controller)
           SLOT(ButtonRotatePlusZ()));
   connect(ui->ButtonRotateMinusZ, SIGNAL(clicked()), this,
           SLOT(ButtonRotateMinusZ()));
+
+  connect(ui->ButtonPlusSize, SIGNAL(clicked()), this, SLOT(ButtonPlusSize()));
+  connect(ui->ButtonMinusSize, SIGNAL(clicked()), this,
+          SLOT(ButtonMinusSize()));
 }
 
 View::~View() {
@@ -320,24 +324,22 @@ void View::ButtonMinusMoveX() {
   gl_widget_->update();
 }
 
-///*                SIZE                */
-//
-// void View::on_pushButton_4_clicked() {
-//  double value = 1.1;
-//  size_xyz(&all_data, value);
-//  update();
-//}
-//
-// void View::on_pushButton_5_clicked() {
-//  double value = 0.9;
-//  size_xyz(&all_data, value);
-//  update();
-//}
-//
-///*                ROTATE               */
-//
-//// X Axis
-//
+void View::ButtonPlusSize() {
+  double value = 1;
+  controller_->Affine(Strategy::SelectionStrategy::kMove,
+                      Strategy::TypeCoordinate::kZ, &controller_->GetData(),
+                      value);
+  gl_widget_->update();
+}
+
+void View::ButtonMinusSize() {
+  double value = -1;
+  controller_->Affine(Strategy::SelectionStrategy::kMove,
+                      Strategy::TypeCoordinate::kZ, &controller_->GetData(),
+                      value);
+  gl_widget_->update();
+}
+
 void View::ButtonRotatePlusX() {
   int value = ui->ROTATE_X_VALUE->value();
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
@@ -443,4 +445,4 @@ void View::ButtonRotateMinusZ() {
 //   }
 // }
 
-}  // namespace s21
+} // namespace s21

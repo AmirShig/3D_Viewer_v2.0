@@ -1110,7 +1110,7 @@ QPushButton:pressed {
      <attribute name="title">
       <string>Size</string>
      </attribute>
-     <widget class="QPushButton" name="pushButton_4">
+     <widget class="QPushButton" name="ButtonPlusSize">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -1156,7 +1156,7 @@ QPushButton:pressed {
        <string>+</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_5">
+     <widget class="QPushButton" name="ButtonMinusSize">
       <property name="geometry">
        <rect>
         <x>220</x>

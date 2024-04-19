@@ -4,12 +4,13 @@ namespace s21 {
 
 /*!
  * \brief Абстрактный класс стратегия
- * \param coordinate перечисление для типа координат
+ * \param TypeCoordinate перечисление для типа координат
+ * \param SelectionStrategy тип стратегии
  */
 class Strategy {
  public:
   enum class TypeCoordinate { kX, kY, kZ };
-  enum class SelectionStrategy { kMove, kRotate };
+  enum class SelectionStrategy { kMove, kRotate, kDistance };
 
   virtual void Transformations(Data3DModel *data, double point,
                                TypeCoordinate coordinate_x_y_z) = 0;
@@ -30,11 +31,11 @@ class RotateObj : public Strategy {
   void RotateZ(Data3DModel::Coordinate &i, double point);
 };
 
-//
-// class DistanceObj : public Strategy {
-//   void Transformations(s21::Data3DModel *data, double point,
-//                        TypeCoordinate coordinate_x_y_z) override;
-// };
+
+ class DistanceObj : public Strategy {
+   void Transformations(s21::Data3DModel *data, double point,
+                        TypeCoordinate coordinate_x_y_z) override;
+ };
 
 class AffineTransformations {
  public:
@@ -45,8 +46,6 @@ class AffineTransformations {
   void SetStrategy(Strategy *concrete_strategy);
   void Transformations(Data3DModel *data, double point,
                        Strategy::TypeCoordinate coordinate_x_y_z);
-
-  Strategy &GetStrategy() { return *strategy_; }
 
  private:
   Strategy *strategy_;
