@@ -79,6 +79,7 @@ void GLWidget::setLinesType() {
     glColor3f(lines_color_.redF(), lines_color_.greenF(), lines_color_.blueF());
   }
   glLineWidth(line_width_);
+
 }
 
 void GLWidget::setProjection() {
@@ -107,7 +108,7 @@ void GLWidget::drawVertexes() {
       glColor3f(vertexes_color_.redF(), vertexes_color_.greenF(),
                 vertexes_color_.blueF());
     }
-    glPointSize(controller_->GetData().GetCoordinateVertex().size() / 3);
+    glPointSize(static_cast<GLfloat>(vertex_size_));
 
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(3, GL_DOUBLE, 0,

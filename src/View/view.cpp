@@ -2,6 +2,8 @@
 
 #include "ui_mainwindow.h"
 
+#include <QDebug>
+
 namespace s21 {
 
 View::View(QWidget *parent, s21::Controller *controller)
@@ -81,6 +83,7 @@ View::View(QWidget *parent, s21::Controller *controller)
   connect(ui->ButtonPlusSize, SIGNAL(clicked()), this, SLOT(ButtonPlusSize()));
   connect(ui->ButtonMinusSize, SIGNAL(clicked()), this,
           SLOT(ButtonMinusSize()));
+  gl_widget_->SetDefault();
   readSettings();
 }
 
