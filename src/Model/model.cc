@@ -28,4 +28,19 @@ void Model::Affine(Strategy::SelectionStrategy select_strategy,
 
   affine_.Transformations(data, point, type_coordinate);
 }
+
+/**
+ * Назначает комманду
+ * \param command перечисление комманд
+ * \param event текущие событие
+ * \param data данные 3d модели
+ */
+void Model::GiveCommand(Data3DModel *data, s21::Event *event, Event::Command command) {
+    Event::VerifyExecution verify = event->Execute(data, command);
+
+    if (verify == Event::VerifyExecution::kNotExecution) {
+        return;
+    }
+}
+
 } // namespace s21

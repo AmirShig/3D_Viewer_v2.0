@@ -1,9 +1,13 @@
+#include "glwidget.h"
+
 #include "view.h"
 
 namespace s21 {
 
 GLWidget::GLWidget(QWidget *parent, s21::Controller *c)
-    : QOpenGLWidget(parent), controller_(c) {}
+    : QOpenGLWidget(parent), controller_(c) {
+  SetDefault();
+}
 
 void GLWidget::SetData(s21::Controller *c) {
   controller_->GetData().GetStringPolygon() = c->GetData().GetStringPolygon();
@@ -11,21 +15,44 @@ void GLWidget::SetData(s21::Controller *c) {
       c->GetData().GetCoordinateVertex();
 }
 
+void GLWidget::SetDefault() {
+  projection_type_ = ProjectionType::kCentral;
+  vertexes_type_ = VertexesType::kNone;
+  lines_type_ = LinesType::kSolid;
+  backround_color_ = QColor(Qt::black);
+  lines_color_ = QColor(Qt::white);
+  vertexes_color_ = QColor(Qt::white);
+  line_width_ = 1;
+  vertex_size_ = 1;
+
+  x_rot_ = 0;
+  y_rot_ = 0;
+  z_rot_ = 0;
+  scale_matrix_.setToIdentity();
+
+  update();
+}
+
 void GLWidget::initializeGL() {
-  glClearColor(backroundColor.redF(), backroundColor.greenF(),
-               backroundColor.blueF(), backroundColor.alphaF());
+  glClearColor(backround_color_.redF(), backround_color_.greenF(),
+               backround_color_.blueF(), backround_color_.alphaF());
   glEnable(GL_DEPTH_TEST);
+}
+
+void GLWidget::setScale(float scale) {
+  scale_matrix_.scale(scale, scale, scale);
 }
 
 void GLWidget::paintGL() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
-  glClearColor(backroundColor.redF(), backroundColor.greenF(),
-               backroundColor.blueF(), backroundColor.alphaF());
+  glClearColor(backround_color_.redF(), backround_color_.greenF(),
+               backround_color_.blueF(), backround_color_.alphaF());
   glTranslated(0, 0, -10);
-  glRotatef(xRot, 1, 0, 0);
-  glRotatef(yRot, 0, 1, 0);
+  glRotatef(x_rot_, 1, 0, 0);
+  glRotatef(y_rot_, 0, 1, 0);
+  glMultMatrixf(scale_matrix_.data());
   setProjection();
   drawVertexes();
   setLinesType();
@@ -39,46 +66,46 @@ void GLWidget::resizeGL(int w, int h) {
 }
 
 void GLWidget::setLinesType() {
-  if (lineType == DASHED) {
+  if (lines_type_ == LinesType::kDashed) {
     glEnable(GL_LINE_STIPPLE);
     glLineStipple(1, 0x00FF);
   } else {
     glDisable(GL_LINE_STIPPLE);
   }
 
-  if (!linesColor.isValid()) {
-    linesColor = QColor(Qt::white);
+  if (!lines_color_.isValid()) {
+    lines_color_ = QColor(Qt::white);
   } else {
-    glColor3f(linesColor.redF(), linesColor.greenF(), linesColor.blueF());
+    glColor3f(lines_color_.redF(), lines_color_.greenF(), lines_color_.blueF());
   }
-  glLineWidth(lineWidth);
+  glLineWidth(line_width_);
 }
 
 void GLWidget::setProjection() {
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   float aspectRatio = 901.0 / 741.0;
-  if (projection == PARALLEL) {
+  if (projection_type_ == ProjectionType::kParallel) {
     glOrtho(-2 * aspectRatio, 2 * aspectRatio, -2, 2, 0.1, 100);
-  } else if (projection == CENTRAL) {
+  } else if (projection_type_ == ProjectionType::kCentral) {
     gluPerspective(24, aspectRatio, 0.1, 100);
   }
   glMatrixMode(GL_MODELVIEW);
 }
 
 void GLWidget::drawVertexes() {
-  if (vertexType == CIRCLE) {
+  if (vertexes_type_ == VertexesType::kCircle) {
     glEnable(GL_POINT_SMOOTH);
-  } else if (vertexType == SQUARE) {
+  } else if (vertexes_type_ == VertexesType::kSquare) {
     glEnable(GL_POINT_SPRITE);
   }
 
-  if (vertexType != NONE) {
-    if (!vertexesColor.isValid()) {
-      vertexesColor = QColor(Qt::white);
+  if (vertexes_type_ != VertexesType::kNone) {
+    if (!vertexes_color_.isValid()) {
+      vertexes_color_ = QColor(Qt::white);
     } else {
-      glColor3f(vertexesColor.redF(), vertexesColor.greenF(),
-                vertexesColor.blueF());
+      glColor3f(vertexes_color_.redF(), vertexes_color_.greenF(),
+                vertexes_color_.blueF());
     }
     glPointSize(controller_->GetData().GetCoordinateVertex().size() / 3);
 
@@ -90,9 +117,9 @@ void GLWidget::drawVertexes() {
                    controller_->GetData().GetStringPolygon().data());
     glDisableClientState(GL_VERTEX_ARRAY);
   }
-  if (vertexType == CIRCLE) {
+  if (vertexes_type_ == VertexesType::kCircle) {
     glDisable(GL_POINT_SMOOTH);
-  } else if (vertexType == SQUARE) {
+  } else if (vertexes_type_ == VertexesType::kSquare) {
     glDisable(GL_POINT_SPRITE);
   }
 }
@@ -114,14 +141,25 @@ void GLWidget::clearOpenGlWidget() {
   update();
 }
 
-void GLWidget::mousePressEvent(QMouseEvent *mo) { mPos = mo->pos(); }
+void GLWidget::mousePressEvent(QMouseEvent *mo) { m_pos_ = mo->pos(); }
 
 void GLWidget::mouseMoveEvent(QMouseEvent *mo) {
   const float sense = 0.3f;
 
-  xRot += sense * (mo->pos().y() - mPos.y());
-  yRot += sense * (mo->pos().x() - mPos.x());
-  mPos = mo->pos();
+  x_rot_ += sense * (mo->pos().y() - m_pos_.y());
+  y_rot_ += sense * (mo->pos().x() - m_pos_.x());
+  m_pos_ = mo->pos();
+  update();
+}
+
+void GLWidget::wheelEvent(QWheelEvent *event) {
+  const float scaleFactor = 0.9f;
+
+  if (event->angleDelta().y() > 0) {
+    setScale(scaleFactor);
+  } else {
+    setScale(1.0f / scaleFactor);
+  }
   update();
 }
 

@@ -10,10 +10,10 @@ namespace s21 {
  *\authors Dimitraki Vladimir
  */
 class Data3DModel {
- public:
+public:
   struct Coordinate {
-    Coordinate() : X{}, Y{}, Z{} {}
-    double X, Y, Z;
+    Coordinate() : x{}, y{}, z{} {}
+    double x, y, z;
   };
   Data3DModel() {}
   ~Data3DModel() {}
@@ -22,10 +22,10 @@ class Data3DModel {
   std::vector<int> &GetStringPolygon() { return string_polygon_; }
   void ClearData();
 
- private:
+private:
   std::vector<Coordinate> coordinates_vertex_;
   std::vector<int> string_polygon_;
 };
-}  // namespace s21
+} // namespace s21
 
-#endif  // INC_3DVIEWER_2_DATA3DMODEL_H
+#endif // INC_3DVIEWER_2_DATA3DMODEL_H

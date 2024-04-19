@@ -12,8 +12,6 @@ set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
 
-
-
 find_package(Qt6 COMPONENTS Widgets OpenGL REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Widgets OpenGLWidgets)
 
@@ -34,18 +32,32 @@ add_executable(3dViewer
         src/View/glwidget.h
         src/Model/affine_transformations.cc
         src/Model/affine_transformations.h
-        src/Model/set_centre.h
+        src/View/QtGifImage/gifimage/qgifimage.h
+        src/View/QtGifImage/gifimage/qgifimage.cpp
+        src/View/QtGifImage/gifimage/qgifglobal.h
+        src/View/QtGifImage/gifimage/qgifimage_p.h
+        src/View/QtGifImage/3rdParty/giflib/gif_lib.h
+        src/View/QtGifImage/3rdParty/giflib/gif_hash.h
+        src/View/QtGifImage/3rdParty/giflib/dgif_lib.c
+        src/View/QtGifImage/3rdParty/giflib/egif_lib.c
+        src/View/QtGifImage/3rdParty/giflib/gif_err.c
+        src/View/QtGifImage/3rdParty/giflib/gif_font.c
+        src/View/QtGifImage/3rdParty/giflib/gif_hash.c
+        src/View/QtGifImage/3rdParty/giflib/gifalloc.c
+        src/View/QtGifImage/3rdParty/giflib/quantize.c
         src/Model/set_centre.cc
+        src/Model/set_centre.h
 )
 
 target_link_libraries(3dViewer PRIVATE Qt6::Widgets Qt6::OpenGLWidgets OpenGL::GLU)
 
 include(FetchContent)
+
 FetchContent_Declare(
         googletest
         URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
-
 )
+
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()
@@ -57,12 +69,14 @@ enable_testing()
 #        src/Model/data_3d_model.cc
 #        src/Model/lexem.cc
 #        src/Model/parce_obj.cc
+#        src/Model/affine_transformations.cc
+#        src/Model/affine_transformations.h
 #)
 
 #target_link_libraries(
 #        unit_test
 #        GTest::gtest_main
 #)
-
-include(GoogleTest)
+#
+#include(GoogleTest)
 #gtest_discover_tests(unit_test)

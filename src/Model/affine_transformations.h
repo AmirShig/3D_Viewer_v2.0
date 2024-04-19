@@ -1,4 +1,5 @@
 #include "data_3d_model.h"
+#include <cmath>
 
 namespace s21 {
 

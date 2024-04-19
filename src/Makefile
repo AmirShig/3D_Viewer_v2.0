@@ -15,11 +15,14 @@ CC_FILES := $(filter-out ./gui/desktop/main.cc ./gui/desktop/SnakeView.cc, $(fil
 
 TEST_SRC := tests/unit_tests.cc
 
+MSG=Minor bug fixes
+BRANCH=$(shell git branch --show-current)
+
 all: install run
 
 install: clean
 	mkdir ../build
-	cd ../build && cmake .. && make
+	cd ../build && cmake .. && make 3dViewer
 
 rebuild:
 	cd ../build && make 3dViewer && ./3dViewer
@@ -53,3 +56,10 @@ debug_gtest: clean
 run_test:
 	cd ../build && ctest
 	cd ../build && ./unit_test
+
+
+# Usage example: make push MSG="write here what was added"
+push: clean
+	git add ..
+	git commit -m "$(BRANCH): $(MSG)"
+	git push origin $(BRANCH)

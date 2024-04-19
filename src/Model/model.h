@@ -9,6 +9,7 @@
 
 #include "affine_transformations.h"
 #include "data_3d_model.h"
+#include "set_centre.h"
 
 namespace s21 {
 
@@ -54,6 +55,8 @@ public:
   bool ProccessingObjFile(std::string &file_path);
   void Affine(Strategy::SelectionStrategy select_strategy,
               Strategy::TypeCoordinate type, Data3DModel *data, double point);
+
+  void GiveCommand(Data3DModel *data, Event *event, Event::Command command);
 
 private:
   Data3DModel data_;

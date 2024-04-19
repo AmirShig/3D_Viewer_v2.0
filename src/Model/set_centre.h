@@ -1,44 +1,55 @@
-#include "model.h"
+#include "data_3d_model.h"
+#include <istream>
+#include <set>
 
-/*!
- * \brief абстрактный класс
- * \param FindMinMax виртуальный метод для поиска максимальных и минимальных
- * координат
- */
 namespace s21 {
 
-class Find {
+/*!
+ * \brief Главный интерфейс реализован по паттерну "Chain of responsibility"
+ */
+class Event {
 public:
-  enum class TypeCentreCoordinate { kX, kY, kZ };
+  enum class VerifyExecution { kExecution, kNotExecution };
+  enum class Command { kFindMinMax, kFindMax, kFindCentre };
+  struct MinMax {
+    double x, y, z;
+  };
+  /**
+   * Передает обязанности следующему по цепочке
+   * \param data данные 3d модели
+   */
+  virtual Event *SetNextEvent(Event *event) = 0;
 
-  virtual void FindMinMax(Data3DModel *data, point) = 0;
+  /**
+   * Принимает комманду на исполнение
+   */
+  virtual VerifyExecution Execute(Data3DModel *data, Command command) = 0;
 };
 
-class FindX : public Find {
+class AbstructEvent : public Event {
 public:
-  void FindMinMax() override;
-};
+  AbstructEvent() : next_event_(nullptr) {}
 
-class FindY : public Find {
-public:
-  void FindMinMax() override;
-};
-
-class FindZ : public Find {
-public:
-  void FindMinMax() override;
-};
-
-class Centre {
-public:
-  Centre() {}
-
-  Centre(Find *strategy) : strategy_(strategy) {}
-
-  void SetStrategy();
-  void FindMinMax();
+  Event *SetNextEvent(Event *event) override;
+  VerifyExecution Execute(Data3DModel *data, Command command) override;
 
 private:
-  Find *strategy_;
+  Event *next_event_;
 };
+
+class FindMinMax : public AbstructEvent {
+public:
+  VerifyExecution Execute(Data3DModel *data, Command command) override;
+};
+
+class FindMax : public AbstructEvent {
+public:
+  VerifyExecution Execute(Data3DModel *data, Command command) override;
+};
+
+class FindCentre : public AbstructEvent {
+public:
+  VerifyExecution Execute(Data3DModel *data, Command command) override;
+};
+
 } // namespace s21

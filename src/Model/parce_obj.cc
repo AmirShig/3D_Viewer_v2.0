@@ -31,7 +31,7 @@ void ParseObj::WriteVertexes(Data3DModel *data, size_t *i) {
   char s = ' ';
 
   std::stringstream convert_string(string_data_from_file_);
-  if (convert_string >> s >> coordinate_.X >> coordinate_.Y >> coordinate_.Z &&
+  if (convert_string >> s >> coordinate_.x >> coordinate_.y >> coordinate_.z &&
       s == 'v') {
     data->GetCoordinateVertex().push_back(coordinate_);
     ++(*i);

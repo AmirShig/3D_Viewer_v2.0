@@ -25,11 +25,11 @@ void MoveObj::Transformations(s21::Data3DModel *data, double point,
                               TypeCoordinate coordinate_x_y_z) {
   for (auto &i : data->GetCoordinateVertex()) {
     if (coordinate_x_y_z == TypeCoordinate::kX)
-      i.X += point;
+      i.x += point;
     if (coordinate_x_y_z == TypeCoordinate::kY)
-      i.Y += point;
+      i.y += point;
     if (coordinate_x_y_z == TypeCoordinate::kZ)
-      i.Z += point;
+      i.z += point;
   }
 }
 
@@ -58,24 +58,24 @@ void RotateObj::Rotate(Data3DModel *data, double point,
 }
 
 void RotateObj::RotateX(Data3DModel::Coordinate &i, double point) {
-  double tmp_y = i.Y;
-  double tmp_z = i.Z;
-  i.Y = tmp_y * cos(point) + tmp_z * sin(point);
-  i.Z = -tmp_y * sin(point) + tmp_z * cos(point);
+  double tmp_y = i.y;
+  double tmp_z = i.z;
+  i.y = tmp_y * cos(point) + tmp_z * sin(point);
+  i.z = -tmp_y * sin(point) + tmp_z * cos(point);
 }
 
 void RotateObj::RotateY(Data3DModel::Coordinate &i, double point) {
-  double tmp_x = i.X;
-  double tmp_z = i.Z;
-  i.X = tmp_x * cos(point) + tmp_z * sin(point);
-  i.Z = -tmp_x * sin(point) + tmp_z * cos(point);
+  double tmp_x = i.x;
+  double tmp_z = i.z;
+  i.x = tmp_x * cos(point) + tmp_z * sin(point);
+  i.z = -tmp_x * sin(point) + tmp_z * cos(point);
 }
 
 void RotateObj::RotateZ(Data3DModel::Coordinate &i, double point) {
-  double tmp_x = i.X;
-  double tmp_y = i.Y;
-  i.X = tmp_x * cos(point) + tmp_y * sin(point);
-  i.Y = -tmp_x * sin(point) + tmp_y * cos(point);
+  double tmp_x = i.x;
+  double tmp_y = i.y;
+  i.x = tmp_x * cos(point) + tmp_y * sin(point);
+  i.y = -tmp_x * sin(point) + tmp_y * cos(point);
 }
 
 void DistanceObj::Transformations(
@@ -83,7 +83,9 @@ void DistanceObj::Transformations(
     s21::Strategy::TypeCoordinate coordinate_x_y_z) {
   if (coordinate_x_y_z == Strategy::TypeCoordinate::kZ) {
     for (auto &i : data->GetCoordinateVertex()) {
-      i.Z *= point;
+      i.x *= point;
+      i.y *= point;
+      i.z *= point;
     }
   }
 }

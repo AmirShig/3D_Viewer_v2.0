@@ -3,8 +3,6 @@
 
 #define GL_SILENCE_DEPRECATION
 
-//#include <OpenGL/gl.h>
-//#include <OpenGL/glu.h>
 #include <QtOpenGLWidgets/qopenglwidget.h>
 
 #include <QColor>
@@ -17,7 +15,9 @@
 #include <QPainter>
 #include <QSettings>
 #include <QTimer>
+#include <QVBoxLayout>
 #include <QWidget>
+#include <iostream>
 
 #include "../Controller/controller.h"
 #include "QtGifImage/gifimage/qgifimage.h"
@@ -35,36 +35,31 @@ namespace s21 {
 class View : public QWidget {
   Q_OBJECT
 
-public:
+ public:
   enum class SelectionStrategy { kMove, kRotate, kDistance };
   View(QWidget *parent = nullptr, s21::Controller *controller = nullptr);
   ~View();
-
-  QString file_path_;
-  QString gifName;
-  QGifImage *gifFrame;
-  int screenCounter = 0;
-  QTimer *timer;
 
   int rotatedX = 0;
   int rotatedY = 0;
   int rotatedZ = 0;
 
-  // QSettings
-  //  void writeSettings();
-  //  void readSettings();
+  //   QSettings
+  void writeSettings();
+  void readSettings();
 
-private slots:
+ private slots:
   void OpenFilePushButtonClicked();
   void SetBckgColorClicked();
   void SetLinesColorClicked();
   void SetVertexesColorClicked();
 
-  //  void on_linesType_activated(int index);
-  //  void on_lineSizeEditer_valueChanged(int value);
-  //  void on_vertexesType_activated(int index);
-  //  void on_vertexSizeEditer_valueChanged(int value);
-  //  void on_projectionType_activated(int index);
+  void ProjectionTypeChanged(int index);
+  void LinesTypeChanged(int index);
+  void VertexesTypeChanged(int index);
+
+  void VertexSizeValueChanged(int value);
+  void LinesWidthValueChanged(int value);
 
   // Affine_Transformations
   void ButtonPlusMoveZ();
@@ -89,16 +84,23 @@ private slots:
   void CleanPushButtonClicked();
 
   // Print screen & Create gif
-  //  void on_createScreenPshBtn_clicked();
-  //  void on_createGifPshBtn_clicked();
-  //    void createAnimation();
 
-private:
+  void CreateAnimation();
+  void CreateScreenClicked();
+  void CreateGifClicked();
+
+ private:
   Ui::View *ui;
   s21::Controller *controller_;
   GLWidget *gl_widget_;
 
+  QString file_path_;
+  QString gif_name_;
+  QGifImage *gif_frame_;
+  int screen_counter_ = 0;
+  QTimer *gif_timer_;
+
   int rotationPostition_;
 };
-} // namespace s21
-#endif // MAINWINDOW_H
+}  // namespace s21
+#endif  // MAINWINDOW_H
