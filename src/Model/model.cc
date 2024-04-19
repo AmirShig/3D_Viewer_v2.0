@@ -14,10 +14,18 @@ bool Model::ProccessingObjFile(std::string &file_path) {
 void Model::Affine(Strategy::SelectionStrategy select_strategy,
                    Strategy::TypeCoordinate type_coordinate, Data3DModel *data,
                    double point) {
-  if (select_strategy == Strategy::SelectionStrategy::kMove) {
+  switch (select_strategy) {
+  case Strategy::SelectionStrategy::kMove:
     affine_.SetStrategy(move_obj_);
+    break;
+  case Strategy::SelectionStrategy::kRotate:
+    affine_.SetStrategy(rotate_obj_);
+    break;
+  case Strategy::SelectionStrategy::kDistance:
+    affine_.SetStrategy(distance_obj_);
+    break;
   }
 
   affine_.Transformations(data, point, type_coordinate);
 }
-}  // namespace s21
+} // namespace s21

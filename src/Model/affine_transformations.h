@@ -1,10 +1,12 @@
 #include "data_3d_model.h"
+#include <cmath>
 
 namespace s21 {
 
 /*!
  * \brief Абстрактный класс стратегия
- * \param coordinate перечисление для типа координат
+ * \param TypeCoordinate перечисление для типа координат
+ * \param SelectionStrategy тип стратегии
  */
 class Strategy {
  public:
@@ -16,19 +18,25 @@ class Strategy {
 };
 
 class MoveObj : public Strategy {
-  void Transformations(s21::Data3DModel *data, double point,
+  void Transformations(Data3DModel *data, double point,
                        TypeCoordinate coordinate_x_y_z) override;
 };
 
-// class RotateObj : public Strategy {
-//   void Transformations(s21::Data3DModel *data, double point,
-//                        TypeCoordinate coordinate_x_y_z) override;
-// };
-//
-// class DistanceObj : public Strategy {
-//   void Transformations(s21::Data3DModel *data, double point,
-//                        TypeCoordinate coordinate_x_y_z) override;
-// };
+class RotateObj : public Strategy {
+  void Transformations(Data3DModel *data, double point,
+                       TypeCoordinate coordinate_x_y_z) override;
+  void Rotate(Data3DModel *data, double point,
+              void (RotateObj::*SomeMethod)(Data3DModel::Coordinate &, double));
+  void RotateX(Data3DModel::Coordinate &i, double point);
+  void RotateY(Data3DModel::Coordinate &i, double point);
+  void RotateZ(Data3DModel::Coordinate &i, double point);
+};
+
+
+ class DistanceObj : public Strategy {
+   void Transformations(s21::Data3DModel *data, double point,
+                        TypeCoordinate coordinate_x_y_z) override;
+ };
 
 class AffineTransformations {
  public:
@@ -39,8 +47,6 @@ class AffineTransformations {
   void SetStrategy(Strategy *concrete_strategy);
   void Transformations(Data3DModel *data, double point,
                        Strategy::TypeCoordinate coordinate_x_y_z);
-
-  Strategy &GetStrategy() { return *strategy_; }
 
  private:
   Strategy *strategy_;

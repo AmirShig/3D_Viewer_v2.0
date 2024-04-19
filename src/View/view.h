@@ -68,18 +68,16 @@ class View : public QWidget {
   void ButtonMinusMoveY();
   void ButtonPlusMoveX();
   void ButtonMinusMoveX();
-  //
-  //  // Size
-  //  void on_pushButton_4_clicked();
-  //  void on_pushButton_5_clicked();
-  //
-  //  // Rotate
-  //  void on_ROTATE_X_PLUS_clicked();
-  //  void on_ROTATE_X_MINUS_clicked();
-  //  void on_ROTATE_Y_PLUS_clicked();
-  //  void on_ROTATE_Y_MINUS_clicked();
-  //  void on_ROTATE_Z_PLUS_clicked();
-  //  void on_ROTATE_Z_MINUS_clicked();
+
+  void ButtonPlusSize();
+  void ButtonMinusSize();
+
+  void ButtonRotatePlusX();
+  void ButtonRotateMinusX();
+  void ButtonRotatePlusY();
+  void ButtonRotateMinusY();
+  void ButtonRotatePlusZ();
+  void ButtonRotateMinusZ();
 
   // SetDefault
   void on_SetDefault_button_clicked();
