@@ -34,6 +34,8 @@ add_executable(3dViewer
         src/View/glwidget.h
         src/Model/affine_transformations.cc
         src/Model/affine_transformations.h
+        src/Model/set_centre.h
+        src/Model/set_centre.cc
 )
 
 target_link_libraries(3dViewer PRIVATE Qt6::Widgets Qt6::OpenGLWidgets OpenGL::GLU)
