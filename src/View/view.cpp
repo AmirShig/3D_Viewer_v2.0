@@ -7,7 +7,7 @@
 namespace s21 {
 
 View::View(QWidget *parent, s21::Controller *controller)
-    : QWidget(parent), ui(new Ui::View), controller_(controller) {
+    : QMainWindow(parent), ui(new Ui::View), controller_(controller) {
   ui->setupUi(this);
   setWindowTitle("3D Viewer");
   gif_timer_ = new QTimer(nullptr);
@@ -15,9 +15,16 @@ View::View(QWidget *parent, s21::Controller *controller)
 
   //Инициализация окна GLWidget
   gl_widget_ = new GLWidget(nullptr, controller);
-  gl_widget_->setFixedSize(900, 720);
-  auto *layout = new QVBoxLayout(ui->centralwidget);
-  layout->addWidget(gl_widget_);
+//  gl_widget_->setFixedSize(900, 720);
+//  auto *layout = new QVBoxLayout(ui->centralwidget);
+  ui->layoutForGl->addWidget(gl_widget_);
+//  layout->addWidget(gl_widget_);
+// Устанавливаем политику растяжения для центрального виджета
+  ui->centralwidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+// Устанавливаем центральный виджет для окна
+  setCentralWidget(ui->centralwidget);
+
 
   //  connect(timer, SIGNAL(timeout()), this, SLOT(createAnimation()));
   // Open & clean

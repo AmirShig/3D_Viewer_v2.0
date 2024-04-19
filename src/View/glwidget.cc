@@ -50,8 +50,8 @@ void GLWidget::paintGL() {
   glClearColor(backround_color_.redF(), backround_color_.greenF(),
                backround_color_.blueF(), backround_color_.alphaF());
   glTranslated(0, 0, -10);
-  glRotatef(x_rot_, 1, 0, 0);
-  glRotatef(y_rot_, 0, 1, 0);
+//  glRotatef(x_rot_, 1, 0, 0);
+//  glRotatef(y_rot_, 0, 1, 0);
   glMultMatrixf(scale_matrix_.data());
   setProjection();
   drawVertexes();
@@ -147,9 +147,16 @@ void GLWidget::mousePressEvent(QMouseEvent *mo) { m_pos_ = mo->pos(); }
 void GLWidget::mouseMoveEvent(QMouseEvent *mo) {
   const float sense = 0.3f;
 
-  x_rot_ += sense * (mo->pos().y() - m_pos_.y());
-  y_rot_ += sense * (mo->pos().x() - m_pos_.x());
+  x_rot_ = sense * (mo->pos().y() - m_pos_.y());
+  y_rot_ = sense * (mo->pos().x() - m_pos_.x());
   m_pos_ = mo->pos();
+
+  controller_->Affine(Strategy::SelectionStrategy::kRotate,
+                      Strategy::TypeCoordinate::kX,
+                      &controller_->GetData(),-x_rot_);
+  controller_->Affine(Strategy::SelectionStrategy::kRotate,
+                      Strategy::TypeCoordinate::kY,
+                      &controller_->GetData(),y_rot_);
   update();
 }
 

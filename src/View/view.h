@@ -18,6 +18,7 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #include <iostream>
+#include <QMainWindow>
 
 #include "../Controller/controller.h"
 #include "QtGifImage/gifimage/qgifimage.h"
@@ -32,7 +33,7 @@ QT_END_NAMESPACE
 
 namespace s21 {
 
-class View : public QWidget {
+class View : public QMainWindow {
   Q_OBJECT
 
  public:
