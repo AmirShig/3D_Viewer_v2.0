@@ -107,6 +107,7 @@ class GLWidget : public QOpenGLWidget {
  private:
   s21::Controller *controller_;
   float x_rot_, y_rot_, z_rot_;
+  double aspect_ratio_;
   QPoint m_pos_;
   QMatrix4x4 scale_matrix_;
 

@@ -63,6 +63,8 @@ void GLWidget::resizeGL(int w, int h) {
   glViewport(0, 0, w, h);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
+
+  aspect_ratio_ = qreal(w) / qreal(h ? h : 1);
 }
 
 void GLWidget::setLinesType() {
@@ -85,11 +87,11 @@ void GLWidget::setLinesType() {
 void GLWidget::setProjection() {
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  float aspectRatio = 901.0 / 741.0;
+//  float aspectRatio = 901.0 / 741.0;
   if (projection_type_ == ProjectionType::kParallel) {
-    glOrtho(-2 * aspectRatio, 2 * aspectRatio, -2, 2, 0.1, 100);
+    glOrtho(-2 * aspect_ratio_, 2 * aspect_ratio_, -2, 2, 0.1, 100);
   } else if (projection_type_ == ProjectionType::kCentral) {
-    gluPerspective(24, aspectRatio, 0.1, 100);
+    gluPerspective(24, aspect_ratio_, 0.1, 100);
   }
   glMatrixMode(GL_MODELVIEW);
 }
