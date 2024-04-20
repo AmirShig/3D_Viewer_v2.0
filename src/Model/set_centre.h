@@ -24,6 +24,11 @@ public:
    * Принимает комманду на исполнение
    */
   virtual VerifyExecution Execute(Data3DModel *data, Command command) = 0;
+
+  MinMax centre_;
+  MinMax scale_for_centre_;
+  MinMax min_;
+  MinMax max_;
 };
 
 class AbstructEvent : public Event {
@@ -40,6 +45,7 @@ private:
 class FindMinMax : public AbstructEvent {
 public:
   VerifyExecution Execute(Data3DModel *data, Command command) override;
+  void InitMinMax(Data3DModel::Coordinate &vertex);
 };
 
 class FindMax : public AbstructEvent {

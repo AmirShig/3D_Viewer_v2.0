@@ -41,6 +41,7 @@ void Model::GiveCommand(Data3DModel *data, s21::Event *event, Event::Command com
     if (verify == Event::VerifyExecution::kNotExecution) {
         return;
     }
+
 }
 
 } // namespace s21
