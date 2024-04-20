@@ -24,27 +24,24 @@ void AffineTransformations::Transformations(
 void MoveObj::Transformations(s21::Data3DModel *data, double point,
                               TypeCoordinate coordinate_x_y_z) {
   for (auto &i : data->GetCoordinateVertex()) {
-    if (coordinate_x_y_z == TypeCoordinate::kX)
-      i.X += point;
-    if (coordinate_x_y_z == TypeCoordinate::kY)
-      i.Y += point;
-    if (coordinate_x_y_z == TypeCoordinate::kZ)
-      i.Z += point;
+    if (coordinate_x_y_z == TypeCoordinate::kX) i.X += point;
+    if (coordinate_x_y_z == TypeCoordinate::kY) i.Y += point;
+    if (coordinate_x_y_z == TypeCoordinate::kZ) i.Z += point;
   }
 }
 
 void RotateObj::Transformations(Data3DModel *data, double point,
                                 Strategy::TypeCoordinate coordinate_x_y_z) {
   switch (coordinate_x_y_z) {
-  case Strategy::TypeCoordinate::kX:
-    Rotate(data, point, &RotateObj::RotateX);
-    break;
-  case Strategy::TypeCoordinate::kY:
-    Rotate(data, point, &RotateObj::RotateY);
-    break;
-  case Strategy::TypeCoordinate::kZ:
-    Rotate(data, point, &RotateObj::RotateZ);
-    break;
+    case Strategy::TypeCoordinate::kX:
+      Rotate(data, point, &RotateObj::RotateX);
+      break;
+    case Strategy::TypeCoordinate::kY:
+      Rotate(data, point, &RotateObj::RotateY);
+      break;
+    case Strategy::TypeCoordinate::kZ:
+      Rotate(data, point, &RotateObj::RotateZ);
+      break;
   }
 }
 
@@ -88,4 +85,4 @@ void DistanceObj::Transformations(
   }
 }
 
-} // namespace s21
+}  // namespace s21

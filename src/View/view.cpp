@@ -1,8 +1,8 @@
 #include "view.h"
 
-#include "ui_mainwindow.h"
-
 #include <QDebug>
+
+#include "ui_mainwindow.h"
 
 namespace s21 {
 
@@ -15,16 +15,16 @@ View::View(QWidget *parent, s21::Controller *controller)
 
   //Инициализация окна GLWidget
   gl_widget_ = new GLWidget(nullptr, controller);
-//  gl_widget_->setFixedSize(900, 720);
-//  auto *layout = new QVBoxLayout(ui->centralwidget);
+  //  gl_widget_->setFixedSize(900, 720);
+  //  auto *layout = new QVBoxLayout(ui->centralwidget);
   ui->layoutForGl->addWidget(gl_widget_);
-//  layout->addWidget(gl_widget_);
-// Устанавливаем политику растяжения для центрального виджета
-  ui->centralwidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  //  layout->addWidget(gl_widget_);
+  // Устанавливаем политику растяжения для центрального виджета
+  ui->centralwidget->setSizePolicy(QSizePolicy::Expanding,
+                                   QSizePolicy::Expanding);
 
-// Устанавливаем центральный виджет для окна
+  // Устанавливаем центральный виджет для окна
   setCentralWidget(ui->centralwidget);
-
 
   //  connect(timer, SIGNAL(timeout()), this, SLOT(createAnimation()));
   // Open & clean
@@ -106,7 +106,8 @@ void View::OpenFilePushButtonClicked() {
   ui->vertexCount->setText("");
   ui->polygonCount->setText("");
   controller_->GetData().ClearData();
-  if (controller_->GetStringFilePath(file_path_)) {
+  std::string std_string = file_path_.toStdString();
+  if (controller_->ParseFile(std_string)) {
     ui->vertexCount->setText(
         QString::number(controller_->GetData().GetCoordinateVertex().size()));
     ui->polygonCount->setText(
@@ -252,7 +253,8 @@ void View::readSettings() {
   QFileInfo check_file(file_path_);
 
   controller_->GetData().ClearData();
-  if (controller_->GetStringFilePath(file_path_)) {
+  std::string std_string = file_path_.toStdString();
+  if (controller_->ParseFile(std_string)) {
     ui->vertexCount->setText(
         QString::number(controller_->GetData().GetCoordinateVertex().size()));
     ui->polygonCount->setText(
@@ -469,4 +471,4 @@ void View::CreateAnimation() {
   }
 }
 
-} // namespace s21
+}  // namespace s21

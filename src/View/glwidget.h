@@ -19,6 +19,7 @@
 #include <QColor>
 #include <QColorDialog>
 #include <QCoreApplication>
+#include <QDebug>
 #include <QFileDialog>
 #include <QMatrix4x4>
 #include <QMessageBox>
@@ -28,7 +29,6 @@
 #include <QSettings>
 #include <QTimer>
 #include <QWidget>
-#include <QDebug>
 
 #include "../Controller/controller.h"
 #include "QtGifImage/gifimage/qgifimage.h"

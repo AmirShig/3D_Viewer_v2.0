@@ -1,7 +1,7 @@
 #ifndef INC_3DVIEWER_2_CONTROLLER_H
 #define INC_3DVIEWER_2_CONTROLLER_H
 
-#include <QString>
+//#include <QString>
 
 #include "../Model/model.h"
 
@@ -20,8 +20,8 @@ class Controller {
               Strategy::TypeCoordinate type, Data3DModel *data, double point) {
     model_->Affine(select_strategy, type, data, point);
   }
-  bool GetStringFilePath(QString &q_string);
-  std::string ConvertToStdString(QString &q_string);
+  bool ParseFile(std::string file_path);
+  //  std::string ConvertToStdString(QString &q_string);
   Data3DModel &GetData() { return model_->GetData(); }
 
  private:

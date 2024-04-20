@@ -9,6 +9,7 @@
 #include <QColorDialog>
 #include <QCoreApplication>
 #include <QFileDialog>
+#include <QMainWindow>
 #include <QMessageBox>
 #include <QMouseEvent>
 #include <QOpenGLFunctions>
@@ -18,7 +19,6 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #include <iostream>
-#include <QMainWindow>
 
 #include "../Controller/controller.h"
 #include "QtGifImage/gifimage/qgifimage.h"

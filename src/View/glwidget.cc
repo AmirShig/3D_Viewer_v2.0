@@ -50,8 +50,8 @@ void GLWidget::paintGL() {
   glClearColor(backround_color_.redF(), backround_color_.greenF(),
                backround_color_.blueF(), backround_color_.alphaF());
   glTranslated(0, 0, -10);
-//  glRotatef(x_rot_, 1, 0, 0);
-//  glRotatef(y_rot_, 0, 1, 0);
+  //  glRotatef(x_rot_, 1, 0, 0);
+  //  glRotatef(y_rot_, 0, 1, 0);
   glMultMatrixf(scale_matrix_.data());
   setProjection();
   drawVertexes();
@@ -81,13 +81,12 @@ void GLWidget::setLinesType() {
     glColor3f(lines_color_.redF(), lines_color_.greenF(), lines_color_.blueF());
   }
   glLineWidth(line_width_);
-
 }
 
 void GLWidget::setProjection() {
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-//  float aspectRatio = 901.0 / 741.0;
+  //  float aspectRatio = 901.0 / 741.0;
   if (projection_type_ == ProjectionType::kParallel) {
     glOrtho(-2 * aspect_ratio_, 2 * aspect_ratio_, -2, 2, 0.1, 100);
   } else if (projection_type_ == ProjectionType::kCentral) {
@@ -154,11 +153,11 @@ void GLWidget::mouseMoveEvent(QMouseEvent *mo) {
   m_pos_ = mo->pos();
 
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
-                      Strategy::TypeCoordinate::kX,
-                      &controller_->GetData(),-x_rot_);
+                      Strategy::TypeCoordinate::kX, &controller_->GetData(),
+                      -x_rot_);
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
-                      Strategy::TypeCoordinate::kY,
-                      &controller_->GetData(),y_rot_);
+                      Strategy::TypeCoordinate::kY, &controller_->GetData(),
+                      y_rot_);
   update();
 }
 

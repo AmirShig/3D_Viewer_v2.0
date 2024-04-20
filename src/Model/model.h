@@ -32,7 +32,7 @@ class ParseObj {
   void FirstPolygon(bool *is_first, int *lust_polygon, int *num,
                     Data3DModel *data);
 
-private:
+ private:
   std::string string_data_from_file_;
   std::string file_name_;
   Lexeme lexeme_;
@@ -64,6 +64,6 @@ class Model {
   Strategy *distance_obj_;
 };
 
-} // namespace s21
+}  // namespace s21
 
-#endif // INC_3DVIEWER_2_MODEL_H
+#endif  // INC_3DVIEWER_2_MODEL_H
