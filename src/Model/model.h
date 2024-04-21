@@ -27,7 +27,7 @@ private:
 class ParseObj {
 public:
   bool ParseObjFile(std::string &file_path, Data3DModel *data);
-  void WriteVertexes(Data3DModel *data, size_t *i);
+  void WriteVertexes(Data3DModel *data);
   void ParsePolygons(Data3DModel *data);
   void NegativePolygons(int *num, Data3DModel *data);
   void FirstPolygon(bool *is_first, int *lust_polygon, int *num,
@@ -49,6 +49,10 @@ public:
     move_obj_ = new MoveObj();
     rotate_obj_ = new RotateObj();
     distance_obj_ = new DistanceObj();
+
+    find_min_max_ = new FindMinMax();
+    find_max_ = new FindMax();
+    find_centre_ = new FindCentre();
   }
   //Отдать данные в Controller
   Data3DModel &GetData() { return data_; }
@@ -56,7 +60,7 @@ public:
   void Affine(Strategy::SelectionStrategy select_strategy,
               Strategy::TypeCoordinate type, Data3DModel *data, double point);
 
-  void GiveCommand(Data3DModel *data, Event *event, Event::Command command);
+  void SetCentre(Data3DModel *data);
 
 private:
   Data3DModel data_;
@@ -65,6 +69,10 @@ private:
   Strategy *move_obj_;
   Strategy *rotate_obj_;
   Strategy *distance_obj_;
+  AbstructEvent command;
+  FindMinMax *find_min_max_;
+  FindMax *find_max_;
+  FindCentre *find_centre_;
 };
 
 } // namespace s21

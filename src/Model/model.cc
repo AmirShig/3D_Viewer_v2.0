@@ -29,19 +29,19 @@ void Model::Affine(Strategy::SelectionStrategy select_strategy,
   affine_.Transformations(data, point, type_coordinate);
 }
 
-/**
- * Назначает комманду
- * \param command перечисление комманд
- * \param event текущие событие
- * \param data данные 3d модели
- */
-void Model::GiveCommand(Data3DModel *data, s21::Event *event, Event::Command command) {
-    Event::VerifyExecution verify = event->Execute(data, command);
+void Model::SetCentre(Data3DModel *data) {
 
-    if (verify == Event::VerifyExecution::kNotExecution) {
-        return;
+    for (auto &v : data->GetCoordinateVertex()) {
+        v.x *= 3;
+        v.y *= 3;
+        v.z *= 3;
     }
 
+  find_min_max_->SetNextEvent(find_max_)->SetNextEvent(find_centre_);
+
+  command.GiveCommand(data, find_min_max_, Event::Command::kFindMinMax);
+  command.GiveCommand(data, find_max_, Event::Command::kFindMax);
+  command.GiveCommand(data, find_centre_, Event::Command::kFindCentre);
 }
 
 } // namespace s21

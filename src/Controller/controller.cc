@@ -7,4 +7,6 @@ bool Controller::GetStringFilePath(QString &q_string) {
   return model_->ProccessingObjFile(std_string);
 }
 
-}  // namespace s21
+void Controller::SetCentre(s21::Data3DModel *data) { model_->SetCentre(data); }
+
+} // namespace s21

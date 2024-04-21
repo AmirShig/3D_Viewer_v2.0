@@ -26,6 +26,7 @@ private:
   std::vector<Coordinate> coordinates_vertex_;
   std::vector<int> string_polygon_;
 };
+
 } // namespace s21
 
 #endif // INC_3DVIEWER_2_DATA3DMODEL_H

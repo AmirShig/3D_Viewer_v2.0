@@ -146,10 +146,8 @@ void View::on_SetDefault_button_clicked() {
   ui->linesType->setCurrentIndex(0);
 
   //   Ставим на изначальное положение объект
-  //    if (all_data.polygons_value != NULL &&
-  //        all_data.vertex_value != NULL) {
-  //      set_center(&all_data, 0, 0, 0, 0);
-  //    }
+
+  controller_->SetCentre(&controller_->GetData());
 
   ui->ROTATE_X_VALUE->setValue(0);
   ui->ROTATE_Y_VALUE->setValue(0);

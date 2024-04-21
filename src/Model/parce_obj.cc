@@ -15,7 +15,7 @@ bool ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
   size_t i = 0;
   if (file.is_open()) {
     while (std::getline(file, string_data_from_file_)) {
-      WriteVertexes(data, &i);
+      WriteVertexes(data);
       ParsePolygons(data);
       lexeme_.CheckLexem(data);
     }
@@ -26,15 +26,15 @@ bool ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
   return state_file;
 }
 
-void ParseObj::WriteVertexes(Data3DModel *data, size_t *i) {
-  std::string string_data;
-  char s = ' ';
+void ParseObj::WriteVertexes(Data3DModel *data) {
+  size_t i = 0;
 
-  std::stringstream convert_string(string_data_from_file_);
-  if (convert_string >> s >> coordinate_.x >> coordinate_.y >> coordinate_.z &&
-      s == 'v') {
-    data->GetCoordinateVertex().push_back(coordinate_);
-    ++(*i);
+  if (string_data_from_file_[i] == 'v' &&
+      string_data_from_file_[i + 1] == ' ') {
+
+    for (; i < string_data_from_file_.length(); ++i) {
+
+    }
   }
 }
 
@@ -85,4 +85,4 @@ void ParseObj::FirstPolygon(bool *is_first, int *first_polygon, int *num,
   }
 }
 
-}  // namespace s21
+} // namespace s21
