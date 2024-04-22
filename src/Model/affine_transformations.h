@@ -4,7 +4,7 @@
 namespace s21 {
 
 /*!
- * \brief Абстрактный класс стратегия
+ * \brief Абстрактный класс внутри реализован паттерн "Strategy"
  * \param TypeCoordinate перечисление для типа координат
  * \param SelectionStrategy тип стратегии
  */

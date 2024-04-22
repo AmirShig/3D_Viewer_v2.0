@@ -10,6 +10,7 @@ namespace s21 {
 bool ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
   bool state_file = true;
   std::ifstream file;
+  file_path = "/Users/melaniad/3D_Viewer_v2.0/ALL_CASE.obj";
   file.open(file_path);
 
   if (file.is_open()) {
@@ -32,7 +33,7 @@ void ParseObj::WriteVertexes(Data3DModel *data) {
 
   if (string_data_from_file_[i] == 'v' &&
       string_data_from_file_[i + 1] == ' ') {
-
+    i += 2;
     for (; i < string_data_from_file_.length(); ++i) {
       if (std::isdigit(string_data_from_file_[i]) ||
           string_data_from_file_[i] == '-') {

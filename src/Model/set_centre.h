@@ -30,8 +30,8 @@ public:
   virtual VerifyExecution Execute(Data3DModel *data, Command command) = 0;
   void GiveCommand(Data3DModel *data, Event *event, Event::Command command);
 
-  MinMax centre_;
   double scale_for_centre_;
+  MinMax centre_;
   MinMax min_;
   MinMax max_;
 };
