@@ -1,4 +1,5 @@
 #include "model.h"
+#include <strstream>
 
 /*!
  * \brief read file
@@ -10,7 +11,7 @@ namespace s21 {
 bool ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
   bool state_file = true;
   std::ifstream file;
-  file_path = "/Users/melaniad/3D_Viewer_v2.0/ALL_CASE.obj";
+  //  file_path = "/Users/melaniad/3D_Viewer_v2.0/ALL_CASE.obj";
   file.open(file_path);
 
   if (file.is_open()) {
@@ -41,6 +42,7 @@ void ParseObj::WriteVertexes(Data3DModel *data) {
         i += id;
       }
     }
+    std::cout << std::endl;
     coordinate.z = stack_coord.top();
     stack_coord.pop();
     coordinate.y = stack_coord.top();

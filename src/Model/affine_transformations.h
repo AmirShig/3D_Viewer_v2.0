@@ -1,5 +1,6 @@
-#include "data_3d_model.h"
 #include <cmath>
+
+#include "data_3d_model.h"
 
 namespace s21 {
 
@@ -32,11 +33,10 @@ class RotateObj : public Strategy {
   void RotateZ(Data3DModel::Coordinate &i, double point);
 };
 
-
- class DistanceObj : public Strategy {
-   void Transformations(s21::Data3DModel *data, double point,
-                        TypeCoordinate coordinate_x_y_z) override;
- };
+class DistanceObj : public Strategy {
+  void Transformations(s21::Data3DModel *data, double point,
+                       TypeCoordinate coordinate_x_y_z) override;
+};
 
 class AffineTransformations {
  public:

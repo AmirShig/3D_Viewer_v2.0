@@ -19,6 +19,7 @@
 #include <QColor>
 #include <QColorDialog>
 #include <QCoreApplication>
+#include <QDebug>
 #include <QFileDialog>
 #include <QMatrix4x4>
 #include <QMessageBox>
@@ -82,9 +83,17 @@ class GLWidget : public QOpenGLWidget {
     update();
   }
 
-  void SetRotX(float value) { x_rot_ = value; }
-  void SetRotY(float value) { y_rot_ = value; }
-  void SetRotZ(float value) { z_rot_ = value; }
+  void SetRotX(double value) { x_rot_ = value; }
+  void SetRotY(double value) { y_rot_ = value; }
+  void SetRotZ(double value) { z_rot_ = value; }
+
+  void UpdateSumRotX(double value) { sum_rot_x += value; }
+  void UpdateSumRotY(double value) { sum_rot_y += value; }
+  void UpdateSumRotZ(double value) { sum_rot_z += value; }
+
+  void SetSumRotX(double value) { sum_rot_x = value; }
+  void SetSumRotY(double value) { sum_rot_y = value; }
+  void SetSumRotZ(double value) { sum_rot_z = value; }
 
   QColor GetBackgroundColor() { return backround_color_; }
   QColor GetVertexesColor() { return vertexes_color_; }
@@ -94,9 +103,13 @@ class GLWidget : public QOpenGLWidget {
   LinesType GetLinesType() { return lines_type_; }
   VertexesType GetVertexesType() { return vertexes_type_; }
   ProjectionType GetProjectionType() { return projection_type_; }
-  [[nodiscard]] float GetRotX() const { return x_rot_; }
-  [[nodiscard]] float GetRotY() const { return y_rot_; }
-  [[nodiscard]] float GetRotZ() const { return z_rot_; }
+  [[nodiscard]] double GetRotX() const { return x_rot_; }
+  [[nodiscard]] double GetRotY() const { return y_rot_; }
+  [[nodiscard]] double GetRotZ() const { return z_rot_; }
+
+  [[nodiscard]] double GetSumRotX() const { return sum_rot_x; }
+  [[nodiscard]] double GetSumRotY() const { return sum_rot_y; }
+  [[nodiscard]] double GetSumRotZ() const { return sum_rot_z; }
 
   void clearOpenGlWidget();
 
@@ -105,7 +118,9 @@ class GLWidget : public QOpenGLWidget {
 
  private:
   s21::Controller *controller_;
-  float x_rot_, y_rot_, z_rot_;
+  double x_rot_, y_rot_, z_rot_;
+  double sum_rot_x, sum_rot_y, sum_rot_z;
+  double aspect_ratio_;
   QPoint m_pos_;
   QMatrix4x4 scale_matrix_;
 

@@ -50,8 +50,8 @@ void GLWidget::paintGL() {
   glClearColor(backround_color_.redF(), backround_color_.greenF(),
                backround_color_.blueF(), backround_color_.alphaF());
   glTranslated(0, 0, -10);
-  glRotatef(x_rot_, 1, 0, 0);
-  glRotatef(y_rot_, 0, 1, 0);
+  //  glRotatef(x_rot_, 1, 0, 0);
+  //  glRotatef(y_rot_, 0, 1, 0);
   glMultMatrixf(scale_matrix_.data());
   setProjection();
   drawVertexes();
@@ -63,6 +63,8 @@ void GLWidget::resizeGL(int w, int h) {
   glViewport(0, 0, w, h);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
+
+  aspect_ratio_ = qreal(w) / qreal(h ? h : 1);
 }
 
 void GLWidget::setLinesType() {
@@ -84,11 +86,11 @@ void GLWidget::setLinesType() {
 void GLWidget::setProjection() {
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  float aspectRatio = 901.0 / 741.0;
+  //  float aspectRatio = 901.0 / 741.0;
   if (projection_type_ == ProjectionType::kParallel) {
-    glOrtho(-2 * aspectRatio, 2 * aspectRatio, -2, 2, 0.1, 100);
+    glOrtho(-2 * aspect_ratio_, 2 * aspect_ratio_, -2, 2, 0.1, 100);
   } else if (projection_type_ == ProjectionType::kCentral) {
-    gluPerspective(24, aspectRatio, 0.1, 100);
+    gluPerspective(24, aspect_ratio_, 0.1, 100);
   }
   glMatrixMode(GL_MODELVIEW);
 }
@@ -107,7 +109,7 @@ void GLWidget::drawVertexes() {
       glColor3f(vertexes_color_.redF(), vertexes_color_.greenF(),
                 vertexes_color_.blueF());
     }
-    glPointSize(controller_->GetData().GetCoordinateVertex().size() / 3);
+    glPointSize(static_cast<GLfloat>(vertex_size_));
 
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(3, GL_DOUBLE, 0,
@@ -146,9 +148,18 @@ void GLWidget::mousePressEvent(QMouseEvent *mo) { m_pos_ = mo->pos(); }
 void GLWidget::mouseMoveEvent(QMouseEvent *mo) {
   const float sense = 0.3f;
 
-  x_rot_ += sense * (mo->pos().y() - m_pos_.y());
-  y_rot_ += sense * (mo->pos().x() - m_pos_.x());
+  x_rot_ = sense * (mo->pos().y() - m_pos_.y());
+  y_rot_ = sense * (mo->pos().x() - m_pos_.x());
   m_pos_ = mo->pos();
+
+  controller_->Affine(Strategy::SelectionStrategy::kRotate,
+                      Strategy::TypeCoordinate::kX, &controller_->GetData(),
+                      -x_rot_);
+  sum_rot_x += x_rot_;
+  controller_->Affine(Strategy::SelectionStrategy::kRotate,
+                      Strategy::TypeCoordinate::kY, &controller_->GetData(),
+                      y_rot_);
+  sum_rot_y += y_rot_;
   update();
 }
 

@@ -9,6 +9,7 @@
 #include <QColorDialog>
 #include <QCoreApplication>
 #include <QFileDialog>
+#include <QMainWindow>
 #include <QMessageBox>
 #include <QMouseEvent>
 #include <QOpenGLFunctions>
@@ -32,7 +33,7 @@ QT_END_NAMESPACE
 
 namespace s21 {
 
-class View : public QWidget {
+class View : public QMainWindow {
   Q_OBJECT
 
  public:

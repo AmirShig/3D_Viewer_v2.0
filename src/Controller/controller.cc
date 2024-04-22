@@ -2,9 +2,8 @@
 
 namespace s21 {
 
-bool Controller::GetStringFilePath(QString &q_string) {
-  std::string std_string = q_string.toStdString();
-  return model_->ProccessingObjFile(std_string);
+bool Controller::ParseFile(std::string file_path) {
+  return model_->ProccessingObjFile(file_path);
 }
 
 void Controller::SetCentre(s21::Data3DModel *data) { model_->SetCentre(data); }

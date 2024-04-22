@@ -1,11 +1,13 @@
 #include "view.h"
 
+#include <QDebug>
+
 #include "ui_mainwindow.h"
 
 namespace s21 {
 
 View::View(QWidget *parent, s21::Controller *controller)
-    : QWidget(parent), ui(new Ui::View), controller_(controller) {
+    : QMainWindow(parent), ui(new Ui::View), controller_(controller) {
   ui->setupUi(this);
   setWindowTitle("3D Viewer");
   gif_timer_ = new QTimer(nullptr);
@@ -13,9 +15,16 @@ View::View(QWidget *parent, s21::Controller *controller)
 
   //Инициализация окна GLWidget
   gl_widget_ = new GLWidget(nullptr, controller);
-  gl_widget_->setFixedSize(900, 720);
-  auto *layout = new QVBoxLayout(ui->centralwidget);
-  layout->addWidget(gl_widget_);
+  //  gl_widget_->setFixedSize(900, 720);
+  //  auto *layout = new QVBoxLayout(ui->centralwidget);
+  ui->layoutForGl->addWidget(gl_widget_);
+  //  layout->addWidget(gl_widget_);
+  // Устанавливаем политику растяжения для центрального виджета
+  ui->centralwidget->setSizePolicy(QSizePolicy::Expanding,
+                                   QSizePolicy::Expanding);
+
+  // Устанавливаем центральный виджет для окна
+  setCentralWidget(ui->centralwidget);
 
   //  connect(timer, SIGNAL(timeout()), this, SLOT(createAnimation()));
   // Open & clean
@@ -81,6 +90,7 @@ View::View(QWidget *parent, s21::Controller *controller)
   connect(ui->ButtonPlusSize, SIGNAL(clicked()), this, SLOT(ButtonPlusSize()));
   connect(ui->ButtonMinusSize, SIGNAL(clicked()), this,
           SLOT(ButtonMinusSize()));
+  gl_widget_->SetDefault();
   readSettings();
 }
 
@@ -96,13 +106,15 @@ void View::OpenFilePushButtonClicked() {
   ui->vertexCount->setText("");
   ui->polygonCount->setText("");
   controller_->GetData().ClearData();
-  if (controller_->GetStringFilePath(file_path_)) {
+  std::string std_string = file_path_.toStdString();
+  if (controller_->ParseFile(std_string)) {
     ui->vertexCount->setText(
         QString::number(controller_->GetData().GetCoordinateVertex().size()));
     ui->polygonCount->setText(
         QString::number(controller_->GetData().GetStringPolygon().size()));
     QFileInfo check_file(file_path_);
     ui->fileNameLabel->setText(check_file.fileName());
+    controller_->SetCentre(&controller_->GetData());
     gl_widget_->update();
   }
 }
@@ -158,6 +170,19 @@ void View::on_SetDefault_button_clicked() {
   ui->doubleSpinBox_Y_MOVE->setValue(0);
   ui->doubleSpinBox_MOVE_Z->setValue(0);
 
+  // Rotate back
+  controller_->Affine(Strategy::SelectionStrategy::kRotate,
+                        Strategy::TypeCoordinate::kX, &controller_->GetData(),
+                        -gl_widget_->GetSumRotX());
+  gl_widget_->SetSumRotX(0);
+  controller_->Affine(Strategy::SelectionStrategy::kRotate,
+                        Strategy::TypeCoordinate::kY, &controller_->GetData(),
+                        -gl_widget_->GetSumRotY());
+    gl_widget_->SetSumRotY(0);
+  controller_->Affine(Strategy::SelectionStrategy::kRotate,
+                        Strategy::TypeCoordinate::kZ, &controller_->GetData(),
+                        -gl_widget_->GetSumRotZ());
+    gl_widget_->SetSumRotZ(0);
   gl_widget_->update();
 }
 
@@ -240,12 +265,14 @@ void View::readSettings() {
   QFileInfo check_file(file_path_);
 
   controller_->GetData().ClearData();
-  if (controller_->GetStringFilePath(file_path_)) {
+  std::string std_string = file_path_.toStdString();
+  if (controller_->ParseFile(std_string)) {
     ui->vertexCount->setText(
         QString::number(controller_->GetData().GetCoordinateVertex().size()));
     ui->polygonCount->setText(
         QString::number(controller_->GetData().GetStringPolygon().size()));
     ui->fileNameLabel->setText(check_file.fileName());
+      controller_->SetCentre(&controller_->GetData());
   }
 
   gl_widget_->SetBackgroundColor(
@@ -279,9 +306,9 @@ void View::readSettings() {
                  static_cast<int>(GLWidget::ProjectionType::kCentral))
           .toInt()));
 
-  gl_widget_->SetRotX(settings.value("x_rot_", 0).toFloat());
-  gl_widget_->SetRotX(settings.value("y_rot_", 0).toFloat());
-  gl_widget_->SetRotX(settings.value("z_rot_", 0).toFloat());
+  gl_widget_->SetRotX(settings.value("x_rot_", 0).toInt());
+  gl_widget_->SetRotX(settings.value("y_rot_", 0).toInt());
+  gl_widget_->SetRotX(settings.value("z_rot_", 0).toInt());
 
   settings.endGroup();
   gl_widget_->update();
@@ -357,6 +384,7 @@ void View::ButtonRotatePlusX() {
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
                       Strategy::TypeCoordinate::kX, &controller_->GetData(),
                       (double)value);
+  gl_widget_->UpdateSumRotX(value);
   gl_widget_->update();
 }
 
@@ -365,6 +393,7 @@ void View::ButtonRotateMinusX() {
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
                       Strategy::TypeCoordinate::kX, &controller_->GetData(),
                       -(double)value);
+    gl_widget_->UpdateSumRotX(-value);
   gl_widget_->update();
 }
 
@@ -375,6 +404,7 @@ void View::ButtonRotatePlusY() {
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
                       Strategy::TypeCoordinate::kY, &controller_->GetData(),
                       (double)value);
+    gl_widget_->UpdateSumRotY(value);
   gl_widget_->update();
 }
 
@@ -383,6 +413,7 @@ void View::ButtonRotateMinusY() {
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
                       Strategy::TypeCoordinate::kY, &controller_->GetData(),
                       -(double)value);
+    gl_widget_->UpdateSumRotY(-value);
   gl_widget_->update();
 }
 
@@ -393,6 +424,7 @@ void View::ButtonRotatePlusZ() {
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
                       Strategy::TypeCoordinate::kZ, &controller_->GetData(),
                       (double)value);
+    gl_widget_->UpdateSumRotZ(value);
   gl_widget_->update();
 }
 
@@ -401,6 +433,7 @@ void View::ButtonRotateMinusZ() {
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
                       Strategy::TypeCoordinate::kZ, &controller_->GetData(),
                       -(double)value);
+    gl_widget_->UpdateSumRotZ(-value);
   gl_widget_->update();
 }
 
@@ -457,4 +490,4 @@ void View::CreateAnimation() {
   }
 }
 
-} // namespace s21
+}  // namespace s21

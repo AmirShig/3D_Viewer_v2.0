@@ -1,14 +1,14 @@
 #ifndef INC_3DVIEWER_2_CONTROLLER_H
 #define INC_3DVIEWER_2_CONTROLLER_H
 
-#include <QString>
+//#include <QString>
 
 #include "../Model/model.h"
 
 namespace s21 {
 
 class Controller {
-public:
+ public:
   Controller() {
     //      Strategy *move_obj = new MoveObj();
     //      Strategy *rotation_obj = new RotateObj();
@@ -20,9 +20,7 @@ public:
               Strategy::TypeCoordinate type, Data3DModel *data, double point) {
     model_->Affine(select_strategy, type, data, point);
   }
-
-  bool GetStringFilePath(QString &q_string);
-  std::string ConvertToStdString(QString &q_string);
+  bool ParseFile(std::string file_path);
   Data3DModel &GetData() { return model_->GetData(); }
 
   void SetCentre(Data3DModel *data);
@@ -30,6 +28,6 @@ public:
 private:
   Model *model_;
 };
-} // namespace s21
+}  // namespace s21
 
-#endif // INC_3DVIEWER_2_CONTROLLER_H
+#endif  // INC_3DVIEWER_2_CONTROLLER_H
