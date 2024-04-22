@@ -12,7 +12,7 @@ namespace s21 {
 class Data3DModel {
  public:
   struct Coordinate {
-    Coordinate() : x{}, y{}, z{} {}
+    Coordinate() : x(0), y(0), z(0) {}
     double x, y, z;
   };
   Data3DModel() {}

@@ -63,3 +63,12 @@ push: clean
 	git add ..
 	git commit -m "$(BRANCH): $(MSG)"
 	git push origin $(BRANCH)
+
+# Run Docker and test program on leaks
+docker:
+	docker build -t my_image .
+	docker run -d -p 80:80 --name my_container my_image bash -c "cd /TEST_VALGRIND && make test && valgrind ./test"
+	docker logs -f my_container
+	docker stop my_container
+	docker rm my_container
+	docker rmi my_image

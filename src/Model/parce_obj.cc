@@ -12,7 +12,6 @@ namespace s21 {
 bool ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
   bool state_file = true;
   std::ifstream file;
-  //    file_path = "";
   file.open(file_path);
 
   if (file.is_open()) {
@@ -30,7 +29,7 @@ bool ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
 
 void ParseObj::WriteVertexes(Data3DModel *data) {
   Data3DModel::Coordinate coordinate;
-  char symble{};
+  char symble = '\0';
   std::stringstream ss(string_data_from_file_);
 
   if (ss >> symble >> coordinate.x >> coordinate.y >> coordinate.z &&
