@@ -1,19 +1,13 @@
 #ifndef INC_3DVIEWER_2_CONTROLLER_H
 #define INC_3DVIEWER_2_CONTROLLER_H
 
-//#include <QString>
-
 #include "../Model/model.h"
 
 namespace s21 {
 
 class Controller {
- public:
-  Controller() {
-    //      Strategy *move_obj = new MoveObj();
-    //      Strategy *rotation_obj = new RotateObj();
-    //      Strategy *distance_obj = new DistanceObj();
-  }
+public:
+  Controller() {}
   Controller(Model *m) : model_(m) {}
 
   void Affine(Strategy::SelectionStrategy select_strategy,
@@ -25,9 +19,9 @@ class Controller {
 
   void SetCentre(Data3DModel *data);
 
- private:
+private:
   Model *model_;
 };
-}  // namespace s21
+} // namespace s21
 
-#endif  // INC_3DVIEWER_2_CONTROLLER_H
+#endif // INC_3DVIEWER_2_CONTROLLER_H

@@ -3,6 +3,9 @@
 CXX := g++
 CXXFLAGS := -Wall -Wextra -Werror -std=c++17
 GTEST_FLAGS= -lgtest_main -pthread -lgtest
+GCOV=--coverage
+
+OS := $(shell uname -s)
 
 SRC_DIR := .
 EXTENSIONS := cc cpp h
@@ -29,6 +32,15 @@ rebuild:
 
 run:
 	cd ../build && ./3dViewer
+
+gcov_report:
+	$(CXX) $(CXXFLAGS) $(GCO) $(TEST_SRC) $(GTEST_FLAGS) -o report
+	./report
+	lcov -c -d . -o coverage.info --ignore-errors mismatch
+	lcov -r coverage.info /usr/local/include/gtest 13 -o filtered_coverage.info
+	genhtml filtered_coverage.info --output-directory=res
+	open ./res/index.html
+	rm -rf *.gcda *.gcno
 
 clean:
 	clear
@@ -72,3 +84,13 @@ docker:
 	docker stop my_container
 	docker rm my_container
 	docker rmi my_image
+
+brew_install:
+ifeq ($(OS), Linux)
+	bash ./Dockerfile/installbrew.sh
+	sudo apt install -y lcov
+endif
+ifeq ($(OS), Darwin)
+	sh ./Dockerfile/installbrew.sh
+	brew install lcov
+endif
