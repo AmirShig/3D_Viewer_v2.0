@@ -397,8 +397,6 @@ void View::ButtonRotateMinusX() {
   gl_widget_->update();
 }
 
-// Y Axis
-
 void View::ButtonRotatePlusY() {
   int value = ui->ROTATE_Y_VALUE->value();
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
@@ -416,8 +414,6 @@ void View::ButtonRotateMinusY() {
     gl_widget_->UpdateSumRotY(-value);
   gl_widget_->update();
 }
-
-// Z Axis
 
 void View::ButtonRotatePlusZ() {
   int value = ui->ROTATE_Z_VALUE->value();

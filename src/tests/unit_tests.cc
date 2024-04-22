@@ -153,7 +153,7 @@ TEST_F(ViewerTest, MovePlusX) {
   const auto model_after = controller_.GetData().GetCoordinateVertex();
 
   for (size_t i = 0; i < model_before.size(); i++) {
-    EXPECT_EQ(model_before[i].X + 3, model_after[i].X);
+    EXPECT_EQ(model_before[i].x + 3, model_after[i].x);
   }
 }
 
@@ -170,7 +170,7 @@ TEST_F(ViewerTest, MoveMinusX) {
   const auto model_after = controller_.GetData().GetCoordinateVertex();
 
   for (size_t i = 0; i < model_before.size(); i++) {
-    EXPECT_EQ(model_before[i].X - 3, model_after[i].X);
+    EXPECT_EQ(model_before[i].x - 3, model_after[i].x);
   }
 }
 
@@ -187,7 +187,7 @@ TEST_F(ViewerTest, MovePlusY) {
   const auto model_after = controller_.GetData().GetCoordinateVertex();
 
   for (size_t i = 0; i < model_before.size(); i++) {
-    EXPECT_EQ(model_before[i].Y + 3, model_after[i].Y);
+    EXPECT_EQ(model_before[i].y + 3, model_after[i].y);
   }
 }
 
@@ -204,7 +204,7 @@ TEST_F(ViewerTest, MoveMinusY) {
   const auto model_after = controller_.GetData().GetCoordinateVertex();
 
   for (size_t i = 0; i < model_before.size(); i++) {
-    EXPECT_EQ(model_before[i].Y - 3, model_after[i].Y);
+    EXPECT_EQ(model_before[i].y - 3, model_after[i].y);
   }
 }
 
@@ -221,7 +221,7 @@ TEST_F(ViewerTest, MovePlusZ) {
   const auto model_after = controller_.GetData().GetCoordinateVertex();
 
   for (size_t i = 0; i < model_before.size(); i++) {
-    EXPECT_EQ(model_before[i].Z + 3, model_after[i].Z);
+    EXPECT_EQ(model_before[i].z + 3, model_after[i].z);
   }
 }
 
@@ -238,7 +238,7 @@ TEST_F(ViewerTest, MoveMinusZ) {
   const auto model_after = controller_.GetData().GetCoordinateVertex();
 
   for (size_t i = 0; i < model_before.size(); i++) {
-    EXPECT_EQ(model_before[i].Z - 3, model_after[i].Z);
+    EXPECT_EQ(model_before[i].z - 3, model_after[i].z);
   }
 }
 
@@ -255,9 +255,9 @@ TEST_F(ViewerTest, RotateX) {
   const auto model_after = controller_.GetData().GetCoordinateVertex();
 
   for (size_t i = 0; i < model_before.size(); i++) {
-    EXPECT_NEAR(model_before[i].X, model_after[i].X, kEpsilon_);
-    EXPECT_NEAR(model_before[i].Y, -model_after[i].Y, kEpsilon_);
-    EXPECT_NEAR(model_before[i].Z, -model_after[i].Z, kEpsilon_);
+    EXPECT_NEAR(model_before[i].x, model_after[i].x, kEpsilon_);
+    EXPECT_NEAR(model_before[i].y, -model_after[i].y, kEpsilon_);
+    EXPECT_NEAR(model_before[i].z, -model_after[i].z, kEpsilon_);
   }
 }
 
@@ -274,9 +274,9 @@ TEST_F(ViewerTest, RotateY) {
   const auto model_after = controller_.GetData().GetCoordinateVertex();
 
   for (size_t i = 0; i < model_before.size(); i++) {
-    EXPECT_NEAR(model_before[i].X, -model_after[i].X, kEpsilon_);
-    EXPECT_NEAR(model_before[i].Y, model_after[i].Y, kEpsilon_);
-    EXPECT_NEAR(model_before[i].Z, -model_after[i].Z, kEpsilon_);
+    EXPECT_NEAR(model_before[i].x, -model_after[i].x, kEpsilon_);
+    EXPECT_NEAR(model_before[i].y, model_after[i].y, kEpsilon_);
+    EXPECT_NEAR(model_before[i].z, -model_after[i].z, kEpsilon_);
   }
 }
 
@@ -293,8 +293,8 @@ TEST_F(ViewerTest, RotateZ) {
   const auto model_after = controller_.GetData().GetCoordinateVertex();
 
   for (size_t i = 0; i < model_before.size(); i++) {
-    EXPECT_NEAR(model_before[i].X, -model_after[i].X, kEpsilon_);
-    EXPECT_NEAR(model_before[i].Y, -model_after[i].Y, kEpsilon_);
-    EXPECT_NEAR(model_before[i].Z, model_after[i].Z, kEpsilon_);
+    EXPECT_NEAR(model_before[i].x, -model_after[i].x, kEpsilon_);
+    EXPECT_NEAR(model_before[i].y, -model_after[i].y, kEpsilon_);
+    EXPECT_NEAR(model_before[i].z, model_after[i].z, kEpsilon_);
   }
 }
