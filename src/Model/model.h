@@ -6,6 +6,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <stack>
 
 #include "affine_transformations.h"
 #include "data_3d_model.h"

@@ -40,6 +40,7 @@ class AbstructEvent : public Event {
 public:
   AbstructEvent() : next_event_(nullptr) {}
   void Update(Event *e) override;
+  void Clean();
   Event *SetNextEvent(Event *event) override;
   VerifyExecution Execute(Data3DModel *data, Command command) override;
 

@@ -12,7 +12,6 @@ bool ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
   std::ifstream file;
   file.open(file_path);
 
-  size_t i = 0;
   if (file.is_open()) {
     while (std::getline(file, string_data_from_file_)) {
       WriteVertexes(data);
@@ -27,14 +26,28 @@ bool ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
 }
 
 void ParseObj::WriteVertexes(Data3DModel *data) {
-  size_t i = 0;
+  size_t i = 0, id = 0;
+  Data3DModel::Coordinate coordinate;
+  std::stack<double> stack_coord;
 
   if (string_data_from_file_[i] == 'v' &&
       string_data_from_file_[i + 1] == ' ') {
 
     for (; i < string_data_from_file_.length(); ++i) {
-
+      if (std::isdigit(string_data_from_file_[i]) ||
+          string_data_from_file_[i] == '-') {
+        stack_coord.push(std::stod(&string_data_from_file_[i], &id));
+        i += id;
+      }
     }
+    coordinate.z = stack_coord.top();
+    stack_coord.pop();
+    coordinate.y = stack_coord.top();
+    stack_coord.pop();
+    coordinate.x = stack_coord.top();
+    stack_coord.pop();
+
+    data->GetCoordinateVertex().push_back(coordinate);
   }
 }
 

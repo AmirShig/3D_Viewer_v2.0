@@ -30,17 +30,13 @@ void Model::Affine(Strategy::SelectionStrategy select_strategy,
 }
 
 void Model::SetCentre(Data3DModel *data) {
-
-    for (auto &v : data->GetCoordinateVertex()) {
-        v.x *= 3;
-        v.y *= 3;
-        v.z *= 3;
-    }
-
+  command.Clean();
   find_min_max_->SetNextEvent(find_max_)->SetNextEvent(find_centre_);
 
   command.GiveCommand(data, find_min_max_, Event::Command::kFindMinMax);
+  command.Update(find_min_max_);
   command.GiveCommand(data, find_max_, Event::Command::kFindMax);
+  command.Update(find_max_);
   command.GiveCommand(data, find_centre_, Event::Command::kFindCentre);
 }
 
