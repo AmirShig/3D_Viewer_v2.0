@@ -4,9 +4,9 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <stack>
 #include <string>
 #include <vector>
-#include <stack>
 
 #include "affine_transformations.h"
 #include "data_3d_model.h"
@@ -18,15 +18,15 @@ namespace s21 {
  * \brief Класс разбивает строку на лексемы и отдает "чистую" строку.
  */
 class Lexeme {
-public:
+ public:
   /*! Очищает входную строку от линих символов */
   void CheckLexem(Data3DModel *data);
 
-private:
+ private:
 };
 
 class ParseObj {
-public:
+ public:
   bool ParseObjFile(std::string &file_path, Data3DModel *data);
   void WriteVertexes(Data3DModel *data);
   void ParsePolygons(Data3DModel *data);
@@ -45,7 +45,7 @@ public:
  * \brief Главный класс который реализован по паттерну "Фасад"
  */
 class Model {
-public:
+ public:
   Model() {
     move_obj_ = new MoveObj();
     rotate_obj_ = new RotateObj();
@@ -63,7 +63,7 @@ public:
 
   void SetCentre(Data3DModel *data);
 
-private:
+ private:
   Data3DModel data_;
   ParseObj parse_;
   AffineTransformations affine_;

@@ -45,8 +45,8 @@ add_executable(3dViewer
         src/View/QtGifImage/3rdParty/giflib/gif_hash.c
         src/View/QtGifImage/3rdParty/giflib/gifalloc.c
         src/View/QtGifImage/3rdParty/giflib/quantize.c
-        src/Model/set_centre.cc
         src/Model/set_centre.h
+        src/Model/set_centre.cc
 )
 
 target_link_libraries(3dViewer PRIVATE Qt6::Widgets Qt6::OpenGLWidgets OpenGL::GLU)
@@ -62,21 +62,23 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-#add_executable(
-#        unit_test
-#        src/tests/unit_tests.cc
-#        src/Model/model.cc
-#        src/Model/data_3d_model.cc
-#        src/Model/lexem.cc
-#        src/Model/parce_obj.cc
-#        src/Model/affine_transformations.cc
-#        src/Model/affine_transformations.h
-#)
+add_executable(
+        unit_test
+        src/tests/unit_tests.cc
+        src/Model/model.cc
+        src/Model/data_3d_model.cc
+        src/Model/lexem.cc
+        src/Model/parce_obj.cc
+        src/Model/affine_transformations.cc
+        src/Model/affine_transformations.h
+        src/Model/set_centre.h
+        src/Model/set_centre.cc
+)
 
-#target_link_libraries(
-#        unit_test
-#        GTest::gtest_main
-#)
-#
-#include(GoogleTest)
-#gtest_discover_tests(unit_test)
+target_link_libraries(
+        unit_test
+        GTest::gtest_main
+)
+
+include(GoogleTest)
+gtest_discover_tests(unit_test)

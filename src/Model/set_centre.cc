@@ -31,24 +31,24 @@ void AbstructEvent::Update(s21::Event *e) {
 }
 
 void FindMinMax::Update(s21::Event *e) {
-    min_ = e->min_;
-    max_ = e->max_;
-    centre_ = e->centre_;
-    scale_for_centre_ = e->scale_for_centre_;
+  min_ = e->min_;
+  max_ = e->max_;
+  centre_ = e->centre_;
+  scale_for_centre_ = e->scale_for_centre_;
 }
 
 void FindMax::Update(s21::Event *e) {
-    min_ = e->min_;
-    max_ = e->max_;
-    centre_ = e->centre_;
-    scale_for_centre_ = e->scale_for_centre_;
+  min_ = e->min_;
+  max_ = e->max_;
+  centre_ = e->centre_;
+  scale_for_centre_ = e->scale_for_centre_;
 }
 
 void FindCentre::Update(s21::Event *e) {
-    min_ = e->min_;
-    max_ = e->max_;
-    centre_ = e->centre_;
-    scale_for_centre_ = e->scale_for_centre_;
+  min_ = e->min_;
+  max_ = e->max_;
+  centre_ = e->centre_;
+  scale_for_centre_ = e->scale_for_centre_;
 }
 
 Event::VerifyExecution AbstructEvent::Execute(s21::Data3DModel *data,
@@ -134,8 +134,7 @@ void Event::GiveCommand(s21::Data3DModel *data, s21::Event *event,
   event->Update(this);
   Event::VerifyExecution verify = event->Execute(data, command);
 
-  if (verify == Event::VerifyExecution::kNotExecution)
-    return;
+  if (verify == Event::VerifyExecution::kNotExecution) return;
 }
 
-} // namespace s21
+}  // namespace s21

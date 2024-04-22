@@ -1,6 +1,7 @@
-#include "data_3d_model.h"
 #include <istream>
 #include <set>
+
+#include "data_3d_model.h"
 
 namespace s21 {
 
@@ -8,7 +9,7 @@ namespace s21 {
  * \brief Главный интерфейс реализован по паттерну "Chain of responsibility"
  */
 class Event {
-public:
+ public:
   enum class VerifyExecution { kExecution, kNotExecution };
   enum class Command { kFindMinMax, kFindMax, kFindCentre };
   struct MinMax {
@@ -37,19 +38,19 @@ public:
 };
 
 class AbstructEvent : public Event {
-public:
+ public:
   AbstructEvent() : next_event_(nullptr) {}
   void Update(Event *e) override;
   void Clean();
   Event *SetNextEvent(Event *event) override;
   VerifyExecution Execute(Data3DModel *data, Command command) override;
 
-private:
+ private:
   Event *next_event_;
 };
 
 class FindMinMax : public AbstructEvent {
-public:
+ public:
   void Update(Event *e) override;
 
   VerifyExecution Execute(Data3DModel *data, Command command) override;
@@ -57,17 +58,17 @@ public:
 };
 
 class FindMax : public AbstructEvent {
-public:
+ public:
   void Update(Event *e) override;
 
   VerifyExecution Execute(Data3DModel *data, Command command) override;
 };
 
 class FindCentre : public AbstructEvent {
-public:
+ public:
   void Update(Event *e) override;
 
   VerifyExecution Execute(Data3DModel *data, Command command) override;
 };
 
-} // namespace s21
+}  // namespace s21

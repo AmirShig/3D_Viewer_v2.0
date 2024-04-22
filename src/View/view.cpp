@@ -172,17 +172,17 @@ void View::on_SetDefault_button_clicked() {
 
   // Rotate back
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
-                        Strategy::TypeCoordinate::kX, &controller_->GetData(),
-                        -gl_widget_->GetSumRotX());
+                      Strategy::TypeCoordinate::kX, &controller_->GetData(),
+                      -gl_widget_->GetSumRotX());
   gl_widget_->SetSumRotX(0);
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
-                        Strategy::TypeCoordinate::kY, &controller_->GetData(),
-                        -gl_widget_->GetSumRotY());
-    gl_widget_->SetSumRotY(0);
+                      Strategy::TypeCoordinate::kY, &controller_->GetData(),
+                      -gl_widget_->GetSumRotY());
+  gl_widget_->SetSumRotY(0);
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
-                        Strategy::TypeCoordinate::kZ, &controller_->GetData(),
-                        -gl_widget_->GetSumRotZ());
-    gl_widget_->SetSumRotZ(0);
+                      Strategy::TypeCoordinate::kZ, &controller_->GetData(),
+                      -gl_widget_->GetSumRotZ());
+  gl_widget_->SetSumRotZ(0);
   gl_widget_->update();
 }
 
@@ -272,7 +272,7 @@ void View::readSettings() {
     ui->polygonCount->setText(
         QString::number(controller_->GetData().GetStringPolygon().size()));
     ui->fileNameLabel->setText(check_file.fileName());
-      controller_->SetCentre(&controller_->GetData());
+    controller_->SetCentre(&controller_->GetData());
   }
 
   gl_widget_->SetBackgroundColor(
@@ -393,7 +393,7 @@ void View::ButtonRotateMinusX() {
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
                       Strategy::TypeCoordinate::kX, &controller_->GetData(),
                       -(double)value);
-    gl_widget_->UpdateSumRotX(-value);
+  gl_widget_->UpdateSumRotX(-value);
   gl_widget_->update();
 }
 
@@ -402,7 +402,7 @@ void View::ButtonRotatePlusY() {
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
                       Strategy::TypeCoordinate::kY, &controller_->GetData(),
                       (double)value);
-    gl_widget_->UpdateSumRotY(value);
+  gl_widget_->UpdateSumRotY(value);
   gl_widget_->update();
 }
 
@@ -411,7 +411,7 @@ void View::ButtonRotateMinusY() {
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
                       Strategy::TypeCoordinate::kY, &controller_->GetData(),
                       -(double)value);
-    gl_widget_->UpdateSumRotY(-value);
+  gl_widget_->UpdateSumRotY(-value);
   gl_widget_->update();
 }
 
@@ -420,7 +420,7 @@ void View::ButtonRotatePlusZ() {
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
                       Strategy::TypeCoordinate::kZ, &controller_->GetData(),
                       (double)value);
-    gl_widget_->UpdateSumRotZ(value);
+  gl_widget_->UpdateSumRotZ(value);
   gl_widget_->update();
 }
 
@@ -429,7 +429,7 @@ void View::ButtonRotateMinusZ() {
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
                       Strategy::TypeCoordinate::kZ, &controller_->GetData(),
                       -(double)value);
-    gl_widget_->UpdateSumRotZ(-value);
+  gl_widget_->UpdateSumRotZ(-value);
   gl_widget_->update();
 }
 

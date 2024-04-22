@@ -1,5 +1,6 @@
-#include "model.h"
 #include <strstream>
+
+#include "model.h"
 
 /*!
  * \brief read file
@@ -11,7 +12,7 @@ namespace s21 {
 bool ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
   bool state_file = true;
   std::ifstream file;
-  //  file_path = "/Users/melaniad/3D_Viewer_v2.0/ALL_CASE.obj";
+  //    file_path = "";
   file.open(file_path);
 
   if (file.is_open()) {
@@ -28,28 +29,12 @@ bool ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
 }
 
 void ParseObj::WriteVertexes(Data3DModel *data) {
-  size_t i = 0, id = 0;
   Data3DModel::Coordinate coordinate;
-  std::stack<double> stack_coord;
+  char symble{};
+  std::stringstream ss(string_data_from_file_);
 
-  if (string_data_from_file_[i] == 'v' &&
-      string_data_from_file_[i + 1] == ' ') {
-    i += 2;
-    for (; i < string_data_from_file_.length(); ++i) {
-      if (std::isdigit(string_data_from_file_[i]) ||
-          string_data_from_file_[i] == '-') {
-        stack_coord.push(std::stod(&string_data_from_file_[i], &id));
-        i += id;
-      }
-    }
-    std::cout << std::endl;
-    coordinate.z = stack_coord.top();
-    stack_coord.pop();
-    coordinate.y = stack_coord.top();
-    stack_coord.pop();
-    coordinate.x = stack_coord.top();
-    stack_coord.pop();
-
+  if (ss >> symble >> coordinate.x >> coordinate.y >> coordinate.z &&
+      symble == 'v') {
     data->GetCoordinateVertex().push_back(coordinate);
   }
 }
@@ -101,4 +86,4 @@ void ParseObj::FirstPolygon(bool *is_first, int *first_polygon, int *num,
   }
 }
 
-} // namespace s21
+}  // namespace s21

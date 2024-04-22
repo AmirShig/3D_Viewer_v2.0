@@ -8,4 +8,4 @@ bool Controller::ParseFile(std::string file_path) {
 
 void Controller::SetCentre(s21::Data3DModel *data) { model_->SetCentre(data); }
 
-} // namespace s21
+}  // namespace s21

@@ -25,7 +25,7 @@ class Controller {
 
   void SetCentre(Data3DModel *data);
 
-private:
+ private:
   Model *model_;
 };
 }  // namespace s21
