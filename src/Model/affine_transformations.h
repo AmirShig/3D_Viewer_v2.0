@@ -11,6 +11,9 @@ namespace s21 {
  */
 class Strategy {
  public:
+  Strategy() = default;
+  virtual ~Strategy() = default;
+
   enum class TypeCoordinate { kX, kY, kZ };
   enum class SelectionStrategy { kMove, kRotate, kDistance };
 
@@ -40,7 +43,9 @@ class DistanceObj : public Strategy {
 
 class AffineTransformations {
  public:
-  AffineTransformations() {}
+  AffineTransformations() = default;
+  ~AffineTransformations() = default;
+
   AffineTransformations(Strategy *concrete_strategy)
       : strategy_(concrete_strategy) {}
 

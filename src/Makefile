@@ -1,3 +1,4 @@
+
 .PHONY : all install clean rebuild run style tests
 
 CXX := g++
@@ -45,12 +46,12 @@ gcov_report: clean
 	lcov --capture --directory . --output-file coverage.info --no-external --ignore-errors inconsistent
 	genhtml coverage.info --output-directory coverage_report
 	$(OPEN) ./coverage_report/index.html
-	rm -rf *.gcda *.gcno *.info report
+	rm -rf *.gcda *.gcno *.info report *.gcov
 
 clean:
 	clear
 	rm -rf ../build test
-	rm -rf *.gcda *.gcno *.info report *.gcov
+	rm -rf *.gcda *.gcno *.info report *.gcov coverage_report
 	make style
 
 style:
@@ -61,7 +62,7 @@ style:
 
 # Ниже три цели для сборки google test. (1 - стандартная через терминал, 2 - cmake, 3 - cmake)
 tests:
-	$(CXX) $(CXXFLAGS) $(TEST_SRC) Model/model.cc Model/data_3d_model.cc Model/lexem.cc Model/parce_obj.cc $(GTEST_FLAGS) -o test
+	$(CXX) $(CXXFLAGS) $(TEST_SRC) Model/*.cc Controller/controller.cc $(GTEST_FLAGS) -o test
 	./test
 
 google_test:

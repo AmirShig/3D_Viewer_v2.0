@@ -18,8 +18,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>600</width>
-    <height>600</height>
+    <width>1359</width>
+    <height>759</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -60,6 +60,7 @@
         <property name="font">
          <font>
           <pointsize>32</pointsize>
+          <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
@@ -272,6 +273,7 @@
         <property name="font">
          <font>
           <pointsize>20</pointsize>
+          <weight>50</weight>
           <bold>false</bold>
          </font>
         </property>
@@ -311,6 +313,7 @@ QPushButton:pressed {
           <property name="font">
            <font>
             <pointsize>20</pointsize>
+            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -348,6 +351,7 @@ QPushButton:pressed {
           <property name="font">
            <font>
             <pointsize>20</pointsize>
+            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -1060,6 +1064,7 @@ QPushButton:pressed {
             <property name="font">
              <font>
               <pointsize>20</pointsize>
+              <weight>50</weight>
               <italic>false</italic>
               <bold>false</bold>
               <underline>false</underline>
@@ -1434,6 +1439,7 @@ QPushButton:pressed {
           <property name="font">
            <font>
             <pointsize>20</pointsize>
+            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -1471,6 +1477,7 @@ QPushButton:pressed {
           <property name="font">
            <font>
             <pointsize>20</pointsize>
+            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>

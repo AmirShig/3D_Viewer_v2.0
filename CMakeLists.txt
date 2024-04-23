@@ -1,3 +1,4 @@
+
 cmake_minimum_required(VERSION 3.23)
 
 project(3dViewer_2)
@@ -18,14 +19,14 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets OpenGLWidgets)
 add_executable(3dViewer
         src/Model/data_3d_model.h
         src/Model/data_3d_model.cc
-        src/Model/parce_obj.cc
+        src/Model/parse_obj.cc
+        src/Model/parse_obj.h
         src/View/main.cpp
         src/View/view.cpp
         src/View/view.h
         src/View/mainwindow.ui
         src/Model/model.h
         src/Model/model.cc
-        src/Model/lexem.cc
         src/Controller/controller.h
         src/Controller/controller.cc
         src/View/glwidget.cc
@@ -69,8 +70,8 @@ add_executable(
         src/Model/model.h
         src/Model/data_3d_model.cc
         src/Model/data_3d_model.h
-        src/Model/lexem.cc
-        src/Model/parce_obj.cc
+        src/Model/parse_obj.cc
+        src/Model/parse_obj.h
         src/Model/affine_transformations.cc
         src/Model/affine_transformations.h
         src/Model/set_centre.h

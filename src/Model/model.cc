@@ -29,14 +29,25 @@ void Model::Affine(Strategy::SelectionStrategy select_strategy,
   affine_.Transformations(data, point, type_coordinate);
 }
 
+void Model::GiveCommand(Data3DModel *data, Event *event,
+                        Event::Command command) {
+  Event::VerifyExecution verify = event->Execute(data, command);
+
+  if (verify == Event::VerifyExecution::kNotExecution) return;
+}
+
 void Model::SetCentre(Data3DModel *data) {
-  command.Clean();
   find_min_max_->SetNextEvent(find_max_)->SetNextEvent(find_centre_);
-  command.GiveCommand(data, find_min_max_, Event::Command::kFindMinMax);
-  command.Update(find_min_max_);
-  command.GiveCommand(data, find_max_, Event::Command::kFindMax);
-  command.Update(find_max_);
-  command.GiveCommand(data, find_centre_, Event::Command::kFindCentre);
+
+  find_min_max_->centre_ = Event::MinMax();
+  find_min_max_->min_ = Event::MinMax();
+  find_min_max_->max_ = Event::MinMax();
+  find_min_max_->scale_for_centre_ = 0;
+  GiveCommand(data, find_min_max_, Event::Command::kFindMinMax);
+  find_max_->Update(find_min_max_);
+  GiveCommand(data, find_max_, Event::Command::kFindMax);
+  find_centre_->Update(find_max_);
+  GiveCommand(data, find_centre_, Event::Command::kFindCentre);
 }
 
 }  // namespace s21

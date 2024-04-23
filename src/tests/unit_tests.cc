@@ -469,7 +469,7 @@ TEST_F(ViewerTest, SetCenterAfterMovingTest) {
 }
 
 TEST_F(ViewerTest, SetCenterAfterZMovingTest) {
-  std::string file_path = "../src/tests/obj/correct/bison_pose.obj";
+  std::string file_path = "../src/tests/obj/correct/katana.obj";
   controller_.ParseFile(file_path);
 
   controller_.SetCentre(&controller_.GetData());
@@ -477,14 +477,14 @@ TEST_F(ViewerTest, SetCenterAfterZMovingTest) {
 
   controller_.Affine(s21::Strategy::SelectionStrategy::kMove,
                      s21::Strategy::TypeCoordinate::kX, &controller_.GetData(),
-                     20);
+                     -10);
   controller_.Affine(s21::Strategy::SelectionStrategy::kMove,
-                     s21::Strategy::TypeCoordinate::kX, &controller_.GetData(),
-                     10);
+                     s21::Strategy::TypeCoordinate::kY, &controller_.GetData(),
+                     -10);
   controller_.Affine(s21::Strategy::SelectionStrategy::kMove,
                      s21::Strategy::TypeCoordinate::kZ, &controller_.GetData(),
                      10);
-  for (int i = 0; i < 30; i++) controller_.SetCentre(&controller_.GetData());
+  controller_.SetCentre(&controller_.GetData());
 
   const auto model_after = controller_.GetData().GetCoordinateVertex();
 

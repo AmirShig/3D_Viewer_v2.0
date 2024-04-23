@@ -155,7 +155,7 @@ void GLWidget::mouseMoveEvent(QMouseEvent *mo) {
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
                       Strategy::TypeCoordinate::kX, &controller_->GetData(),
                       -x_rot_);
-  sum_rot_x += -x_rot_;
+  sum_rot_x += x_rot_;
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
                       Strategy::TypeCoordinate::kY, &controller_->GetData(),
                       y_rot_);
@@ -167,13 +167,9 @@ void GLWidget::wheelEvent(QWheelEvent *event) {
   const float scaleFactor = 0.9f;
 
   if (event->angleDelta().y() > 0) {
-    controller_->Affine(Strategy::SelectionStrategy::kDistance,
-                        Strategy::TypeCoordinate::kZ, &controller_->GetData(),
-                        scaleFactor);
+    setScale(scaleFactor);
   } else {
-    controller_->Affine(Strategy::SelectionStrategy::kDistance,
-                        Strategy::TypeCoordinate::kZ, &controller_->GetData(),
-                        1.0f / scaleFactor);
+    setScale(1.0f / scaleFactor);
   }
   update();
 }
