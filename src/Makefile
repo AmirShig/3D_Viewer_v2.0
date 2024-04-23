@@ -1,11 +1,17 @@
 .PHONY : all install clean rebuild run style tests
 
 CXX := g++
-CXXFLAGS := -Wall -Wextra -Werror -std=c++17
+CXXFLAGS= -Wall -Wextra -Werror -std=c++17
 GTEST_FLAGS= -lgtest_main -pthread -lgtest
 GCOV=--coverage
 
 OS := $(shell uname -s)
+
+OPEN = open
+
+ifeq ($(OS), Linux)
+	OPEN = google-chrome
+endif
 
 SRC_DIR := .
 EXTENSIONS := cc cpp h
@@ -33,11 +39,19 @@ rebuild:
 run:
 	cd ../build && ./3dViewer
 
-
+gcov_report: clean
+	$(CXX) $(CXXFLAGS) $(GCOV) $(GTEST_FLAGS)  $(TEST_SRC) Model/*.cc -o report
+	./report
+	gcov *.gcno *.gcda
+	lcov --capture --directory . --output-file coverage.info --no-external --ignore-errors inconsistent
+	genhtml coverage.info --output-directory coverage_report
+	$(OPEN) ./coverage_report/index.html
+	rm -rf *.gcda *.gcno *.info report *.gcov coverage_report
 
 clean:
 	clear
 	rm -rf ../build test
+	rm -rf *.gcda *.gcno *.info report *.gcov coverage_report
 	make style
 
 style:
@@ -48,7 +62,7 @@ style:
 
 # Ниже три цели для сборки google test. (1 - стандартная через терминал, 2 - cmake, 3 - cmake)
 tests:
-	$(CXX) $(CXXFLAGS) $(TEST_SRC) Model/model.cc Model/data_3d_model.cc Model/lexem.cc Model/parce_obj.cc $(GTEST_FLAGS) -o test
+	$(CXX) $(CXXFLAGS) $(TEST_SRC) Model/*.cc $(GTEST_FLAGS) -o test
 	./test
 
 google_test:
@@ -62,9 +76,6 @@ run_test:
 	cd ../build && ctest
 	cd ../build && ./unit_test
 
-cmake_gcov_report: clean
-	mkdir ../build
-	cd ../build && cmake .. && make coverage && ./coverage
 
 # Usage example: make push MSG="write here what was added"
 push: clean
@@ -83,6 +94,7 @@ docker:
 
 brew_install:
 ifeq ($(OS), Linux)
+	bash ./Dockerfile/installbrew.sh
 	sudo apt install -y lcov
 endif
 ifeq ($(OS), Darwin)

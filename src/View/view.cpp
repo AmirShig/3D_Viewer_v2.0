@@ -383,7 +383,7 @@ void View::ButtonRotatePlusX() {
   int value = ui->ROTATE_X_VALUE->value();
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
                       Strategy::TypeCoordinate::kX, &controller_->GetData(),
-                      (double)value);
+                      static_cast<long double>(value));
   gl_widget_->UpdateSumRotX(value);
   gl_widget_->update();
 }
@@ -392,7 +392,7 @@ void View::ButtonRotateMinusX() {
   int value = ui->ROTATE_X_VALUE->value();
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
                       Strategy::TypeCoordinate::kX, &controller_->GetData(),
-                      -(double)value);
+                      static_cast<long double>(-value));
   gl_widget_->UpdateSumRotX(-value);
   gl_widget_->update();
 }
@@ -401,7 +401,7 @@ void View::ButtonRotatePlusY() {
   int value = ui->ROTATE_Y_VALUE->value();
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
                       Strategy::TypeCoordinate::kY, &controller_->GetData(),
-                      (double)value);
+                      static_cast<long double>(value));
   gl_widget_->UpdateSumRotY(value);
   gl_widget_->update();
 }
@@ -410,7 +410,7 @@ void View::ButtonRotateMinusY() {
   int value = ui->ROTATE_Y_VALUE->value();
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
                       Strategy::TypeCoordinate::kY, &controller_->GetData(),
-                      -(double)value);
+                      static_cast<long double>(-value));
   gl_widget_->UpdateSumRotY(-value);
   gl_widget_->update();
 }
@@ -419,7 +419,7 @@ void View::ButtonRotatePlusZ() {
   int value = ui->ROTATE_Z_VALUE->value();
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
                       Strategy::TypeCoordinate::kZ, &controller_->GetData(),
-                      (double)value);
+                      static_cast<long double>(value));
   gl_widget_->UpdateSumRotZ(value);
   gl_widget_->update();
 }
@@ -428,7 +428,7 @@ void View::ButtonRotateMinusZ() {
   int value = ui->ROTATE_Z_VALUE->value();
   controller_->Affine(Strategy::SelectionStrategy::kRotate,
                       Strategy::TypeCoordinate::kZ, &controller_->GetData(),
-                      -(double)value);
+                      static_cast<long double>(-value));
   gl_widget_->UpdateSumRotZ(-value);
   gl_widget_->update();
 }

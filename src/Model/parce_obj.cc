@@ -1,7 +1,4 @@
-#include <sstream>
-
-#include "model.h"
-
+#include "parse_obj.h"
 /*!
  * \brief read file
  *\authors Dimitraki Vladimir
@@ -18,7 +15,7 @@ bool ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
     while (std::getline(file, string_data_from_file_)) {
       WriteVertexes(data);
       ParsePolygons(data);
-      lexeme_.CheckLexem(data);
+      if (!data->GetCoordinateVertex().size()) data->ClearData();
     }
     file.close();
   } else {
