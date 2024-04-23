@@ -11,8 +11,9 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
 
-find_package(Qt6 COMPONENTS Widgets OpenGL REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Widgets OpenGLWidgets)
 
 add_executable(3dViewer
@@ -82,3 +83,18 @@ target_link_libraries(
 
 include(GoogleTest)
 gtest_discover_tests(unit_test)
+
+add_custom_target(coverage
+        COMMAND lcov --capture --directory ${CMAKE_BINARY_DIR} --output-file coverage.info
+        COMMAND lcov --remove coverage.info '/usr/*' '*/tests/*' '*/third_party/*' --output-file coverage.info
+        COMMAND lcov --list coverage.info
+        COMMAND genhtml coverage.info --output-directory coverage_html
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        DEPENDS unit_test
+)
+
+add_custom_command(TARGET unit_test POST_BUILD
+        COMMAND gcov -b ${CMAKE_BINARY_DIR} -o coverage.info
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        COMMENT "Generating code coverage data"
+)
