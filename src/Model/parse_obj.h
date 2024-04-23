@@ -10,6 +10,9 @@ namespace s21 {
 
 class ParseObj {
  public:
+  ParseObj() = default;
+  ~ParseObj() = default;
+
   bool ParseObjFile(std::string &file_path, Data3DModel *data);
   void WriteVertexes(Data3DModel *data);
   void ParsePolygons(Data3DModel *data);
