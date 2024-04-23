@@ -13,10 +13,9 @@ class Event {
   enum class VerifyExecution { kExecution, kNotExecution };
   enum class Command { kFindMinMax, kFindMax, kFindCentre };
   struct MinMax {
+    MinMax() : x(0), y(0), z(0) {}
     double x, y, z;
   };
-
-  virtual void Update(Event *e) = 0;
 
   /**
    * Передает обязанности следующему по цепочке
@@ -29,7 +28,6 @@ class Event {
    * \return VerifyExecutionу успешное выполнение
    */
   virtual VerifyExecution Execute(Data3DModel *data, Command command) = 0;
-  void GiveCommand(Data3DModel *data, Event *event, Event::Command command);
 
   double scale_for_centre_;
   MinMax centre_;
@@ -40,10 +38,7 @@ class Event {
 class AbstructEvent : public Event {
  public:
   AbstructEvent() : next_event_(nullptr) {}
-  void Update(Event *e) override;
-  void Clean();
   Event *SetNextEvent(Event *event) override;
-  VerifyExecution Execute(Data3DModel *data, Command command) override;
 
  private:
   Event *next_event_;
@@ -51,7 +46,7 @@ class AbstructEvent : public Event {
 
 class FindMinMax : public AbstructEvent {
  public:
-  void Update(Event *e) override;
+  void Update(Event *e);
 
   VerifyExecution Execute(Data3DModel *data, Command command) override;
   void InitMinMax(Data3DModel::Coordinate &vertex);
@@ -59,14 +54,14 @@ class FindMinMax : public AbstructEvent {
 
 class FindMax : public AbstructEvent {
  public:
-  void Update(Event *e) override;
+  void Update(Event *e);
 
   VerifyExecution Execute(Data3DModel *data, Command command) override;
 };
 
 class FindCentre : public AbstructEvent {
  public:
-  void Update(Event *e) override;
+  void Update(Event *e);
 
   VerifyExecution Execute(Data3DModel *data, Command command) override;
 };

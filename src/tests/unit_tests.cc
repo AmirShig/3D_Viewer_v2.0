@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "../Controller/controller.h"
+#include "../Model/model.h"
 
 class ViewerTest : public ::testing::Test {
  protected:
@@ -294,6 +295,202 @@ TEST_F(ViewerTest, RotateZ) {
   for (size_t i = 0; i < model_before.size(); i++) {
     EXPECT_NEAR(model_before[i].x, -model_after[i].x, kEpsilon_);
     EXPECT_NEAR(model_before[i].y, -model_after[i].y, kEpsilon_);
+    EXPECT_NEAR(model_before[i].z, model_after[i].z, kEpsilon_);
+  }
+}
+
+TEST_F(ViewerTest, SummaryXYZMirrorRotateTest) {
+  std::string file_path = "../src/tests/obj/correct/cube.obj";
+  model_.ProccessingObjFile(file_path);
+
+  const auto model_before = controller_.GetData().GetCoordinateVertex();
+
+  controller_.Affine(s21::Strategy::SelectionStrategy::kRotate,
+                     s21::Strategy::TypeCoordinate::kX, &controller_.GetData(),
+                     30);
+  controller_.Affine(s21::Strategy::SelectionStrategy::kRotate,
+                     s21::Strategy::TypeCoordinate::kY, &controller_.GetData(),
+                     30);
+  controller_.Affine(s21::Strategy::SelectionStrategy::kRotate,
+                     s21::Strategy::TypeCoordinate::kZ, &controller_.GetData(),
+                     30);
+
+  controller_.Affine(s21::Strategy::SelectionStrategy::kRotate,
+                     s21::Strategy::TypeCoordinate::kZ, &controller_.GetData(),
+                     -30);
+  controller_.Affine(s21::Strategy::SelectionStrategy::kRotate,
+                     s21::Strategy::TypeCoordinate::kY, &controller_.GetData(),
+                     -30);
+  controller_.Affine(s21::Strategy::SelectionStrategy::kRotate,
+                     s21::Strategy::TypeCoordinate::kX, &controller_.GetData(),
+                     -30);
+
+  const auto model_after = controller_.GetData().GetCoordinateVertex();
+
+  for (size_t i = 0; i < model_before.size(); i++) {
+    EXPECT_NEAR(model_before[i].x, model_after[i].x, kEpsilon_);
+    EXPECT_NEAR(model_before[i].y, model_after[i].y, kEpsilon_);
+    EXPECT_NEAR(model_before[i].z, model_after[i].z, kEpsilon_);
+  }
+}
+
+TEST_F(ViewerTest, SummaryXRotateTest) {
+  std::string file_path = "../src/tests/obj/correct/cube.obj";
+  model_.ProccessingObjFile(file_path);
+
+  const auto model_before = controller_.GetData().GetCoordinateVertex();
+
+  controller_.Affine(s21::Strategy::SelectionStrategy::kRotate,
+                     s21::Strategy::TypeCoordinate::kX, &controller_.GetData(),
+                     30);
+
+  controller_.Affine(s21::Strategy::SelectionStrategy::kRotate,
+                     s21::Strategy::TypeCoordinate::kX, &controller_.GetData(),
+                     -30);
+
+  const auto model_after = controller_.GetData().GetCoordinateVertex();
+
+  for (size_t i = 0; i < model_before.size(); i++) {
+    EXPECT_NEAR(model_before[i].x, model_after[i].x, kEpsilon_);
+    EXPECT_NEAR(model_before[i].y, model_after[i].y, kEpsilon_);
+    EXPECT_NEAR(model_before[i].z, model_after[i].z, kEpsilon_);
+  }
+}
+
+TEST_F(ViewerTest, PlusSizeTest) {
+  std::string file_path = "../src/tests/obj/correct/cube.obj";
+  model_.ProccessingObjFile(file_path);
+
+  const auto model_before = controller_.GetData().GetCoordinateVertex();
+
+  controller_.Affine(s21::Strategy::SelectionStrategy::kDistance,
+                     s21::Strategy::TypeCoordinate::kZ, &controller_.GetData(),
+                     1.1);
+
+  const auto model_after = controller_.GetData().GetCoordinateVertex();
+
+  for (size_t i = 0; i < model_before.size(); i++) {
+    EXPECT_NEAR(model_before[i].x * 1.1, model_after[i].x, kEpsilon_);
+    EXPECT_NEAR(model_before[i].y * 1.1, model_after[i].y, kEpsilon_);
+    EXPECT_NEAR(model_before[i].z * 1.1, model_after[i].z, kEpsilon_);
+  }
+}
+
+TEST_F(ViewerTest, MinusSizeTest) {
+  std::string file_path = "../src/tests/obj/correct/cube.obj";
+  model_.ProccessingObjFile(file_path);
+
+  const auto model_before = controller_.GetData().GetCoordinateVertex();
+
+  controller_.Affine(s21::Strategy::SelectionStrategy::kDistance,
+                     s21::Strategy::TypeCoordinate::kZ, &controller_.GetData(),
+                     0.9);
+
+  const auto model_after = controller_.GetData().GetCoordinateVertex();
+
+  for (size_t i = 0; i < model_before.size(); i++) {
+    EXPECT_NEAR(model_before[i].x * 0.9, model_after[i].x, kEpsilon_);
+    EXPECT_NEAR(model_before[i].y * 0.9, model_after[i].y, kEpsilon_);
+    EXPECT_NEAR(model_before[i].z * 0.9, model_after[i].z, kEpsilon_);
+  }
+}
+
+TEST_F(ViewerTest, SetCenterTest) {
+  std::string file_path = "../src/tests/obj/correct/cube.obj";
+  controller_.ParseFile(file_path);
+
+  controller_.SetCentre(&controller_.GetData());
+  const auto model_before = controller_.GetData().GetCoordinateVertex();
+
+  controller_.Affine(s21::Strategy::SelectionStrategy::kMove,
+                     s21::Strategy::TypeCoordinate::kY, &controller_.GetData(),
+                     20);
+  controller_.SetCentre(&controller_.GetData());
+
+  const auto model_after = controller_.GetData().GetCoordinateVertex();
+
+  for (size_t i = 0; i < model_before.size(); i++) {
+    EXPECT_NEAR(model_before[i].x, model_after[i].x, kEpsilon_);
+    EXPECT_NEAR(model_before[i].y, model_after[i].y, kEpsilon_);
+    EXPECT_NEAR(model_before[i].z, model_after[i].z, kEpsilon_);
+  }
+}
+
+TEST_F(ViewerTest, SetCenterAfterMovingZYTest) {
+  std::string file_path = "../src/tests/obj/correct/cube.obj";
+  controller_.ParseFile(file_path);
+
+  controller_.SetCentre(&controller_.GetData());
+  const auto model_before = controller_.GetData().GetCoordinateVertex();
+
+  controller_.Affine(s21::Strategy::SelectionStrategy::kMove,
+                     s21::Strategy::TypeCoordinate::kY, &controller_.GetData(),
+                     -10);
+  controller_.Affine(s21::Strategy::SelectionStrategy::kMove,
+                     s21::Strategy::TypeCoordinate::kX, &controller_.GetData(),
+                     -10);
+  controller_.SetCentre(&controller_.GetData());
+
+  const auto model_after = controller_.GetData().GetCoordinateVertex();
+
+  for (size_t i = 0; i < model_before.size(); i++) {
+    EXPECT_NEAR(model_before[i].x, model_after[i].x, kEpsilon_);
+    EXPECT_NEAR(model_before[i].y, model_after[i].y, kEpsilon_);
+    EXPECT_NEAR(model_before[i].z, model_after[i].z, kEpsilon_);
+  }
+}
+
+TEST_F(ViewerTest, SetCenterAfterMovingTest) {
+  std::string file_path = "../src/tests/obj/correct/bison_pose.obj";
+  controller_.ParseFile(file_path);
+
+  controller_.SetCentre(&controller_.GetData());
+  const auto model_before = controller_.GetData().GetCoordinateVertex();
+
+  controller_.Affine(s21::Strategy::SelectionStrategy::kMove,
+                     s21::Strategy::TypeCoordinate::kY, &controller_.GetData(),
+                     -10);
+  controller_.Affine(s21::Strategy::SelectionStrategy::kMove,
+                     s21::Strategy::TypeCoordinate::kX, &controller_.GetData(),
+                     -10);
+  //  controller_.Affine(s21::Strategy::SelectionStrategy::kMove,
+  //                     s21::Strategy::TypeCoordinate::kZ,
+  //                     &controller_.GetData(), -10);
+  //  for (int i = 0; i < 30; i++)
+  controller_.SetCentre(&controller_.GetData());
+
+  const auto model_after = controller_.GetData().GetCoordinateVertex();
+
+  for (size_t i = 0; i < model_before.size(); i++) {
+    EXPECT_NEAR(model_before[i].x, model_after[i].x, kEpsilon_);
+    EXPECT_NEAR(model_before[i].y, model_after[i].y, kEpsilon_);
+    EXPECT_NEAR(model_before[i].z, model_after[i].z, kEpsilon_);
+  }
+}
+
+TEST_F(ViewerTest, SetCenterAfterZMovingTest) {
+  std::string file_path = "../src/tests/obj/correct/katana.obj";
+  controller_.ParseFile(file_path);
+
+  controller_.SetCentre(&controller_.GetData());
+  const auto model_before = controller_.GetData().GetCoordinateVertex();
+
+  controller_.Affine(s21::Strategy::SelectionStrategy::kMove,
+                     s21::Strategy::TypeCoordinate::kX, &controller_.GetData(),
+                     -10);
+  controller_.Affine(s21::Strategy::SelectionStrategy::kMove,
+                     s21::Strategy::TypeCoordinate::kY, &controller_.GetData(),
+                     -10);
+  controller_.Affine(s21::Strategy::SelectionStrategy::kMove,
+                     s21::Strategy::TypeCoordinate::kZ, &controller_.GetData(),
+                     10);
+  controller_.SetCentre(&controller_.GetData());
+
+  const auto model_after = controller_.GetData().GetCoordinateVertex();
+
+  for (size_t i = 0; i < model_before.size(); i++) {
+    EXPECT_NEAR(model_before[i].x, model_after[i].x, kEpsilon_);
+    EXPECT_NEAR(model_before[i].y, model_after[i].y, kEpsilon_);
     EXPECT_NEAR(model_before[i].z, model_after[i].z, kEpsilon_);
   }
 }

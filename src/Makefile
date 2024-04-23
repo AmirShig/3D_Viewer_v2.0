@@ -1,3 +1,4 @@
+
 .PHONY : all install clean rebuild run style tests
 
 CXX := g++
@@ -8,7 +9,6 @@ GCOV=--coverage
 OS := $(shell uname -s)
 
 OPEN = open
-
 ifeq ($(OS), Linux)
 	OPEN = google-chrome
 endif
@@ -40,13 +40,13 @@ run:
 	cd ../build && ./3dViewer
 
 gcov_report: clean
-	$(CXX) $(CXXFLAGS) $(GCOV) $(GTEST_FLAGS)  $(TEST_SRC) Model/*.cc -o report
+	$(CXX) $(CXXFLAGS) $(GCOV) $(GTEST_FLAGS)  $(TEST_SRC) Controller/controller.cc Model/*.cc -o report
 	./report
 	gcov *.gcno *.gcda
 	lcov --capture --directory . --output-file coverage.info --no-external --ignore-errors inconsistent
 	genhtml coverage.info --output-directory coverage_report
 	$(OPEN) ./coverage_report/index.html
-	rm -rf *.gcda *.gcno *.info report *.gcov coverage_report
+	rm -rf *.gcda *.gcno *.info report *.gcov
 
 clean:
 	clear
@@ -62,7 +62,7 @@ style:
 
 # Ниже три цели для сборки google test. (1 - стандартная через терминал, 2 - cmake, 3 - cmake)
 tests:
-	$(CXX) $(CXXFLAGS) $(TEST_SRC) Model/*.cc $(GTEST_FLAGS) -o test
+	$(CXX) $(CXXFLAGS) $(TEST_SRC) Model/*.cc Controller/controller.cc $(GTEST_FLAGS) -o test
 	./test
 
 google_test:

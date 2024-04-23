@@ -1,3 +1,4 @@
+
 cmake_minimum_required(VERSION 3.23)
 
 project(3dViewer_2)
@@ -11,16 +12,15 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
 
+find_package(Qt6 COMPONENTS Widgets OpenGL REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Widgets OpenGLWidgets)
 
 add_executable(3dViewer
         src/Model/data_3d_model.h
         src/Model/data_3d_model.cc
-        src/Model/parce_obj.cc
-        src/Model/parce_obj.h
+        src/Model/parse_obj.cc
+        src/Model/parse_obj.h
         src/View/main.cpp
         src/View/view.cpp
         src/View/view.h
@@ -67,13 +67,17 @@ add_executable(
         unit_test
         src/tests/unit_tests.cc
         src/Model/model.cc
+        src/Model/model.h
         src/Model/data_3d_model.cc
-        src/Model/parce_obj.cc
-        src/Model/parce_obj.h
+        src/Model/data_3d_model.h
+        src/Model/parse_obj.cc
+        src/Model/parse_obj.h
         src/Model/affine_transformations.cc
         src/Model/affine_transformations.h
         src/Model/set_centre.h
         src/Model/set_centre.cc
+        src/Controller/controller.h
+        src/Controller/controller.cc
 )
 
 target_link_libraries(
@@ -83,18 +87,3 @@ target_link_libraries(
 
 include(GoogleTest)
 gtest_discover_tests(unit_test)
-
-add_custom_target(coverage
-        COMMAND lcov --capture --directory ${CMAKE_BINARY_DIR} --output-file coverage.info
-        COMMAND lcov --remove coverage.info '/usr/*' '*/tests/*' '*/third_party/*' --output-file coverage.info
-        COMMAND lcov --list coverage.info
-        COMMAND genhtml coverage.info --output-directory coverage_html
-        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-        DEPENDS unit_test
-)
-
-add_custom_command(TARGET unit_test POST_BUILD
-        COMMAND gcov -b ${CMAKE_BINARY_DIR} -o coverage.info
-        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-        COMMENT "Generating code coverage data"
-)

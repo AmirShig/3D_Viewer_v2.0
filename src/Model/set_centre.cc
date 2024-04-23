@@ -5,36 +5,9 @@ namespace s21 {
  * Создаем цепочку обязанностей
  * \param event событие которое обрабатывает определенную стадию центровки
  */
-Event *AbstructEvent::SetNextEvent(s21::Event *event) {
+Event *AbstructEvent::SetNextEvent(Event *event) {
   next_event_ = event;
   return event;
-}
-
-void AbstructEvent::Clean() {
-  scale_for_centre_ = 0;
-  centre_.x = 0;
-  centre_.y = 0;
-  centre_.z = 0;
-  max_.x = 0;
-  max_.y = 0;
-  max_.z = 0;
-  min_.x = 0;
-  min_.y = 0;
-  min_.z = 0;
-}
-
-void AbstructEvent::Update(s21::Event *e) {
-  min_ = e->min_;
-  max_ = e->max_;
-  centre_ = e->centre_;
-  scale_for_centre_ = e->scale_for_centre_;
-}
-
-void FindMinMax::Update(s21::Event *e) {
-  min_ = e->min_;
-  max_ = e->max_;
-  centre_ = e->centre_;
-  scale_for_centre_ = e->scale_for_centre_;
 }
 
 void FindMax::Update(s21::Event *e) {
@@ -51,33 +24,25 @@ void FindCentre::Update(s21::Event *e) {
   scale_for_centre_ = e->scale_for_centre_;
 }
 
-Event::VerifyExecution AbstructEvent::Execute(s21::Data3DModel *data,
-                                              Command command) {
-  if (next_event_) {
-    next_event_->Execute(data, command);
-  }
-  return VerifyExecution::kExecution;
-}
-
 Event::VerifyExecution FindMinMax::Execute(s21::Data3DModel *data,
                                            Command command) {
   auto v = data->GetCoordinateVertex().begin();
   InitMinMax(*v);
   if (command == Event::Command::kFindMinMax) {
     for (auto &vertex : data->GetCoordinateVertex()) {
-      if (min_.x > vertex.x)
+      if (min_.x >= vertex.x)
         min_.x = vertex.x;
-      else if (max_.x < vertex.x)
+      else if (max_.x <= vertex.x)
         max_.x = vertex.x;
 
-      if (min_.y > vertex.y)
+      if (min_.y >= vertex.y)
         min_.y = vertex.y;
-      else if (max_.y < vertex.y)
+      else if (max_.y <= vertex.y)
         max_.y = vertex.y;
 
-      if (min_.z > vertex.z)
+      if (min_.z >= vertex.z)
         min_.z = vertex.z;
-      else if (max_.z < vertex.z)
+      else if (max_.z <= vertex.z)
         max_.z = vertex.z;
     }
 
@@ -127,14 +92,6 @@ Event::VerifyExecution FindCentre::Execute(s21::Data3DModel *data,
     }
   }
   return VerifyExecution::kExecution;
-}
-
-void Event::GiveCommand(s21::Data3DModel *data, s21::Event *event,
-                        Event::Command command) {
-  event->Update(this);
-  Event::VerifyExecution verify = event->Execute(data, command);
-
-  if (verify == Event::VerifyExecution::kNotExecution) return;
 }
 
 }  // namespace s21

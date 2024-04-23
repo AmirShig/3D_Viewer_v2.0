@@ -34,6 +34,7 @@ class Model {
               Strategy::TypeCoordinate type, Data3DModel *data, double point);
 
   void SetCentre(Data3DModel *data);
+  void GiveCommand(Data3DModel *data, Event *event, Event::Command command);
 
  private:
   Data3DModel data_;
@@ -42,7 +43,6 @@ class Model {
   Strategy *move_obj_;
   Strategy *rotate_obj_;
   Strategy *distance_obj_;
-  AbstructEvent command;
   FindMinMax *find_min_max_;
   FindMax *find_max_;
   FindCentre *find_centre_;
