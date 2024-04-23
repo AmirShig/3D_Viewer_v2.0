@@ -1,5 +1,5 @@
-#ifndef INC_3DVIEWER_2_MODEL_H
-#define INC_3DVIEWER_2_MODEL_H
+#ifndef CPP4_3DVIEWER_V2_MODEL_MODEL_H
+#define CPP4_3DVIEWER_V2_MODEL_MODEL_H
 
 #include <iostream>
 #include <stack>
@@ -13,11 +13,10 @@
 
 namespace s21 {
 
-/*!
- * \brief Главный класс который реализован по паттерну "Фасад"
- */
+///@brief Главный класс который реализован по паттерну "Фасад"
+
 class Model {
- public:
+public:
   Model() {
     move_obj_ = new MoveObj();
     rotate_obj_ = new RotateObj();
@@ -27,6 +26,7 @@ class Model {
     find_max_ = new FindMax();
     find_centre_ = new FindCentre();
   }
+
 
   ~Model() {
     delete move_obj_;
@@ -58,6 +58,6 @@ class Model {
   FindCentre *find_centre_;
 };
 
-}  // namespace s21
+} // namespace s21
 
-#endif  // INC_3DVIEWER_2_MODEL_H
+#endif // CPP4_3DVIEWER_V2_MODEL_DATA3DMODEL_H

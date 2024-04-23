@@ -2,19 +2,15 @@
 
 namespace s21 {
 
-/*!
- * \brief Устанавливает конкретную стратегию
- * \param concrete_strategy указатель на конктретную стратегию
- */
+///@brief Устанавливает конкретную стратегию
+///@param concrete_strategy указатель на конктретную стратегию
 void AffineTransformations::SetStrategy(Strategy *concrete_strategy) {
   strategy_ = concrete_strategy;
 }
 
-/*!
- * \brief Изменяет объект в пространстве
- * \param data данные объекта
- * \param point входящая координата
- */
+/// @brief Изменяет объект в пространстве
+/// @param data данные объекта
+/// @param point входящая координата
 void AffineTransformations::Transformations(
     s21::Data3DModel *data, double point,
     Strategy::TypeCoordinate coordinate_x_y_z) {
@@ -24,24 +20,27 @@ void AffineTransformations::Transformations(
 void MoveObj::Transformations(s21::Data3DModel *data, double point,
                               TypeCoordinate coordinate_x_y_z) {
   for (auto &i : data->GetCoordinateVertex()) {
-    if (coordinate_x_y_z == TypeCoordinate::kX) i.x += point;
-    if (coordinate_x_y_z == TypeCoordinate::kY) i.y += point;
-    if (coordinate_x_y_z == TypeCoordinate::kZ) i.z += point;
+    if (coordinate_x_y_z == TypeCoordinate::kX)
+      i.x += point;
+    if (coordinate_x_y_z == TypeCoordinate::kY)
+      i.y += point;
+    if (coordinate_x_y_z == TypeCoordinate::kZ)
+      i.z += point;
   }
 }
 
 void RotateObj::Transformations(Data3DModel *data, double point,
                                 Strategy::TypeCoordinate coordinate_x_y_z) {
   switch (coordinate_x_y_z) {
-    case Strategy::TypeCoordinate::kX:
-      Rotate(data, point, &RotateObj::RotateX);
-      break;
-    case Strategy::TypeCoordinate::kY:
-      Rotate(data, point, &RotateObj::RotateY);
-      break;
-    case Strategy::TypeCoordinate::kZ:
-      Rotate(data, point, &RotateObj::RotateZ);
-      break;
+  case Strategy::TypeCoordinate::kX:
+    Rotate(data, point, &RotateObj::RotateX);
+    break;
+  case Strategy::TypeCoordinate::kY:
+    Rotate(data, point, &RotateObj::RotateY);
+    break;
+  case Strategy::TypeCoordinate::kZ:
+    Rotate(data, point, &RotateObj::RotateZ);
+    break;
   }
 }
 
@@ -87,4 +86,4 @@ void DistanceObj::Transformations(
   }
 }
 
-}  // namespace s21
+} // namespace s21

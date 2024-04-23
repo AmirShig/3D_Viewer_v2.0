@@ -1,15 +1,13 @@
-#ifndef INC_3DVIEWER_2_DATA3DMODEL_H
-#define INC_3DVIEWER_2_DATA3DMODEL_H
+#ifndef CPP4_3DVIEWER_V2_MODEL_DATA3DMODEL_H
+#define CPP4_3DVIEWER_V2_MODEL_DATA3DMODEL_H
 
 #include <iostream>
 #include <vector>
 
 namespace s21 {
-/*!
- * \brief Class for storage data
- */
+///@brief Class for storage data
 class Data3DModel {
- public:
+public:
   struct Coordinate {
     Coordinate() : x(0), y(0), z(0) {}
     double x, y, z;
@@ -21,11 +19,11 @@ class Data3DModel {
   std::vector<int> &GetStringPolygon() { return string_polygon_; }
   void ClearData();
 
- private:
+private:
   std::vector<Coordinate> coordinates_vertex_;
   std::vector<int> string_polygon_;
 };
 
-}  // namespace s21
+} // namespace s21
 
-#endif  // INC_3DVIEWER_2_DATA3DMODEL_H
+#endif // CPP4_3DVIEWER_V2_MODEL_DATA3DMODEL_H

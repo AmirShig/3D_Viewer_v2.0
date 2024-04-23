@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef CPP4_3DVIEWER_V2_VIEW_VIEW_H
+#define CPP4_3DVIEWER_V2_VIEW_VIEW_H
 
 #define GL_SILENCE_DEPRECATION
 
@@ -45,7 +45,6 @@ class View : public QMainWindow {
   int rotatedY = 0;
   int rotatedZ = 0;
 
-  //   QSettings
   void writeSettings();
   void readSettings();
 
@@ -62,7 +61,6 @@ class View : public QMainWindow {
   void VertexSizeValueChanged(int value);
   void LinesWidthValueChanged(int value);
 
-  // Affine_Transformations
   void ButtonPlusMoveZ();
   void ButtonMinusMoveZ();
   void ButtonPlusMoveY();
@@ -80,11 +78,8 @@ class View : public QMainWindow {
   void ButtonRotatePlusZ();
   void ButtonRotateMinusZ();
 
-  // SetDefault
   void on_SetDefault_button_clicked();
   void CleanPushButtonClicked();
-
-  // Print screen & Create gif
 
   void CreateAnimation();
   void CreateScreenClicked();
@@ -104,4 +99,4 @@ class View : public QMainWindow {
   int rotationPostition_;
 };
 }  // namespace s21
-#endif  // MAINWINDOW_H
+#endif  // CPP4_3DVIEWER_V2_VIEW_VIEW_H

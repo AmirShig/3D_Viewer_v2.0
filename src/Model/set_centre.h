@@ -1,3 +1,6 @@
+#ifndef CPP4_3DVIEWER_V2_MODEL_SETCENTRE_H
+#define CPP4_3DVIEWER_V2_MODEL_SETCENTRE_H
+
 #include <istream>
 #include <set>
 
@@ -5,9 +8,7 @@
 
 namespace s21 {
 
-/*!
- * \brief Главный интерфейс реализован по паттерну "Chain of responsibility"
- */
+///@brief Главный интерфейс реализован по паттерну "Chain of responsibility"
 class Event {
  public:
   Event() = default;
@@ -19,16 +20,12 @@ class Event {
     double x, y, z;
   };
 
-  /**
-   * Передает обязанности следующему по цепочке
-   * \param data данные 3d модели
-   */
+  ///Передает обязанности следующему по цепочке
+  ///@param data данные 3d модели
   virtual Event *SetNextEvent(Event *event) = 0;
 
-  /**
-   * Принимает комманду на исполнение
-   * \return VerifyExecutionу успешное выполнение
-   */
+  /// Принимает комманду на исполнение
+  ///@return VerifyExecutionу успешное выполнение
   virtual VerifyExecution Execute(Data3DModel *data, Command command) = 0;
 
   double scale_for_centre_;
@@ -38,16 +35,16 @@ class Event {
 };
 
 class AbstructEvent : public Event {
- public:
+public:
   AbstructEvent() : next_event_(nullptr) {}
   Event *SetNextEvent(Event *event) override;
 
- private:
+private:
   Event *next_event_;
 };
 
 class FindMinMax : public AbstructEvent {
- public:
+public:
   void Update(Event *e);
 
   VerifyExecution Execute(Data3DModel *data, Command command) override;
@@ -55,17 +52,19 @@ class FindMinMax : public AbstructEvent {
 };
 
 class FindMax : public AbstructEvent {
- public:
+public:
   void Update(Event *e);
 
   VerifyExecution Execute(Data3DModel *data, Command command) override;
 };
 
 class FindCentre : public AbstructEvent {
- public:
+public:
   void Update(Event *e);
 
   VerifyExecution Execute(Data3DModel *data, Command command) override;
 };
 
-}  // namespace s21
+} // namespace s21
+
+#endif // CPP4_3DVIEWER_V2_MODEL_SETCENTRE_H

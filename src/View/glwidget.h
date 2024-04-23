@@ -1,8 +1,4 @@
-//
-// Created by Raisin Ibben on 16/04/2024.
-//
-
-#ifndef INC_3DVIEWER_2_SRC_VIEW_GLWIDGET_H_
+#ifndef CPP4_3DVIEWER_V2_VIEW_GLWIDGET_H
 
 #define GL_SILENCE_DEPRECATION
 
@@ -155,6 +151,6 @@ class GLWidget : public QOpenGLWidget {
 
 }  // namespace s21
 
-#define INC_3DVIEWER_2_SRC_VIEW_GLWIDGET_H_
+#define CPP4_3DVIEWER_V2_VIEW_GLWIDGET_H
 
-#endif  // INC_3DVIEWER_2_SRC_VIEW_GLWIDGET_H_
+#endif  // CPP4_3DVIEWER_V2_VIEW_GLWIDGET_H

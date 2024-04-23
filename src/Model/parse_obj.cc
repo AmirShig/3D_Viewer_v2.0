@@ -1,10 +1,8 @@
 #include "parse_obj.h"
-/*!
- * \brief read file
- *\authors Dimitraki Vladimir
- * opens the file and reads the coordinates of vertices and polygons
- * from it to write the data to the Data3DModel structure.
- */
+
+ ///@brief read file
+ ///открывает файл и считывает координаты вершин и полигонов
+ ///из него, чтобы записать данные в структуру Data3DModel.
 namespace s21 {
 bool ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
   bool state_file = true;
