@@ -1,10 +1,8 @@
 #include "set_centre.h"
 
 namespace s21 {
-/**
- * Создаем цепочку обязанностей
- * \param event событие которое обрабатывает определенную стадию центровки
- */
+///Создаем цепочку обязанностей
+///@param event событие которое обрабатывает определенную стадию центровки
 Event *AbstructEvent::SetNextEvent(Event *event) {
   next_event_ = event;
   return event;
@@ -94,4 +92,4 @@ Event::VerifyExecution FindCentre::Execute(s21::Data3DModel *data,
   return VerifyExecution::kExecution;
 }
 
-}  // namespace s21
+} // namespace s21

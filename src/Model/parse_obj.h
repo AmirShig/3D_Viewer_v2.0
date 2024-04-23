@@ -1,3 +1,6 @@
+#ifndef CPP4_3DVIEWER_V2_MODEL_PARSEOBJ_H
+#define CPP4_3DVIEWER_V2_MODEL_PARSEOBJ_H
+
 #include <fstream>
 #include <sstream>
 
@@ -21,3 +24,5 @@ class ParseObj {
 };
 
 }  // namespace s21
+
+#endif //CPP4_3DVIEWER_V2_MODEL_PARSEOBJ_H

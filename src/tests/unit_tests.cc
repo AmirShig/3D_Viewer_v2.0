@@ -1,7 +1,3 @@
-//
-// Created by Raisin Ibben on 16/04/2024.
-//
-
 #include <gtest/gtest.h>
 
 #include <iostream>
@@ -10,7 +6,7 @@
 #include "../Model/model.h"
 
 class ViewerTest : public ::testing::Test {
- protected:
+protected:
   s21::Model model_;
   s21::Controller controller_;
   static constexpr double kEpsilon_ = 1e-6;
@@ -453,10 +449,6 @@ TEST_F(ViewerTest, SetCenterAfterMovingTest) {
   controller_.Affine(s21::Strategy::SelectionStrategy::kMove,
                      s21::Strategy::TypeCoordinate::kX, &controller_.GetData(),
                      -10);
-  //  controller_.Affine(s21::Strategy::SelectionStrategy::kMove,
-  //                     s21::Strategy::TypeCoordinate::kZ,
-  //                     &controller_.GetData(), -10);
-  //  for (int i = 0; i < 30; i++)
   controller_.SetCentre(&controller_.GetData());
 
   const auto model_after = controller_.GetData().GetCoordinateVertex();
