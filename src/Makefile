@@ -8,7 +8,6 @@ GCOV=--coverage
 OS := $(shell uname -s)
 
 OPEN = open
-
 ifeq ($(OS), Linux)
 	OPEN = google-chrome
 endif
@@ -40,7 +39,7 @@ run:
 	cd ../build && ./3dViewer
 
 gcov_report: clean
-	$(CXX) $(CXXFLAGS) $(GCOV) $(GTEST_FLAGS)  $(TEST_SRC) Model/*.cc -o report
+	$(CXX) $(CXXFLAGS) $(GCOV) $(GTEST_FLAGS)  $(TEST_SRC) Controller/controller.cc Model/*.cc -o report
 	./report
 	gcov *.gcno *.gcda
 	lcov --capture --directory . --output-file coverage.info --no-external --ignore-errors inconsistent

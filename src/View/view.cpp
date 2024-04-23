@@ -15,18 +15,14 @@ View::View(QWidget *parent, s21::Controller *controller)
 
   //Инициализация окна GLWidget
   gl_widget_ = new GLWidget(nullptr, controller);
-  //  gl_widget_->setFixedSize(900, 720);
-  //  auto *layout = new QVBoxLayout(ui->centralwidget);
   ui->layoutForGl->addWidget(gl_widget_);
-  //  layout->addWidget(gl_widget_);
-  // Устанавливаем политику растяжения для центрального виджета
-  ui->centralwidget->setSizePolicy(QSizePolicy::Expanding,
-                                   QSizePolicy::Expanding);
+
+  //  ui->centralwidget->setSizePolicy(QSizePolicy::Expanding,
+  //                                   QSizePolicy::Expanding);
 
   // Устанавливаем центральный виджет для окна
   setCentralWidget(ui->centralwidget);
 
-  //  connect(timer, SIGNAL(timeout()), this, SLOT(createAnimation()));
   // Open & clean
   connect(ui->OpenFilePushButtonClicked, SIGNAL(clicked()), this,
           SLOT(OpenFilePushButtonClicked()));
@@ -121,7 +117,6 @@ void View::OpenFilePushButtonClicked() {
 
 void View::SetBckgColorClicked() {
   QColor color = QColorDialog::getColor(Qt::white, this, "Select color:");
-  //  gl_widget_->backround_color_ = color;
   gl_widget_->SetBackgroundColor(color);
   gl_widget_->update();
 }
@@ -159,7 +154,7 @@ void View::on_SetDefault_button_clicked() {
 
   //   Ставим на изначальное положение объект
 
-  controller_->SetCentre(&controller_->GetData());
+  //  controller_->SetCentre(&controller_->GetData());
 
   ui->ROTATE_X_VALUE->setValue(0);
   ui->ROTATE_Y_VALUE->setValue(0);
@@ -183,6 +178,7 @@ void View::on_SetDefault_button_clicked() {
                       Strategy::TypeCoordinate::kZ, &controller_->GetData(),
                       -gl_widget_->GetSumRotZ());
   gl_widget_->SetSumRotZ(0);
+  controller_->SetCentre(&controller_->GetData());
   gl_widget_->update();
 }
 
@@ -364,16 +360,16 @@ void View::ButtonMinusMoveX() {
 }
 
 void View::ButtonPlusSize() {
-  double value = 1;
-  controller_->Affine(Strategy::SelectionStrategy::kMove,
+  double value = 1.1;
+  controller_->Affine(Strategy::SelectionStrategy::kDistance,
                       Strategy::TypeCoordinate::kZ, &controller_->GetData(),
                       value);
   gl_widget_->update();
 }
 
 void View::ButtonMinusSize() {
-  double value = -1;
-  controller_->Affine(Strategy::SelectionStrategy::kMove,
+  double value = 0.9;
+  controller_->Affine(Strategy::SelectionStrategy::kDistance,
                       Strategy::TypeCoordinate::kZ, &controller_->GetData(),
                       value);
   gl_widget_->update();

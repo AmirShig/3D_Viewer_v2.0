@@ -65,19 +65,19 @@ Event::VerifyExecution FindMinMax::Execute(s21::Data3DModel *data,
   InitMinMax(*v);
   if (command == Event::Command::kFindMinMax) {
     for (auto &vertex : data->GetCoordinateVertex()) {
-      if (min_.x > vertex.x)
+      if (min_.x >= vertex.x)
         min_.x = vertex.x;
-      else if (max_.x < vertex.x)
+      else if (max_.x <= vertex.x)
         max_.x = vertex.x;
 
-      if (min_.y > vertex.y)
+      if (min_.y >= vertex.y)
         min_.y = vertex.y;
-      else if (max_.y < vertex.y)
+      else if (max_.y <= vertex.y)
         max_.y = vertex.y;
 
-      if (min_.z > vertex.z)
+      if (min_.z >= vertex.z)
         min_.z = vertex.z;
-      else if (max_.z < vertex.z)
+      else if (max_.z <= vertex.z)
         max_.z = vertex.z;
     }
 
@@ -93,8 +93,8 @@ void FindMinMax::InitMinMax(Data3DModel::Coordinate &vertex) {
   min_.y = vertex.y;
   min_.z = vertex.z;
   max_.x = vertex.x;
-  max_.y = vertex.y;
-  max_.z = vertex.z;
+  max_.y = vertex.x;
+  max_.z = vertex.x;
 }
 
 Event::VerifyExecution FindMax::Execute(s21::Data3DModel *data,

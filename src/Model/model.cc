@@ -32,7 +32,6 @@ void Model::Affine(Strategy::SelectionStrategy select_strategy,
 void Model::SetCentre(Data3DModel *data) {
   command.Clean();
   find_min_max_->SetNextEvent(find_max_)->SetNextEvent(find_centre_);
-
   command.GiveCommand(data, find_min_max_, Event::Command::kFindMinMax);
   command.Update(find_min_max_);
   command.GiveCommand(data, find_max_, Event::Command::kFindMax);

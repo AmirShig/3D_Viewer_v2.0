@@ -66,13 +66,17 @@ add_executable(
         unit_test
         src/tests/unit_tests.cc
         src/Model/model.cc
+        src/Model/model.h
         src/Model/data_3d_model.cc
+        src/Model/data_3d_model.h
         src/Model/lexem.cc
         src/Model/parce_obj.cc
         src/Model/affine_transformations.cc
         src/Model/affine_transformations.h
         src/Model/set_centre.h
         src/Model/set_centre.cc
+        src/Controller/controller.h
+        src/Controller/controller.cc
 )
 
 target_link_libraries(
