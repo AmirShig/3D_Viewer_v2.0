@@ -1,11 +1,17 @@
 .PHONY : all install clean rebuild run style tests
 
 CXX := g++
-CXXFLAGS := -Wall -Wextra -Werror -std=c++17
+CXXFLAGS= -Wall -Wextra -Werror -std=c++17
 GTEST_FLAGS= -lgtest_main -pthread -lgtest
 GCOV=--coverage
 
 OS := $(shell uname -s)
+
+OPEN = open
+
+ifeq ($(OS), Linux)
+	OPEN = google-chrome
+endif
 
 SRC_DIR := .
 EXTENSIONS := cc cpp h
@@ -33,18 +39,19 @@ rebuild:
 run:
 	cd ../build && ./3dViewer
 
-gcov_report:
-	$(CXX) $(CXXFLAGS) $(GCO) $(TEST_SRC) $(GTEST_FLAGS) -o report
+gcov_report: clean
+	$(CXX) $(CXXFLAGS) $(GCOV) $(GTEST_FLAGS)  $(TEST_SRC) Model/*.cc -o report
 	./report
-	lcov -c -d . -o coverage.info --ignore-errors mismatch
-	lcov -r coverage.info /usr/local/include/gtest 13 -o filtered_coverage.info
-	genhtml filtered_coverage.info --output-directory=res
-	open ./res/index.html
-	rm -rf *.gcda *.gcno
+	gcov *.gcno *.gcda
+	lcov --capture --directory . --output-file coverage.info --no-external --ignore-errors inconsistent
+	genhtml coverage.info --output-directory coverage_report
+	$(OPEN) ./coverage_report/index.html
+	rm -rf *.gcda *.gcno *.info report
 
 clean:
 	clear
 	rm -rf ../build test
+	rm -rf *.gcda *.gcno *.info report *.gcov
 	make style
 
 style:

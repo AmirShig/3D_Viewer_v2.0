@@ -6,7 +6,7 @@
 namespace s21 {
 
 class Controller {
-public:
+ public:
   Controller() {}
   Controller(Model *m) : model_(m) {}
 
@@ -19,9 +19,9 @@ public:
 
   void SetCentre(Data3DModel *data);
 
-private:
+ private:
   Model *model_;
 };
-} // namespace s21
+}  // namespace s21
 
-#endif // INC_3DVIEWER_2_CONTROLLER_H
+#endif  // INC_3DVIEWER_2_CONTROLLER_H
