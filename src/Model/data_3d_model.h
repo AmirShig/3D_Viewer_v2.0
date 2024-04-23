@@ -7,7 +7,6 @@
 namespace s21 {
 /*!
  * \brief Class for storage data
- *\authors Dimitraki Vladimir
  */
 class Data3DModel {
  public:

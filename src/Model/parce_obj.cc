@@ -1,4 +1,4 @@
-#include <strstream>
+#include <sstream>
 
 #include "model.h"
 
@@ -39,10 +39,8 @@ void ParseObj::WriteVertexes(Data3DModel *data) {
 }
 
 void ParseObj::ParsePolygons(Data3DModel *data) {
-  /*! \param is_first проверяет первый ли полигон мы парсим*/
   bool is_first = true;
 
-  /*! \param lust_polygon сохраняем первый полигон для записи в конец*/
   int first_polygon = 0;
 
   int num = 0;

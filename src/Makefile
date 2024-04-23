@@ -33,14 +33,7 @@ rebuild:
 run:
 	cd ../build && ./3dViewer
 
-gcov_report:
-	$(CXX) $(CXXFLAGS) $(GCO) $(TEST_SRC) $(GTEST_FLAGS) -o report
-	./report
-	lcov -c -d . -o coverage.info --ignore-errors mismatch
-	lcov -r coverage.info /usr/local/include/gtest 13 -o filtered_coverage.info
-	genhtml filtered_coverage.info --output-directory=res
-	open ./res/index.html
-	rm -rf *.gcda *.gcno
+
 
 clean:
 	clear
@@ -69,6 +62,9 @@ run_test:
 	cd ../build && ctest
 	cd ../build && ./unit_test
 
+cmake_gcov_report: clean
+	mkdir ../build
+	cd ../build && cmake .. && make coverage && ./coverage
 
 # Usage example: make push MSG="write here what was added"
 push: clean
@@ -87,7 +83,6 @@ docker:
 
 brew_install:
 ifeq ($(OS), Linux)
-	bash ./Dockerfile/installbrew.sh
 	sudo apt install -y lcov
 endif
 ifeq ($(OS), Darwin)

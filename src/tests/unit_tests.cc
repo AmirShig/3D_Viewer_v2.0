@@ -7,7 +7,6 @@
 #include <iostream>
 
 #include "../Controller/controller.h"
-#include "../Model/model.h"
 
 class ViewerTest : public ::testing::Test {
  protected:
