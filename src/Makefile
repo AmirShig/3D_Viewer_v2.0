@@ -1,5 +1,5 @@
 
-.PHONY : all install clean rebuild run style tests
+.PHONY : all install clean rebuild run style tests doxygen
 
 CXX := g++
 CXXFLAGS= -Wall -Wextra -Werror -std=c++17
@@ -51,7 +51,7 @@ gcov_report: clean
 clean:
 	clear
 	rm -rf ../build test
-	rm -rf *.gcda *.gcno *.info report *.gcov coverage_report
+	rm -rf *.gcda *.gcno *.info report *.gcov coverage_report doxygen
 	make style
 
 style:
@@ -101,3 +101,7 @@ ifeq ($(OS), Darwin)
 	sh ./Dockerfile/installbrew.sh
 	brew install lcov
 endif
+
+doxygen:
+	doxygen && cd doxygen/html && open index.html
+
