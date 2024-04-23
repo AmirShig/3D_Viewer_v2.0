@@ -49,4 +49,4 @@ private:
 
 } // namespace s21
 
-#endif // CPP4_3DVIEWER_V2_MODEL_DATA3DMODEL_H
+#endif // CPP4_3DVIEWER_V2_MODEL_MODEL_H
