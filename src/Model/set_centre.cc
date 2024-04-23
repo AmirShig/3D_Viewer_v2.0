@@ -92,4 +92,4 @@ Event::VerifyExecution FindCentre::Execute(s21::Data3DModel *data,
   return VerifyExecution::kExecution;
 }
 
-} // namespace s21
+}  // namespace s21

@@ -16,7 +16,7 @@ namespace s21 {
 ///@brief Главный класс который реализован по паттерну "Фасад"
 
 class Model {
-public:
+ public:
   Model() {
     move_obj_ = new MoveObj();
     rotate_obj_ = new RotateObj();
@@ -26,7 +26,6 @@ public:
     find_max_ = new FindMax();
     find_centre_ = new FindCentre();
   }
-
 
   ~Model() {
     delete move_obj_;
@@ -58,6 +57,6 @@ public:
   FindCentre *find_centre_;
 };
 
-} // namespace s21
+}  // namespace s21
 
-#endif // CPP4_3DVIEWER_V2_MODEL_MODEL_H
+#endif  // CPP4_3DVIEWER_V2_MODEL_MODEL_H

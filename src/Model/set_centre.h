@@ -35,16 +35,16 @@ class Event {
 };
 
 class AbstructEvent : public Event {
-public:
+ public:
   AbstructEvent() : next_event_(nullptr) {}
   Event *SetNextEvent(Event *event) override;
 
-private:
+ private:
   Event *next_event_;
 };
 
 class FindMinMax : public AbstructEvent {
-public:
+ public:
   void Update(Event *e);
 
   VerifyExecution Execute(Data3DModel *data, Command command) override;
@@ -52,19 +52,19 @@ public:
 };
 
 class FindMax : public AbstructEvent {
-public:
+ public:
   void Update(Event *e);
 
   VerifyExecution Execute(Data3DModel *data, Command command) override;
 };
 
 class FindCentre : public AbstructEvent {
-public:
+ public:
   void Update(Event *e);
 
   VerifyExecution Execute(Data3DModel *data, Command command) override;
 };
 
-} // namespace s21
+}  // namespace s21
 
-#endif // CPP4_3DVIEWER_V2_MODEL_SETCENTRE_H
+#endif  // CPP4_3DVIEWER_V2_MODEL_SETCENTRE_H

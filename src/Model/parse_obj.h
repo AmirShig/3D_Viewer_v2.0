@@ -28,4 +28,4 @@ class ParseObj {
 
 }  // namespace s21
 
-#endif //CPP4_3DVIEWER_V2_MODEL_PARSEOBJ_H
+#endif  // CPP4_3DVIEWER_V2_MODEL_PARSEOBJ_H
