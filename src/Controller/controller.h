@@ -1,23 +1,27 @@
-#ifndef INC_3DVIEWER_2_CONTROLLER_H
-#define INC_3DVIEWER_2_CONTROLLER_H
+#ifndef CPP4_3DVIEWER_V2_CONTROLLER_CONTROLLER_H
+#define CPP4_3DVIEWER_V2_CONTROLLER_CONTROLLER_H
 
 #include "../Model/model.h"
-#include <QString>
 
 namespace s21 {
 
 class Controller {
-public:
+ public:
   Controller() {}
   Controller(Model *m) : model_(m) {}
 
-  bool GetStringFilePath(QString &q_string);
-  std::string ConvertToStdString(QString &q_string);
+  void Affine(Strategy::SelectionStrategy select_strategy,
+              Strategy::TypeCoordinate type, Data3DModel *data, double point) {
+    model_->Affine(select_strategy, type, data, point);
+  }
+  bool ParseFile(std::string file_path);
   Data3DModel &GetData() { return model_->GetData(); }
 
-private:
+  void SetCentre(Data3DModel *data);
+
+ private:
   Model *model_;
 };
-} // namespace s21
+}  // namespace s21
 
-#endif // INC_3DVIEWER_2_CONTROLLER_H
+#endif  // CPP4_3DVIEWER_V2_CONTROLLER_CONTROLLER_H
