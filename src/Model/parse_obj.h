@@ -22,10 +22,9 @@ class ParseObj {
 
  private:
   std::string string_data_from_file_;
-  std::string file_name_;
   Data3DModel::Coordinate coordinate_;
 };
 
 }  // namespace s21
 
-#endif //CPP4_3DVIEWER_V2_MODEL_PARSEOBJ_H
+#endif  // CPP4_3DVIEWER_V2_MODEL_PARSEOBJ_H

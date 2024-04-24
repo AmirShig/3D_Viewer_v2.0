@@ -1,8 +1,8 @@
 #include "parse_obj.h"
 
- ///@brief read file
- ///открывает файл и считывает координаты вершин и полигонов
- ///из него, чтобы записать данные в структуру Data3DModel.
+///@brief read file
+///открывает файл и считывает координаты вершин и полигонов
+///из него, чтобы записать данные в структуру Data3DModel.
 namespace s21 {
 bool ParseObj::ParseObjFile(std::string &file_path, s21::Data3DModel *data) {
   bool state_file = true;

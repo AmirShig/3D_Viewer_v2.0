@@ -11,13 +11,12 @@ namespace s21 {
 ///@param TypeCoordinate перечисление для типа координат
 ///@param SelectionStrategy тип стратегии
 class Strategy {
-public:
  public:
-  Strategy() = default;
-  virtual ~Strategy() = default;
-
   enum class TypeCoordinate { kX, kY, kZ };
   enum class SelectionStrategy { kMove, kRotate, kDistance };
+
+  Strategy() = default;
+  virtual ~Strategy() = default;
 
   virtual void Transformations(Data3DModel *data, double point,
                                TypeCoordinate coordinate_x_y_z) = 0;
@@ -46,19 +45,18 @@ class DistanceObj : public Strategy {
 class AffineTransformations {
  public:
   AffineTransformations() = default;
-  ~AffineTransformations() = default;
-
   AffineTransformations(Strategy *concrete_strategy)
       : strategy_(concrete_strategy) {}
+  ~AffineTransformations() = default;
 
   void SetStrategy(Strategy *concrete_strategy);
   void Transformations(Data3DModel *data, double point,
                        Strategy::TypeCoordinate coordinate_x_y_z);
 
-private:
+ private:
   Strategy *strategy_;
 };
 
-} // namespace s21
+}  // namespace s21
 
-#endif // CPP4_3DVIEWER_V2_MODEL_AFFINETRANSFORMATIONS_H
+#endif  // CPP4_3DVIEWER_V2_MODEL_AFFINETRANSFORMATIONS_H

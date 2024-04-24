@@ -6,7 +6,7 @@
 #include "../Model/model.h"
 
 class ViewerTest : public ::testing::Test {
-protected:
+ protected:
   s21::Model model_;
   s21::Controller controller_;
   static constexpr double kEpsilon_ = 1e-6;

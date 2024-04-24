@@ -10,15 +10,15 @@ namespace s21 {
 
 ///@brief Главный интерфейс реализован по паттерну "Chain of responsibility"
 class Event {
- public:
-  Event() = default;
-  virtual ~Event() = default;
+public:
   enum class VerifyExecution { kExecution, kNotExecution };
   enum class Command { kFindMinMax, kFindMax, kFindCentre };
   struct MinMax {
     MinMax() : x(0), y(0), z(0) {}
     double x, y, z;
   };
+  Event() = default;
+  virtual ~Event() = default;
 
   ///Передает обязанности следующему по цепочке
   ///@param data данные 3d модели

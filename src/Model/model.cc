@@ -1,6 +1,27 @@
 #include "model.h"
 
 namespace s21 {
+
+Model::Model() {
+  move_obj_ = new MoveObj();
+  rotate_obj_ = new RotateObj();
+  distance_obj_ = new DistanceObj();
+
+  find_min_max_ = new FindMinMax();
+  find_max_ = new FindMax();
+  find_centre_ = new FindCentre();
+}
+
+Model::~Model() {
+  delete move_obj_;
+  delete rotate_obj_;
+  delete distance_obj_;
+
+  delete find_min_max_;
+  delete find_max_;
+  delete find_centre_;
+}
+
 bool Model::ProccessingObjFile(std::string &file_path) {
   return parse_.ParseObjFile(file_path, &data_);
 }
@@ -13,15 +34,15 @@ void Model::Affine(Strategy::SelectionStrategy select_strategy,
                    Strategy::TypeCoordinate type_coordinate, Data3DModel *data,
                    double point) {
   switch (select_strategy) {
-  case Strategy::SelectionStrategy::kMove:
-    affine_.SetStrategy(move_obj_);
-    break;
-  case Strategy::SelectionStrategy::kRotate:
-    affine_.SetStrategy(rotate_obj_);
-    break;
-  case Strategy::SelectionStrategy::kDistance:
-    affine_.SetStrategy(distance_obj_);
-    break;
+    case Strategy::SelectionStrategy::kMove:
+      affine_.SetStrategy(move_obj_);
+      break;
+    case Strategy::SelectionStrategy::kRotate:
+      affine_.SetStrategy(rotate_obj_);
+      break;
+    case Strategy::SelectionStrategy::kDistance:
+      affine_.SetStrategy(distance_obj_);
+      break;
   }
 
   affine_.Transformations(data, point, type_coordinate);
@@ -31,8 +52,7 @@ void Model::GiveCommand(Data3DModel *data, Event *event,
                         Event::Command command) {
   Event::VerifyExecution verify = event->Execute(data, command);
 
-  if (verify == Event::VerifyExecution::kNotExecution)
-    return;
+  if (verify == Event::VerifyExecution::kNotExecution) return;
 }
 
 void Model::SetCentre(Data3DModel *data) {
@@ -49,4 +69,4 @@ void Model::SetCentre(Data3DModel *data) {
   GiveCommand(data, find_centre_, Event::Command::kFindCentre);
 }
 
-} // namespace s21
+}  // namespace s21

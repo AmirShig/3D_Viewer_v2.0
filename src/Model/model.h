@@ -14,30 +14,11 @@
 namespace s21 {
 
 ///@brief Главный класс который реализован по паттерну "Фасад"
-
 class Model {
-public:
-  Model() {
-    move_obj_ = new MoveObj();
-    rotate_obj_ = new RotateObj();
-    distance_obj_ = new DistanceObj();
+ public:
+  Model();
+  ~Model();
 
-    find_min_max_ = new FindMinMax();
-    find_max_ = new FindMax();
-    find_centre_ = new FindCentre();
-  }
-
-
-  ~Model() {
-    delete move_obj_;
-    delete rotate_obj_;
-    delete distance_obj_;
-
-    delete find_min_max_;
-    delete find_max_;
-    delete find_centre_;
-  }
-  //Отдать данные в Controller
   Data3DModel &GetData() { return data_; }
   bool ProccessingObjFile(std::string &file_path);
   void Affine(Strategy::SelectionStrategy select_strategy,
@@ -58,6 +39,6 @@ public:
   FindCentre *find_centre_;
 };
 
-} // namespace s21
+}  // namespace s21
 
-#endif // CPP4_3DVIEWER_V2_MODEL_DATA3DMODEL_H
+#endif  // CPP4_3DVIEWER_V2_MODEL_DATA3DMODEL_H

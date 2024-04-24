@@ -51,8 +51,16 @@ gcov_report: clean
 clean:
 	clear
 	rm -rf ../build test
-	rm -rf *.gcda *.gcno *.info report *.gcov coverage_report
+	rm -rf *.gcda *.gcno *.info report *.gcov coverage_report 3dViewer2.tgz
 	make style
+
+dist: clean
+	@mkdir 3dViewer2
+	make install
+	@cp -R Makefile ../dvi ../build 3dViewer2/
+	@tar cvzf 3dViewer2.tgz .
+	@rm -rf 3dViewer2
+
 
 style:
 	@cp ../materials/linters/.clang-format .
@@ -100,3 +108,5 @@ ifeq ($(OS), Darwin)
 	sh ./brew/installbrew.sh
 	brew install lcov
 endif
+
+
