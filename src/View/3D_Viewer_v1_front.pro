@@ -11,19 +11,23 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    main.cpp \
-    mainwindow.cpp \
-    ../Model/myopenglwidget.cpp \
-    ../Model/parce_obj.cc
+    ../View/main.cpp \
+    ../View/view.cpp \
+    ../Model/parce_obj.cc \
+    ../Model/model.cc \
+    ../Model/lexem.cc \
+    ../Controller/controller.cc \
+    ../Model/affine_transformations.cc
 
 
 HEADERS += \
-    ../Model/myopenglwidget.h \
-    mainwindow.h \
+    view.h \
     ../Model/parce_obj.h \
+    ../View/view.h \
     ../Model/model.h \
-    ../Controller/controller.h
-
+    ../Controller/controller.h \
+    ../Model/data_3d_model.h \
+    ../Model/affine_transformations.h
 
 
 FORMS += \

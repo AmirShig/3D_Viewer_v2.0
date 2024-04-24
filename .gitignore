@@ -1,5 +1,9 @@
 # own
 cmake-build-debug
+cmake-build-debug-coverage
 .vscode
 .idea
 build
+.o
+
+
