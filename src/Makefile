@@ -85,8 +85,8 @@ push: clean
 
 # Run Docker and test program on leaks
 docker:
-	docker build -t my_image .
-	docker run -d -p 80:80 --name my_container my_image bash -c "cd /TEST_VALGRIND && make test && valgrind ./test"
+	docker build -f Dockerfile/dockerfile -t my_image .
+	docker run -d -p 80:80 --name my_container my_image bash -c "cd /TEST_VALGRIND && make tests && valgrind ./test"
 	docker logs -f my_container
 	docker stop my_container
 	docker rm my_container
@@ -94,10 +94,9 @@ docker:
 
 brew_install:
 ifeq ($(OS), Linux)
-	bash ./Dockerfile/installbrew.sh
 	sudo apt install -y lcov
 endif
 ifeq ($(OS), Darwin)
-	sh ./Dockerfile/installbrew.sh
+	sh ./brew/installbrew.sh
 	brew install lcov
 endif
