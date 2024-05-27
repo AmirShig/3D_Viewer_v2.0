@@ -1,8 +1,21 @@
-.PHONY : all install clean rebuild run style tests
+
+.PHONY : all install clean rebuild run style tests dvi
 
 CXX := g++
-CXXFLAGS := -Wall -Wextra -Werror -std=c++17
+CXXFLAGS= -Wall -Wextra -Werror -std=c++17
 GTEST_FLAGS= -lgtest_main -pthread -lgtest
+GCOV=--coverage
+
+OS := $(shell uname -s)
+
+OPEN = open
+ifeq ($(OS), Linux)
+	OPEN = google-chrome
+endif
+ifeq ($(OS), Darwin)
+	IGNORE_ERR=--ignore-errors inconsistent --ignore-errors mismatch
+endif
+
 
 SRC_DIR := .
 EXTENSIONS := cc cpp h
@@ -18,9 +31,9 @@ TEST_SRC := tests/unit_tests.cc
 MSG=Minor bug fixes
 BRANCH=$(shell git branch --show-current)
 
-all: install run
+all: install tests dvi run
 
-install: clean
+install: uninstall clean
 	mkdir ../build
 	cd ../build && cmake .. && make 3dViewer
 
@@ -30,10 +43,36 @@ rebuild:
 run:
 	cd ../build && ./3dViewer
 
+dvi:
+	cd ../dvi && $(OPEN) dvi.html
+
+uninstall:
+	rm -rf ../build
+
+gcov_report: clean
+	$(CXX) $(CXXFLAGS) $(GCOV) $(GTEST_FLAGS)  $(TEST_SRC) Controller/controller.cc Model/*.cc -o report
+	./report
+	gcov *.gcno *.gcda
+	lcov --capture --directory . --output-file coverage.info --no-external $(IGNORE_ERR)
+	genhtml coverage.info --output-directory coverage_report
+	$(OPEN) ./coverage_report/index.html
+	rm -rf *.gcda *.gcno *.info report *.gcov
+
 clean:
 	clear
-	rm -rf ../build test
+	rm -rf test
+	rm -rf *.gcda *.gcno *.info report *.gcov coverage_report ../3dViewer.tgz ../3dViewer
 	make style
+
+dist: install
+	mkdir -p 3dViewer
+	touch 3dViewer/Makefile
+	echo ".PHONY: all dvi \nall: dvi run\nrun:\n\tcd build && ./3dViewer\ndvi:\n\topen dvi/dvi.html" >> 3dViewer/Makefile
+	cp -R ../build ../dvi 3dViewer/
+	tar cvzf 3dViewer.tgz 3dViewer/
+	mv 3dViewer.tgz ../
+	rm -rf 3dViewer/
+
 
 style:
 	@cp ../materials/linters/.clang-format .
@@ -43,7 +82,7 @@ style:
 
 # Ниже три цели для сборки google test. (1 - стандартная через терминал, 2 - cmake, 3 - cmake)
 tests:
-	$(CXX) $(CXXFLAGS) $(TEST_SRC) Model/model.cc Model/data_3d_model.cc Model/lexem.cc Model/parce_obj.cc $(GTEST_FLAGS) -o test
+	$(CXX) $(CXXFLAGS) $(TEST_SRC) Model/*.cc Controller/controller.cc $(GTEST_FLAGS) -o test
 	./test
 
 google_test:
@@ -63,3 +102,23 @@ push: clean
 	git add ..
 	git commit -m "$(BRANCH): $(MSG)"
 	git push origin $(BRANCH)
+
+# Run Docker and test program on leaks
+docker:
+	docker build -f Dockerfile/dockerfile -t my_image .
+	docker run -d -p 80:80 --name my_container my_image bash -c "ls && cd /TEST_VALGRIND/src && make tests && valgrind ./test"
+	docker logs -f my_container
+	docker stop my_container
+	docker rm my_container
+	docker rmi my_image
+
+brew_install:
+ifeq ($(OS), Linux)
+	sudo apt install -y lcov
+endif
+ifeq ($(OS), Darwin)
+	sh ./brew/installbrew.sh
+	brew install lcov
+endif
+
+

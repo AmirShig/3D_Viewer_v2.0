@@ -1,8 +1,4 @@
-//
-// Created by Raisin Ibben on 16/04/2024.
-//
-
-#ifndef INC_3DVIEWER_2_SRC_VIEW_GLWIDGET_H_
+#ifndef CPP4_3DVIEWER_V2_VIEW_GLWIDGET_H
 
 #define GL_SILENCE_DEPRECATION
 
@@ -17,22 +13,11 @@
 #include <QtOpenGLWidgets/qopenglwidget.h>
 
 #include <QColor>
-#include <QColorDialog>
-#include <QCoreApplication>
-#include <QFileDialog>
-#include <QMatrix4x4>
-#include <QMessageBox>
 #include <QMouseEvent>
 #include <QOpenGLFunctions>
-#include <QPainter>
-#include <QSettings>
-#include <QTimer>
 #include <QWidget>
-#include <QDebug>
 
 #include "../Controller/controller.h"
-#include "QtGifImage/gifimage/qgifimage.h"
-#include "qopenglwindow.h"
 
 namespace s21 {
 
@@ -44,7 +29,6 @@ class GLWidget : public QOpenGLWidget {
 
   explicit GLWidget(QWidget *parent = nullptr, s21::Controller *c = nullptr);
 
-  void SetController(s21::Controller *c) { controller_ = c; }
   void SetDefault();
 
   void SetLinesType(LinesType type) {
@@ -83,9 +67,17 @@ class GLWidget : public QOpenGLWidget {
     update();
   }
 
-  void SetRotX(float value) { x_rot_ = value; }
-  void SetRotY(float value) { y_rot_ = value; }
-  void SetRotZ(float value) { z_rot_ = value; }
+  void SetRotX(double value) { x_rot_ = value; }
+  void SetRotY(double value) { y_rot_ = value; }
+  void SetRotZ(double value) { z_rot_ = value; }
+
+  void UpdateSumRotX(double value) { sum_rot_x += value; }
+  void UpdateSumRotY(double value) { sum_rot_y += value; }
+  void UpdateSumRotZ(double value) { sum_rot_z += value; }
+
+  void SetSumRotX(double value) { sum_rot_x = value; }
+  void SetSumRotY(double value) { sum_rot_y = value; }
+  void SetSumRotZ(double value) { sum_rot_z = value; }
 
   QColor GetBackgroundColor() { return backround_color_; }
   QColor GetVertexesColor() { return vertexes_color_; }
@@ -95,23 +87,22 @@ class GLWidget : public QOpenGLWidget {
   LinesType GetLinesType() { return lines_type_; }
   VertexesType GetVertexesType() { return vertexes_type_; }
   ProjectionType GetProjectionType() { return projection_type_; }
-  [[nodiscard]] float GetRotX() const { return x_rot_; }
-  [[nodiscard]] float GetRotY() const { return y_rot_; }
-  [[nodiscard]] float GetRotZ() const { return z_rot_; }
+  [[nodiscard]] double GetRotX() const { return x_rot_; }
+  [[nodiscard]] double GetRotY() const { return y_rot_; }
+  [[nodiscard]] double GetRotZ() const { return z_rot_; }
+
+  [[nodiscard]] double GetSumRotX() const { return sum_rot_x; }
+  [[nodiscard]] double GetSumRotY() const { return sum_rot_y; }
+  [[nodiscard]] double GetSumRotZ() const { return sum_rot_z; }
 
   void clearOpenGlWidget();
 
-  //Принимаем контроллер для изменения данных в методе SetData()
-  void SetData(s21::Controller *c);
-
  private:
   s21::Controller *controller_;
-  float x_rot_, y_rot_, z_rot_;
+  double x_rot_, y_rot_, z_rot_;
+  double sum_rot_x, sum_rot_y, sum_rot_z;
+  double aspect_ratio_;
   QPoint m_pos_;
-  QMatrix4x4 scale_matrix_;
-
-  int widgetWidth = width();
-  int widgetHeight = height();
 
   QColor backround_color_;
   QColor vertexes_color_;
@@ -135,12 +126,10 @@ class GLWidget : public QOpenGLWidget {
   void wheelEvent(QWheelEvent *event) override;
   void mousePressEvent(QMouseEvent *) override;
   void mouseMoveEvent(QMouseEvent *) override;
-
-  void setScale(float scale);
 };
 
 }  // namespace s21
 
-#define INC_3DVIEWER_2_SRC_VIEW_GLWIDGET_H_
+#define CPP4_3DVIEWER_V2_VIEW_GLWIDGET_H
 
-#endif  // INC_3DVIEWER_2_SRC_VIEW_GLWIDGET_H_
+#endif  // CPP4_3DVIEWER_V2_VIEW_GLWIDGET_H

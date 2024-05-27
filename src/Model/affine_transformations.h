@@ -1,17 +1,21 @@
-#include "data_3d_model.h"
+#ifndef CPP4_3DVIEWER_V2_MODEL_AFFINETRANSFORMATIONS_H
+#define CPP4_3DVIEWER_V2_MODEL_AFFINETRANSFORMATIONS_H
+
 #include <cmath>
 
-namespace s21 {
+#include "data_3d_model.h"
 
-/*!
- * \brief Абстрактный класс стратегия
- * \param TypeCoordinate перечисление для типа координат
- * \param SelectionStrategy тип стратегии
- */
+namespace s21 {
+///@brief Абстрактный класс внутри реализован паттерн "Strategy"
+///@param TypeCoordinate перечисление для типа координат
+///@param SelectionStrategy тип стратегии
 class Strategy {
  public:
   enum class TypeCoordinate { kX, kY, kZ };
   enum class SelectionStrategy { kMove, kRotate, kDistance };
+
+  Strategy() = default;
+  virtual ~Strategy() = default;
 
   virtual void Transformations(Data3DModel *data, double point,
                                TypeCoordinate coordinate_x_y_z) = 0;
@@ -32,17 +36,15 @@ class RotateObj : public Strategy {
   void RotateZ(Data3DModel::Coordinate &i, double point);
 };
 
-
- class DistanceObj : public Strategy {
-   void Transformations(s21::Data3DModel *data, double point,
-                        TypeCoordinate coordinate_x_y_z) override;
- };
+class DistanceObj : public Strategy {
+  void Transformations(s21::Data3DModel *data, double point,
+                       TypeCoordinate coordinate_x_y_z) override;
+};
 
 class AffineTransformations {
  public:
-  AffineTransformations() {}
-  AffineTransformations(Strategy *concrete_strategy)
-      : strategy_(concrete_strategy) {}
+  AffineTransformations() = default;
+  ~AffineTransformations() = default;
 
   void SetStrategy(Strategy *concrete_strategy);
   void Transformations(Data3DModel *data, double point,
@@ -53,3 +55,5 @@ class AffineTransformations {
 };
 
 }  // namespace s21
+
+#endif  // CPP4_3DVIEWER_V2_MODEL_AFFINETRANSFORMATIONS_H
